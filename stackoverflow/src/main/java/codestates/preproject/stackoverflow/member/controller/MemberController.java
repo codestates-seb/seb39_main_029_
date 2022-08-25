@@ -1,17 +1,21 @@
 package codestates.preproject.stackoverflow.member.controller;
 
 import codestates.preproject.stackoverflow.member.dto.MemberDto;
+
 import codestates.preproject.stackoverflow.member.entity.Member;
 import codestates.preproject.stackoverflow.member.mapper.MemberMapper;
 import codestates.preproject.stackoverflow.member.service.MemberService;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,6 +24,7 @@ import java.util.Map;
 @Validated
 @Slf4j
 public class MemberController {
+
 
     private MemberService memberService;
 
@@ -62,4 +67,5 @@ public class MemberController {
 
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
+
 }

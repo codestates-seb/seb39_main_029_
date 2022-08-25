@@ -6,8 +6,10 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+
 import java.util.ArrayList;
 import java.util.List;
+
 
 @Entity
 @Data
@@ -16,7 +18,9 @@ import java.util.List;
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Long memberid;         //
+
 
     @Column(nullable = false)
     private String nickName;
@@ -27,11 +31,13 @@ public class Member {
     @Column(nullable = false, unique = true)
     private String email;
 
+
     @Column(columnDefinition = "Text")
     private String selfId;
 
 //    @Column
 //    private String image;
+
 
     @Column
     private String location;
@@ -44,5 +50,6 @@ public class Member {
 
 //    @OneToMany(mappedBy = "member")
 //    List<POSTS> posts = new ArrayList<>();
+
 
 }

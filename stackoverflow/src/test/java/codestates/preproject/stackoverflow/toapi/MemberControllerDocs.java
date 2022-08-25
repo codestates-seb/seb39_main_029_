@@ -2,8 +2,15 @@ package codestates.preproject.stackoverflow.toapi;
 
 import codestates.preproject.stackoverflow.member.controller.MemberController;
 import codestates.preproject.stackoverflow.member.dto.MemberDto;
+
+
+import codestates.preproject.stackoverflow.member.entity.Member;
+import codestates.preproject.stackoverflow.member.mapper.MemberMapper;
+import codestates.preproject.stackoverflow.member.service.MemberService;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -27,6 +34,9 @@ import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWit
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+
+import static org.mockito.BDDMockito.given;
+
 @WebMvcTest(MemberController.class)
 @MockBean(JpaMetamodelMappingContext.class)
 @AutoConfigureRestDocs
@@ -34,23 +44,27 @@ public class MemberControllerDocs {
     @Autowired
     private MockMvc mockMvc;
 
+    @MockBean
+    private MemberService memberService;
+
+    @MockBean
+    private MemberMapper mapper;
+
     @Autowired
     private Gson gson;
 
     @Test
     public void postMemberTest() throws Exception{
-        MemberDto.Post post = new MemberDto.Post("김코딩","12345asdfg","fefwef@naver.com");
-        String content = gson.toJson(post);
 
-        Map<String, String> map = new HashMap<>();
-        map.put("result","회원가입완료");
+        MemberDto.Join post = new MemberDto.Join("김코딩","12345asdfg","fefwef@naver.com");
+        String content = gson.toJson(post);
 
         ResultActions actions =
                 mockMvc.perform(
-                    post("/v1/members")
-                            .accept(MediaType.APPLICATION_JSON)
-                            .contentType(MediaType.APPLICATION_JSON)
-                            .content(content)
+                        post("/v1/members/join")
+                                .accept(MediaType.APPLICATION_JSON)
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(content)
                 );
 
         actions
@@ -72,4 +86,5 @@ public class MemberControllerDocs {
                         )
                 ));
     }
+
 }

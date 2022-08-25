@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -14,7 +16,7 @@ import java.time.LocalDateTime;
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;         //
+    private Long memberid;         //
 
     @Column(nullable = false)
     private String nickName;
@@ -25,11 +27,11 @@ public class Member {
     @Column(nullable = false, unique = true)
     private String email;
 
-    @Column
+    @Column(columnDefinition = "Text")
     private String selfId;
 
-    @Column
-    private String image;
+//    @Column
+//    private String image;
 
     @Column
     private String location;
@@ -40,9 +42,7 @@ public class Member {
     @Column
     private Integer reputation;
 
-    @Column
-    private String badge;
+//    @OneToMany(mappedBy = "member")
+//    List<POSTS> posts = new ArrayList<>();
 
-    @Column(nullable = false)
-    private LocalDateTime createdAt = LocalDateTime.now();
 }

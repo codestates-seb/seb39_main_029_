@@ -1,8 +1,8 @@
 package codestates.preproject.stackoverflow.member.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import codestates.preproject.stackoverflow.comments.entity.Comments;
+import codestates.preproject.stackoverflow.post.entity.Posts;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -13,14 +13,12 @@ import java.util.List;
 
 @Entity
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
+@Getter
+@Setter
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
-
-    private Long memberid;         //
+    private long memberid;         //
 
     @Column(nullable = false)
     private String nickName;
@@ -49,7 +47,6 @@ public class Member {
     private Integer reputation;
 
 
-//    @OneToMany(mappedBy = "member")
-//    List<POSTS> posts = new ArrayList<>();
-
+    @OneToMany(mappedBy = "member")
+    List<Posts> postsList = new ArrayList<>();
 }

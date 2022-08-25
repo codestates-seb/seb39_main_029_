@@ -48,13 +48,14 @@ public class MemberService {
         memberRepository.delete(findMember);
     }
 
-    private Member findVerifiedMember(long memberid){
+    public Member findVerifiedMember(long memberid){
         Optional<Member> optionalMember = memberRepository.findById(memberid);
-        Member findMember = optionalMember.orElseThrow(()->new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+        Member findMember = optionalMember.orElseThrow(() ->
+                new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
         return findMember;
     }
 
-    private void verifyExistsNickName(String nickName) {
+    public void verifyExistsNickName(String nickName) {
         Optional<Member> member = memberRepository.findByNickName(nickName);
         if(member.isPresent())
             //비지니스 로직으로 추후 변경

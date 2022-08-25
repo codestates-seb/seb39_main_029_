@@ -49,6 +49,8 @@ public class Posts {
         this.tag.add(tags);
         if (tags.getPosts() != this) {
             tags.setPosts(this);
+        }
+    }
 
     @OneToMany(mappedBy = "posts")
     List<Comments> commentsList = new ArrayList<>();

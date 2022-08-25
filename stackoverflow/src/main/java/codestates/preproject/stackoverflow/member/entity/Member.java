@@ -2,9 +2,7 @@ package codestates.preproject.stackoverflow.member.entity;
 
 
 import codestates.preproject.stackoverflow.post.entity.Posts;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 
 import javax.persistence.*;

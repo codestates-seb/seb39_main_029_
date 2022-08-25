@@ -44,8 +44,8 @@ public class PostController {
             @Valid @RequestBody PostDto.Patch requestBody
             ) {
         requestBody.setPostId(postId);
-
-        Posts posts = postService.updatePost(mapper.PatchPostsToPosts(requestBody));
+        Posts findPost = mapper.PatchPostsToPosts(requestBody);
+        Posts posts = postService.updatePost(findPost);
 
         return new ResponseEntity( new SingleResponseDto<>(posts), HttpStatus.OK);
     }

@@ -1,12 +1,16 @@
 package codestates.preproject.stackoverflow.post.dto;
 
 import codestates.preproject.stackoverflow.member.entity.Member;
+import codestates.preproject.stackoverflow.tags.Tags;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class PostDto {
@@ -23,7 +27,7 @@ public class PostDto {
         @NotBlank(message = "내용은 공백이 아니어야 합니다.")
         private String content;
 
-        private List<Integer> tag;
+        private List<Tags> tag;
     }
 
     @Getter
@@ -41,7 +45,7 @@ public class PostDto {
         @NotBlank(message = "내용은 공백이 아니어야 합니다.")
         private String content;
 
-        private List<Integer> tag;
+        private List<Tags> tag;
 
         public void setPostId(long postId) {
             this.postId = postId;
@@ -49,14 +53,17 @@ public class PostDto {
     }
 
     @Getter
-    @AllArgsConstructor // TODO 테스트를 위해 추가됨
+    @AllArgsConstructor // TODO 테스트를 위해 추가됨'
+    @NoArgsConstructor
+    @Setter
     public static class Response {
         private long postId;
         private String subject;
         private long memberId;
         private String content;
-        private List<String> tag;
+        private List<Tags> tag;
         private int vote;
+        private LocalDateTime createAt;
 
     }
 }

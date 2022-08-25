@@ -1,5 +1,8 @@
 package codestates.preproject.stackoverflow.post.service;
 
+import codestates.preproject.stackoverflow.exception.BusinessLogicException;
+import codestates.preproject.stackoverflow.exception.ExceptionCode;
+import codestates.preproject.stackoverflow.member.service.MemberService;
 import codestates.preproject.stackoverflow.post.entity.Posts;
 import codestates.preproject.stackoverflow.post.repository.PostRepository;
 import org.springframework.data.domain.Page;
@@ -15,9 +18,10 @@ import java.util.Optional;
 public class PostService {
 
     private final PostRepository postRepository;
-
-    public PostService(PostRepository postRepository) {
+    private final MemberService memberService;
+    public PostService(PostRepository postRepository, MemberService memberService) {
         this.postRepository = postRepository;
+        this.memberService = memberService;
     }
 
     public Posts createPost(Posts posts) {
@@ -27,9 +31,15 @@ public class PostService {
     }
 
     public Posts updatePost(Posts posts) {
+        Posts post = findVerifiedPosts(posts.getPostId());
 
-        verifyPosts(posts);
-        return postRepository.save(posts);
+        Optional.ofNullable(posts.getSubject())
+                .ifPresent(subject -> post.setSubject(subject));
+        Optional.ofNullable(posts.getContent())
+                .ifPresent(content -> post.setContent(content));
+        Optional.ofNullable(posts.getTag())
+                .ifPresent(tag -> post.setTag(tag));
+        return postRepository.save(post);
     }
 
     public Posts findPost(long postId){
@@ -47,16 +57,21 @@ public class PostService {
     }
 
 
-    private Posts findVerifiedPosts(long postId) {
+    @Transactional(readOnly = true)
+    public Posts findVerifiedPosts(long postId) {
         Optional<Posts> post = postRepository.findById(postId);
         Posts findPosts = post.orElseThrow(() ->
-                new RuntimeException());
+                new BusinessLogicException(ExceptionCode.POST_NOT_FOUND));
 
-        //나중에 예외처리 다 바꾸기
+
         return findPosts;
     }
-    private void verifyPosts(Posts posts) {
-        Optional<Posts> findPosts = postRepository.findById(posts.getPostId());
+    public void verifyPosts(Posts posts) {
+        memberService.findVerifiedMember(posts.getMember().getMemberid());
 
+        Optional<Posts> post = postRepository.findById(posts.getPostId());
+        if (post.isPresent()) {
+            throw new BusinessLogicException(ExceptionCode.POST_EXISTS);
+        }
     }
 }

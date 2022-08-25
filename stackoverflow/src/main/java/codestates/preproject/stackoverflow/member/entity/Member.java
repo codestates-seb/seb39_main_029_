@@ -1,5 +1,6 @@
 package codestates.preproject.stackoverflow.member.entity;
 
+import codestates.preproject.stackoverflow.post.entity.Posts;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -48,8 +49,8 @@ public class Member {
     @Column
     private Integer reputation;
 
-//    @OneToMany(mappedBy = "member")
-//    List<POSTS> posts = new ArrayList<>();
+/*    @OneToMany(mappedBy = "member")
+    List<Posts> posts = new ArrayList<>();*/
 
 
 }

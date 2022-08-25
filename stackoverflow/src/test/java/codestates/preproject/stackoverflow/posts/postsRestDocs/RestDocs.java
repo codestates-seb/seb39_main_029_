@@ -5,6 +5,7 @@ import codestates.preproject.stackoverflow.post.dto.PostDto;
 import codestates.preproject.stackoverflow.post.entity.Posts;
 import codestates.preproject.stackoverflow.post.mapper.PostMapper;
 import codestates.preproject.stackoverflow.post.service.PostService;
+import codestates.preproject.stackoverflow.tags.Tags;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -28,6 +29,8 @@ import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWit
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
 import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -50,18 +53,18 @@ public class RestDocs {
 
     @Test
     public void createPostsTest() throws Exception {
-        List<Integer> list = new ArrayList<>();
-        list.add(0);
-        list.add(1);
+        List<Tags> list = new ArrayList<>();
+        list.add(new Tags("java"));
+        list.add(new Tags("Js"));
         PostDto.Post post = new PostDto.Post("question1",
                 1L,"how to restDocs", list);
 
         String content = gson.toJson(post);
-        List<String> list2 = new ArrayList<>();
-        list2.add("JAVA");
-        list2.add("REACT");
+
+        LocalDateTime time = LocalDateTime.now();
+
         PostDto.Response response1 = new PostDto.Response(1L,
-                "question1", 1L,"how to restDocs", list2, 0);
+                "question1", 1L,"how to restDocs", list, 0,time);
 
         given(mapper.makePostsToPosts(Mockito.any(PostDto.Post.class))).willReturn(new Posts());
         given(postService.createPost(Mockito.any(Posts.class))).willReturn(new Posts());
@@ -93,7 +96,8 @@ public class RestDocs {
                                         fieldWithPath("data.memberId").type(JsonFieldType.NUMBER).description("회원 식별자"),
                                         fieldWithPath("data.content").type(JsonFieldType.STRING).description("내용"),
                                         fieldWithPath("data.tag").type(JsonFieldType.ARRAY).description("태그"),
-                                        fieldWithPath("data.vote").type(JsonFieldType.NUMBER).description("투표 갯수")
+                                        fieldWithPath("data.vote").type(JsonFieldType.NUMBER).description("투표 갯수"),
+                                        fieldWithPath("data.createAt").type(JsonFieldType.OBJECT).description("게시 시간")
                                 )
                         )
                 ));
@@ -101,18 +105,19 @@ public class RestDocs {
 
     @Test
     public void updatePostTest() throws Exception {
-        List<Integer> list = new ArrayList<>();
-        list.add(0);
-        list.add(1);
+        List<Tags> list = new ArrayList<>();
+        list.add(new Tags("java"));
+        list.add(new Tags("Js"));
         PostDto.Patch post = new PostDto.Patch(1L,"question1",
                 1L,"how to restDocs", list);
 
         String content = gson.toJson(post);
-        List<String> list2 = new ArrayList<>();
-        list2.add("JAVA");
-        list2.add("REACT");
+
+
+        LocalDateTime time = LocalDateTime.now();
+
         PostDto.Response response1 = new PostDto.Response(1L,
-                "question1", 1L,"how to restDocs", list2, 0);
+                "question1", 1L,"how to restDocs", list, 0,time);
 
         given(mapper.PatchPostsToPosts(Mockito.any(PostDto.Patch.class))).willReturn(new Posts());
         given(postService.updatePost(Mockito.any(Posts.class))).willReturn(new Posts());
@@ -148,7 +153,8 @@ public class RestDocs {
                                         fieldWithPath("data.memberId").type(JsonFieldType.NUMBER).description("회원 식별자"),
                                         fieldWithPath("data.content").type(JsonFieldType.STRING).description("내용"),
                                         fieldWithPath("data.tag").type(JsonFieldType.ARRAY).description("태그"),
-                                        fieldWithPath("data.vote").type(JsonFieldType.NUMBER).description("투표 갯수")
+                                        fieldWithPath("data.vote").type(JsonFieldType.NUMBER).description("투표 갯수"),
+                                        fieldWithPath("data.createAt").type(JsonFieldType.OBJECT).description("게시 시간")
                                 )
                         )
                 ));
@@ -158,11 +164,13 @@ public class RestDocs {
     public void getPostTest() throws Exception {
         long postId = 1L;
 
-        List<String> list2 = new ArrayList<>();
-        list2.add("JAVA");
-        list2.add("REACT");
+        List<Tags> list = new ArrayList<>();
+        list.add(new Tags("java"));
+        list.add(new Tags("Js"));
+        LocalDateTime time = LocalDateTime.now();
+
         PostDto.Response response1 = new PostDto.Response(1L,
-                "question1", 1L,"how to restDocs", list2, 0);
+                "question1", 1L,"how to restDocs", list, 0,time);
 
         given(postService.findPost(Mockito.anyLong())).willReturn(new Posts());
         given(mapper.PostsToResponse(Mockito.any(Posts.class))).willReturn(response1);
@@ -189,7 +197,8 @@ public class RestDocs {
                                         fieldWithPath("data.memberId").type(JsonFieldType.NUMBER).description("회원 식별자"),
                                         fieldWithPath("data.content").type(JsonFieldType.STRING).description("내용"),
                                         fieldWithPath("data.tag").type(JsonFieldType.ARRAY).description("태그"),
-                                        fieldWithPath("data.vote").type(JsonFieldType.NUMBER).description("투표 갯수")
+                                        fieldWithPath("data.vote").type(JsonFieldType.NUMBER).description("투표 갯수"),
+                                        fieldWithPath("data.createAt").type(JsonFieldType.OBJECT).description("게시 시간")
                                 )
                         )
                 ));

@@ -50,7 +50,8 @@ public class MemberService {
 
     public Member findVerifiedMember(long memberid){
         Optional<Member> optionalMember = memberRepository.findById(memberid);
-        Member findMember = optionalMember.orElseThrow(()->new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+        Member findMember = optionalMember.orElseThrow(() ->
+                new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
         return findMember;
     }
 

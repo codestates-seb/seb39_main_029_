@@ -21,6 +21,7 @@ public interface PostMapper {
 
         posts.setSubject(requestBody.getSubject());
         posts.setContent(requestBody.getContent());
+
         posts.setTag(requestBody.getTag());
 
         return posts;

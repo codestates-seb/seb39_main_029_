@@ -12,6 +12,7 @@ public enum ExceptionCode {
     POST_EXISTS(409, "Post is exists"),
     COMMENTS_NOT_FOUND(404,"Comments not found");
 
+
     @Getter
     private int status;
 

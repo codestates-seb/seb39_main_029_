@@ -1,7 +1,9 @@
 package codestates.preproject.stackoverflow.member.entity;
 
 
+
 import codestates.preproject.stackoverflow.comments.entity.Comments;
+
 import codestates.preproject.stackoverflow.post.entity.Posts;
 import lombok.*;
 
@@ -46,6 +48,7 @@ public class Member {
 
     @Column
     private int reputation;
+
 
     @OneToMany(mappedBy = "member")
     List<Posts> postsList = new ArrayList<>();

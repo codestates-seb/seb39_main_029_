@@ -5,10 +5,10 @@ import codestates.preproject.stackoverflow.post.dto.PostDto;
 import codestates.preproject.stackoverflow.post.entity.Posts;
 import codestates.preproject.stackoverflow.post.mapper.PostMapper;
 import codestates.preproject.stackoverflow.post.service.PostService;
-import codestates.preproject.stackoverflow.tags.Tags;
+import codestates.preproject.stackoverflow.tags.entity.Tags;
+
 import com.google.gson.Gson;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;

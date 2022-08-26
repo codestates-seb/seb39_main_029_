@@ -1,7 +1,10 @@
 package codestates.preproject.stackoverflow.post.dto;
 
+
+import codestates.preproject.stackoverflow.comments.entity.Comments;
 import codestates.preproject.stackoverflow.member.entity.Member;
 import codestates.preproject.stackoverflow.tags.Tags;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,7 +19,7 @@ import java.util.List;
 public class PostDto {
 
     @Getter
-    @AllArgsConstructor // TODO 테스트를 위해 추가됨
+    @AllArgsConstructor
     public static class Post {
         @NotBlank(message = "제목은 공백이 아니어야 합니다.")
         private String subject;
@@ -31,7 +34,7 @@ public class PostDto {
     }
 
     @Getter
-    @AllArgsConstructor // TODO 테스트를 위해 추가됨
+    @AllArgsConstructor
     public static class Patch {
 
         private long postId;
@@ -53,7 +56,7 @@ public class PostDto {
     }
 
     @Getter
-    @AllArgsConstructor // TODO 테스트를 위해 추가됨'
+    @AllArgsConstructor
     @NoArgsConstructor
     @Setter
     public static class Response {
@@ -61,9 +64,20 @@ public class PostDto {
         private String subject;
         private long memberId;
         private String content;
-        private List<Tags> tag;
+        private List<TagsResponse> tag;
         private int vote;
         private LocalDateTime createAt;
+        private List<Comments> commentsList;
+    }
 
+
+    @Getter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Setter
+    public static class TagsResponse {
+        private long tageId;
+        private String data;
+        private long postsId;
     }
 }

@@ -45,7 +45,6 @@ public interface PostMapper {
 
         Member member = new Member();
         member.setMemberid(requestBody.getMemberId());
-
         posts.setMember(member);
 
         return posts;
@@ -60,8 +59,8 @@ public interface PostMapper {
         post.setMemberId(posts.getMember().getMemberid());
         post.setCreateAt(posts.getCreatedAt());
         post.setTag(TagsResponseDto(posts.getTag()));
-
         post.setCommentsList(post.getCommentsList());
+
         return post;
     }
 

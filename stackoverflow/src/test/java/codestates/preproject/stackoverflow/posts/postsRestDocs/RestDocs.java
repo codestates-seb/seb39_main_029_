@@ -6,6 +6,7 @@ import codestates.preproject.stackoverflow.post.entity.Posts;
 import codestates.preproject.stackoverflow.post.mapper.PostMapper;
 import codestates.preproject.stackoverflow.post.service.PostService;
 import codestates.preproject.stackoverflow.tags.entity.Tags;
+
 import com.google.gson.Gson;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;

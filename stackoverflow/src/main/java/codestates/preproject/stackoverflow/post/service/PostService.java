@@ -23,6 +23,7 @@ public class PostService {
     private final TagService tagService;
     private final PostRepository postRepository;
     private final MemberService memberService;
+
     public PostService(TagService tagService, PostRepository postRepository, MemberService memberService) {
         this.tagService = tagService;
         this.postRepository = postRepository;
@@ -42,9 +43,6 @@ public class PostService {
                 .ifPresent(subject -> post.setSubject(subject));
         Optional.ofNullable(posts.getContent())
                 .ifPresent(content -> post.setContent(content));
-
-
-
         Optional.ofNullable(posts.getTag())
                 .ifPresent(tag -> {
                     List<Tags> ReTags = tagService.tagsFind(post.getPostId());
@@ -53,7 +51,6 @@ public class PostService {
                     }
                     post.setTag(ReTags);
                 });
-
 
         return postRepository.save(post);
     }

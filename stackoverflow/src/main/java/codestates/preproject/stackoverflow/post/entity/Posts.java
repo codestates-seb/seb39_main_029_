@@ -3,6 +3,7 @@ package codestates.preproject.stackoverflow.post.entity;
 
 import codestates.preproject.stackoverflow.comments.entity.Comments;
 import codestates.preproject.stackoverflow.member.entity.Member;
+
 import codestates.preproject.stackoverflow.tags.entity.Tags;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -30,10 +31,8 @@ public class Posts {
     @Column
     private String subject;
 
-
-    @OneToMany(mappedBy = "posts",cascade =  {CascadeType.REMOVE,CascadeType.PERSIST})
-    private List<Tags> tag=new ArrayList<>();
-
+    @OneToMany(mappedBy = "posts",cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    private List<Tags> tag;
 
     @Column
     private String content;
@@ -51,7 +50,8 @@ public class Posts {
             tags.setPosts(this);
         }
     }
-    @OneToMany(mappedBy = "posts")
+
+    @OneToMany(mappedBy = "posts", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     List<Comments> commentsList = new ArrayList<>();
 
     public void addComments(Comments comments){

@@ -1,5 +1,6 @@
 package codestates.preproject.stackoverflow.member.service;
 
+import codestates.preproject.stackoverflow.comments.entity.Comments;
 import codestates.preproject.stackoverflow.exception.BusinessLogicException;
 import codestates.preproject.stackoverflow.exception.ExceptionCode;
 import codestates.preproject.stackoverflow.member.entity.Member;
@@ -29,6 +30,12 @@ public class MemberService {
         if(!findMember.getPassword().equals(member.getPassword())){
             throw new BusinessLogicException(ExceptionCode.PASSWORD_NOT_FOUND);
         }
+    }
+
+    public void updateRep(long memberid){
+        Member member = findVerifiedMember(memberid);
+        member.setReputation(member.getReputation()+1);
+        memberRepository.save(member);
     }
 
 

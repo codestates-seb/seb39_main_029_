@@ -30,12 +30,14 @@ public class PostController {
         this.postService = postService;
     }
 
+
+
     @PostMapping
     public ResponseEntity makePost(@Valid @RequestBody PostDto.Post post) {
         Posts posts = postService.createPost(mapper.makePostsToPosts(post));
         PostDto.Response response = mapper.PostsToResponse(posts);
 
-        return new ResponseEntity( new SingleResponseDto<>(response), HttpStatus.CREATED);
+        return new ResponseEntity( response, HttpStatus.CREATED);
     }
 
     @PatchMapping("/{post-id}")
@@ -44,29 +46,27 @@ public class PostController {
             @Valid @RequestBody PostDto.Patch requestBody
             ) {
         requestBody.setPostId(postId);
-        Posts findPost = mapper.PatchPostsToPosts(requestBody);
-        Posts posts = postService.updatePost(findPost);
+        Posts posts = postService.updatePost(mapper.PatchPostsToPosts(requestBody));
 
-        return new ResponseEntity( new SingleResponseDto<>(posts), HttpStatus.OK);
+        return new ResponseEntity<>( mapper.PostsToResponse(posts), HttpStatus.OK);
     }
 
     @GetMapping("/{post-id}")
     public ResponseEntity getPost(
             @PathVariable("post-id") @Positive long postId) {
         Posts posts = postService.findPost(postId);
-        return new ResponseEntity<>(
-                new SingleResponseDto<>(mapper.PostsToResponse(posts))
-                , HttpStatus.OK);
+
+        return new ResponseEntity<>(mapper.PostsToResponse(posts), HttpStatus.OK);
     }
 
     @GetMapping
     public ResponseEntity getPosts(@Positive @RequestParam int page,
-                                     @Positive @RequestParam int size) {
-        Page<Posts> pagePosts = postService.findPosts(page - 1, size);
+                                     @Positive @RequestParam int size,
+                                   @RequestParam String arrange
+    ) {
+        Page<Posts> pagePosts = postService.findPosts(page - 1, size,arrange);
         List<Posts> members = pagePosts.getContent();
-        return new ResponseEntity<>(
-                new MultiResponseDto<>(mapper.PostsToResponses(members),
-                        pagePosts),
+        return new ResponseEntity<>(new MultiResponseDto<>(mapper.PostsToResponses(members), pagePosts),
                 HttpStatus.OK);
     }
 

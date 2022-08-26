@@ -1,4 +1,4 @@
-package codestates.preproject.stackoverflow.tags;
+package codestates.preproject.stackoverflow.tags.entity;
 
 import codestates.preproject.stackoverflow.post.entity.Posts;
 import lombok.AllArgsConstructor;
@@ -18,7 +18,7 @@ public class Tags {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long tagsId;
 
-    @Column(nullable = false, unique = true )
+    @Column()
     private String data;
 
     @ManyToOne
@@ -27,6 +27,13 @@ public class Tags {
 
     public Tags(String data) {
         this.data = data;
+    }
+
+    public void addPosts(Posts posts) {
+        this.posts = posts;
+        if (!this.posts.getTag().contains(this)) {
+            this.posts.addTags(this);
+        }
     }
 
 }

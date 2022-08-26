@@ -1,10 +1,9 @@
 package codestates.preproject.stackoverflow.member.entity;
 
 
+import codestates.preproject.stackoverflow.comments.entity.Comments;
 import codestates.preproject.stackoverflow.post.entity.Posts;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 
 import javax.persistence.*;
@@ -39,7 +38,6 @@ public class Member {
 //    @Column
 //    private String image;
 
-
     @Column
     private String location;
 
@@ -47,10 +45,11 @@ public class Member {
     private String title;
 
     @Column
-    private Integer reputation;
-
-
+    private int reputation;
 
     @OneToMany(mappedBy = "member")
     List<Posts> postsList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member")
+    List<Comments> commentsList = new ArrayList<>();
 }

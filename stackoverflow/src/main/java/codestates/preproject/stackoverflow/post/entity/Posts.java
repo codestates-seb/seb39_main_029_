@@ -49,15 +49,16 @@ public class Posts {
         this.tag.add(tags);
         if (tags.getPosts() != this) {
             tags.setPosts(this);
+        }
+    }
 
-    @OneToMany(mappedBy = "posts")
+    @OneToMany(mappedBy = "posts", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     List<Comments> commentsList = new ArrayList<>();
 
     public void addComments(Comments comments){
         this.commentsList.add(comments);
         if(comments.getPosts() != this){
             comments.setPosts(this);
-
         }
     }
 }

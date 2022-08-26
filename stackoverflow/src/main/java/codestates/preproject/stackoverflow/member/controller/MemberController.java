@@ -1,5 +1,6 @@
 package codestates.preproject.stackoverflow.member.controller;
 
+import codestates.preproject.stackoverflow.dto.SingleResponseDto;
 import codestates.preproject.stackoverflow.member.dto.MemberDto;
 
 
@@ -20,7 +21,9 @@ import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -44,7 +47,8 @@ public class MemberController {
     public ResponseEntity joinMember(@Valid @RequestBody MemberDto.Join join){
         Member member = memberMapper.memberJoinToMember(join);
         memberService.createMember(member);
-        Map<String,String> result = new HashMap<>(Map.of("result","완료"));
+//        Map<String,String> result = new HashMap<>(Map.of("result","완료"));
+        List<String> result = new ArrayList<>(List.of("java","what is"));
         return new ResponseEntity(result,HttpStatus.CREATED);
     }
 
@@ -63,6 +67,7 @@ public class MemberController {
         Member member = memberMapper.memberPatchToMember(patch);
         Member updateMember = memberService.updateMember(member);
         MemberDto.Response result = memberMapper.memberToMemberResponseDto(updateMember);
+
         return new ResponseEntity(result,HttpStatus.OK);
     }
 

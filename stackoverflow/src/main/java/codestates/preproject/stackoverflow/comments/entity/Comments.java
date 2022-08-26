@@ -1,10 +1,13 @@
 package codestates.preproject.stackoverflow.comments.entity;
 
+//import codestates.preproject.stackoverflow.checkvote.Checkvote;
 import codestates.preproject.stackoverflow.member.entity.Member;
 import codestates.preproject.stackoverflow.post.entity.Posts;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data

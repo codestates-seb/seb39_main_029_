@@ -5,13 +5,13 @@ import codestates.preproject.stackoverflow.comments.entity.Comments;
 import codestates.preproject.stackoverflow.comments.mapper.CommentsMapper;
 import codestates.preproject.stackoverflow.comments.repository.CommentsRepository;
 import codestates.preproject.stackoverflow.comments.service.CommentsService;
+import codestates.preproject.stackoverflow.dto.SingleResponseDto;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Positive;
 
 @RestController
 @Valid
@@ -33,6 +33,29 @@ public class CommentsController {
     public ResponseEntity postComments(@Valid @RequestBody CommentsDto.Post post){
         Comments comments = commentsMapper.commentsPostDtoToComments(post);
         commentsService.createComments(comments);
-        return null;
+        return new ResponseEntity(HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/delete/{comments-id}")
+    public ResponseEntity deleteComments(@PathVariable("comments-id") @Positive long commentsid){
+        commentsService.deleteComments(commentsid);
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }
+
+    @PatchMapping("/update/{comments-id}")
+    public ResponseEntity patchComments(@PathVariable("comments-id") @Positive long commentsid,
+                                        @Valid @RequestBody CommentsDto.Patch patch){
+        patch.setCommentsid(commentsid);
+        Comments comments = commentsMapper.commentsPatchDtoToComments(patch);
+        commentsService.updateComments(comments);
+
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @PatchMapping("/votes/{comments-id}")
+    public ResponseEntity votesComments(@PathVariable("comments-id") @Positive long commentsid){
+        Comments comments = commentsService.votesComments(commentsid);
+        CommentsDto.Response response = commentsMapper.CommentsToCommentsResponseDto(comments);
+        return new ResponseEntity(response,HttpStatus.OK);
     }
 }

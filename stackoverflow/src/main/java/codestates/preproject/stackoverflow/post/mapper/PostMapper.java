@@ -80,4 +80,18 @@ public interface PostMapper {
 
         return tags;
     }
+
+    //상수가 추가한 코드 입니다.
+    default List<PostDto.uResponse> PostsToPostuResponseDto(List<Posts> requestBody){
+        return requestBody.stream().map(posts -> {
+            PostDto.uResponse response = new PostDto.uResponse();
+            response.setPostId(posts.getPostId());
+            response.setCreateAt(posts.getCreatedAt());
+            List<PostDto.TagsResponse> tags = TagsResponseDto(posts.getTag());
+            response.setTag(tags);
+            response.setVote(posts.getVotes());
+            response.setCommentsCount(posts.getCommentsCount());
+            return response;
+        }).collect(Collectors.toList());
+    }
 }

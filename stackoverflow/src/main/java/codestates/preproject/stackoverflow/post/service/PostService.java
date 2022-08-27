@@ -1,9 +1,12 @@
 package codestates.preproject.stackoverflow.post.service;
 
+import codestates.preproject.stackoverflow.comments.service.CommentsService;
 import codestates.preproject.stackoverflow.exception.BusinessLogicException;
 import codestates.preproject.stackoverflow.exception.ExceptionCode;
 import codestates.preproject.stackoverflow.member.service.MemberService;
+import codestates.preproject.stackoverflow.post.dto.PostDto;
 import codestates.preproject.stackoverflow.post.entity.Posts;
+import codestates.preproject.stackoverflow.post.mapper.PostMapper;
 import codestates.preproject.stackoverflow.post.repository.PostRepository;
 import codestates.preproject.stackoverflow.tags.entity.Tags;
 import codestates.preproject.stackoverflow.tags.service.TagService;
@@ -23,11 +26,17 @@ public class PostService {
     private final TagService tagService;
     private final PostRepository postRepository;
     private final MemberService memberService;
+    //상수가 추가한 코드 입니다.
+    private final PostMapper postMapper;
+    private final CommentsService commentsService;
 
-    public PostService(TagService tagService, PostRepository postRepository, MemberService memberService) {
+    public PostService(TagService tagService, PostRepository postRepository, MemberService memberService,
+                       PostMapper postMapper, CommentsService commentsService) {
         this.tagService = tagService;
         this.postRepository = postRepository;
         this.memberService = memberService;
+        this.postMapper = postMapper;
+        this.commentsService = commentsService;
     }
 
     public Posts createPost(Posts posts) {
@@ -51,6 +60,9 @@ public class PostService {
                     }
                     post.setTag(ReTags);
                 });
+        //상수가 추가한 코드 입니다.
+        Optional.ofNullable(posts.getCommentsCount())
+                .ifPresent(count -> post.setCommentsCount(count));
 
         return postRepository.save(post);
     }
@@ -88,6 +100,13 @@ public class PostService {
         if (post.isPresent()) {
             throw new BusinessLogicException(ExceptionCode.POST_EXISTS);
         }
+    }
+
+    //상수가 추가한 posts 서비스 코드 입니다.
+    public List<PostDto.uResponse> findUserPosts(long memberid, int page, int size){
+        List<Posts> postsList = postRepository.findByMemberid(memberid, size*(page-1), size);
+        List<PostDto.uResponse> result = postMapper.PostsToPostuResponseDto(postsList);
+        return result;
     }
 }
 

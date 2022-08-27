@@ -25,14 +25,14 @@ public class Posts {
     private long postId;
 
     @ManyToOne
-    @JoinColumn(name = "MEMBER_ID")
+    @JoinColumn(name = "MEMBERID")
     private Member member;
 
     @Column
     private String subject;
 
     @OneToMany(mappedBy = "posts",cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
-    private List<Tags> tag;
+    private List<Tags> tag = new ArrayList<>();
 
     @Column
     private String content;
@@ -61,4 +61,8 @@ public class Posts {
 
         }
     }
+
+    //상수가 작성한 코드 입니다.
+    @Column
+    private int commentsCount;
 }

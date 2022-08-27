@@ -24,17 +24,24 @@ public class MemberService {
         memberRepository.save(member);
     }
 
-    public void loginMember(Member member){
+    public Member loginMember(Member member){
         Optional<Member> optionalMember = memberRepository.findByEmail(member.getEmail());
         Member findMember = optionalMember.orElseThrow(()->new BusinessLogicException(ExceptionCode.EMAIL_NOT_FOUND));
         if(!findMember.getPassword().equals(member.getPassword())){
             throw new BusinessLogicException(ExceptionCode.PASSWORD_NOT_FOUND);
         }
+        return findMember;
     }
 
     public void updateRep(long memberid){
         Member member = findVerifiedMember(memberid);
         member.setReputation(member.getReputation()+1);
+        memberRepository.save(member);
+    }
+
+    public void downRep(long memberid){
+        Member member = findVerifiedMember(memberid);
+        member.setReputation(member.getReputation()-1);
         memberRepository.save(member);
     }
 
@@ -46,6 +53,7 @@ public class MemberService {
         Optional.ofNullable(member.getSelfId()).ifPresent(selfId -> findMember.setSelfId(selfId));
         Optional.ofNullable(member.getLocation()).ifPresent(location -> findMember.setLocation(location));
         Optional.ofNullable(member.getTitle()).ifPresent(title -> findMember.setTitle(title));
+        Optional.ofNullable(member.getPassword()).ifPresent(password -> findMember.setPassword(password));
 
         return memberRepository.save(findMember);
     }

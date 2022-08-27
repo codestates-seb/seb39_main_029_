@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Data
 @Getter
 @Setter
 public class Member {

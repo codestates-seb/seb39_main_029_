@@ -35,10 +35,14 @@ public class CommentsDto {
 
         private int votes;
 
+        private String nickName;
+
         private String content;
 
         private long memberid;
 
         private int reputation;
+
+        private boolean isvote;
     }
 }

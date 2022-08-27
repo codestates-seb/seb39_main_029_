@@ -10,7 +10,10 @@ public enum ExceptionCode {
     INVALID_MEMBER_STATUS(400, "Invalid member status"),  // TO 추가된 부분
     POST_NOT_FOUND(404,"Post not found"),
     POST_EXISTS(409, "Post is exists"),
-    COMMENTS_NOT_FOUND(404,"Comments not found");
+    COMMENTS_NOT_FOUND(404,"Comments not found"),
+    COMMENTS_MEMBER_NOT_SAME(404, "Member is not Owner"),
+    VOTES_ALREADY(404,"Votes Already"),
+    NOT_VOTES(404,"Not Vote");
 
 
     @Getter

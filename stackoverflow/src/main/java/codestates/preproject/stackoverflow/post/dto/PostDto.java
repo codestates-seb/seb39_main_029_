@@ -2,9 +2,8 @@ package codestates.preproject.stackoverflow.post.dto;
 
 
 import codestates.preproject.stackoverflow.comments.entity.Comments;
-import codestates.preproject.stackoverflow.member.entity.Member;
-import codestates.preproject.stackoverflow.tags.Tags;
 
+import codestates.preproject.stackoverflow.tags.entity.Tags;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -79,5 +78,19 @@ public class PostDto {
         private long tageId;
         private String data;
         private long postsId;
+    }
+
+    //상수가 작성한 코드 입니다.
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class uResponse{
+        private long postId;
+        private String subject;
+        private int vote;
+        private List<TagsResponse> tag;
+        private int commentsCount;
+        private LocalDateTime createAt;
     }
 }

@@ -10,7 +10,9 @@ public enum ExceptionCode {
     INVALID_MEMBER_STATUS(400, "Invalid member status"),  // TO 추가된 부분
     POST_NOT_FOUND(404,"Post not found"),
     POST_EXISTS(409, "Post is exists"),
-    COMMENTS_NOT_FOUND(404,"Comments not found");
+    COMMENTS_NOT_FOUND(404,"Comments not found"),
+
+    TAGS_NOT_FOUND(404,"Tag not found");
 
 
     @Getter

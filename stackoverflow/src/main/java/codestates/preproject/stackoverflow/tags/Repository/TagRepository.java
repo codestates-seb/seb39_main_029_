@@ -11,6 +11,8 @@ import java.util.Optional;
 public interface TagRepository extends JpaRepository<Tags,Long> {
     @Query(value = "SELECT * FROM TAGS WHERE POSTS_ID = :postId", nativeQuery = true)
     Optional<List<Tags>> findTagsAll(long postId);
+
+
 }
 
 

@@ -35,6 +35,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/*
 @WebMvcTest(PostController.class)
 @MockBean(JpaMetamodelMappingContext.class)
 @AutoConfigureRestDocs
@@ -206,3 +207,4 @@ public class RestDocs {
 
 
 }
+*/

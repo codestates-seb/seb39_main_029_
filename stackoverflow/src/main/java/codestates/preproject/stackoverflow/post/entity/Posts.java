@@ -31,8 +31,8 @@ public class Posts {
     @Column
     private String subject;
 
-    @OneToMany(mappedBy = "posts",cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
-    private List<Tags> tag;
+    @OneToMany(mappedBy = "posts", cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
+    private List<PostTag> postTagsList = new ArrayList<>();
 
     @Column
     private String content;
@@ -43,11 +43,10 @@ public class Posts {
     @Column(nullable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
 
-
-    public void addTags(Tags tags) {
-        this.tag.add(tags);
-        if (tags.getPosts() != this) {
-            tags.setPosts(this);
+    public void addPostTags(PostTag postTag) {
+        this.postTagsList.add(postTag);
+        if (postTag.getPosts() != this) {
+            postTag.addPost(this);
         }
     }
 

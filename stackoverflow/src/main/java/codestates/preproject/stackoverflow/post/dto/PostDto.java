@@ -2,14 +2,14 @@ package codestates.preproject.stackoverflow.post.dto;
 
 
 import codestates.preproject.stackoverflow.comments.entity.Comments;
-import codestates.preproject.stackoverflow.member.entity.Member;
-import codestates.preproject.stackoverflow.tags.Tags;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
 
@@ -19,6 +19,7 @@ import java.util.List;
 public class PostDto {
 
     @Getter
+    @Setter
     @AllArgsConstructor
     public static class Post {
         @NotBlank(message = "제목은 공백이 아니어야 합니다.")
@@ -30,10 +31,12 @@ public class PostDto {
         @NotBlank(message = "내용은 공백이 아니어야 합니다.")
         private String content;
 
-        private List<Tags> tag;
+        @Valid
+        private List<PostTagDto> postTag;
     }
 
     @Getter
+    @Setter
     @AllArgsConstructor
     public static class Patch {
 
@@ -48,7 +51,8 @@ public class PostDto {
         @NotBlank(message = "내용은 공백이 아니어야 합니다.")
         private String content;
 
-        private List<Tags> tag;
+        @Valid
+        private List<PostTagDto> postTag;
 
         public void setPostId(long postId) {
             this.postId = postId;
@@ -64,7 +68,7 @@ public class PostDto {
         private String subject;
         private long memberId;
         private String content;
-        private List<TagsResponse> tag;
+        private List<TagsResponse> postTag;
         private int vote;
         private LocalDateTime createAt;
         private List<Comments> commentsList;
@@ -77,7 +81,15 @@ public class PostDto {
     @Setter
     public static class TagsResponse {
         private long tageId;
-        private String data;
-        private long postsId;
+        private String name;
+    }
+
+    @Getter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Setter
+    public static class PostTagDto {
+
+        private long tagId;
     }
 }

@@ -33,7 +33,8 @@ public class PostService {
     public Posts createPost(Posts posts) {
 
         verifyPosts(posts);
-        return postRepository.save(posts);
+        Posts post = findTagsId(posts);
+        return postRepository.save(post);
     }
 
     public Posts updatePost(Posts posts) {
@@ -43,13 +44,13 @@ public class PostService {
                 .ifPresent(subject -> post.setSubject(subject));
         Optional.ofNullable(posts.getContent())
                 .ifPresent(content -> post.setContent(content));
-        Optional.ofNullable(posts.getTag())
+        Optional.ofNullable(posts.getPostTagsList())
                 .ifPresent(tag -> {
-                    List<Tags> ReTags = tagService.tagsFind(post.getPostId());
-                    for (int i = 0; i < ReTags.size(); i++) {
-                        ReTags.get(i).setData(tag.get(i).getData());
+                    for (int i = 0; i < tag.size(); i++) {
+                        post.getPostTagsList().get(i).getTags().setName(
+                                tagService.findVerifiedTags(tag.get(i).getTags().getTagsId()).getName()
+                        );
                     }
-                    post.setTag(ReTags);
                 });
 
         return postRepository.save(post);
@@ -63,6 +64,20 @@ public class PostService {
     public Page<Posts> findPosts(int page, int size,String arrange){
         return postRepository.findAll(PageRequest.of(page, size,
                 Sort.by(arrange).descending()));
+    }
+
+    //태그 클릭 페이지에서 question 페이지 이동시 사용하는 service 메서드
+    public List<Posts> tagsCheck(List<Posts> posts, int tagCheckId) {
+        List<Posts> result = new ArrayList<>();
+
+        Tags tag = tagService.findVerifiedTags(tagCheckId);
+        for (int i = 0; i < posts.size(); i++) {
+            if (tag.getPostTags().contains(posts.get(i))) {
+                result.add(posts.get(i));
+            }
+        }
+
+        return result;
     }
 
     public void deletePost(long postId) {
@@ -88,6 +103,17 @@ public class PostService {
         if (post.isPresent()) {
             throw new BusinessLogicException(ExceptionCode.POST_EXISTS);
         }
+    }
+
+    public Posts findTagsId(Posts posts) {
+
+        for (int i = 0; i < posts.getPostTagsList().size(); i++) {
+            posts.getPostTagsList().get(i).getTags().setName(
+                    tagService.findVerifiedTags(posts.getPostTagsList().
+                            get(i).getTags().getTagsId()).getName()
+            );
+        }
+        return posts;
     }
 }
 

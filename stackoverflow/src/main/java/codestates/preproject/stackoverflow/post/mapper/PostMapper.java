@@ -2,6 +2,7 @@ package codestates.preproject.stackoverflow.post.mapper;
 
 import codestates.preproject.stackoverflow.member.entity.Member;
 import codestates.preproject.stackoverflow.post.dto.PostDto;
+import codestates.preproject.stackoverflow.post.entity.PostTag;
 import codestates.preproject.stackoverflow.post.entity.Posts;
 import codestates.preproject.stackoverflow.tags.entity.Tags;
 import org.mapstruct.Mapper;
@@ -22,15 +23,19 @@ public interface PostMapper {
 
         posts.setSubject(requestBody.getSubject());
         posts.setContent(requestBody.getContent());
-
-        List<Tags> list =requestBody.getTag().stream()
+        System.out.println(requestBody.getPostTag().size());
+        System.out.println(requestBody.getPostTag().get(0).getTagId());
+        List<PostTag> list =requestBody.getPostTag().stream()
                 .map(tag -> {
+                    PostTag postsTag = new PostTag();
                     Tags tags = new Tags();
-                    tags.addPosts(posts);
-                    tags.setData(tag.getData());
-                    return tags;
+                    tags.setTagsId(tag.getTagId());
+
+                    postsTag.addPost(posts);
+                    postsTag.addTags(tags);
+                    return postsTag;
                 }).collect(Collectors.toList());
-        posts.setTag(list);
+        posts.setPostTagsList(list);
 
         return posts;
     }
@@ -40,12 +45,21 @@ public interface PostMapper {
         posts.setPostId(requestBody.getPostId());
         posts.setSubject(requestBody.getSubject());
         posts.setContent(requestBody.getContent());
-
-        posts.setTag(requestBody.getTag());
-
         Member member = new Member();
         member.setMemberid(requestBody.getMemberId());
         posts.setMember(member);
+
+        List<PostTag> list =requestBody.getPostTag().stream()
+                .map(tag -> {
+                    PostTag postsTag = new PostTag();
+                    Tags tags = new Tags();
+                    tags.setTagsId(tag.getTagId());
+
+                    postsTag.addPost(posts);
+                    postsTag.addTags(tags);
+                    return postsTag;
+                }).collect(Collectors.toList());
+        posts.setPostTagsList(list);
 
         return posts;
     }
@@ -58,7 +72,7 @@ public interface PostMapper {
         post.setVote(posts.getVotes());
         post.setMemberId(posts.getMember().getMemberid());
         post.setCreateAt(posts.getCreatedAt());
-        post.setTag(TagsResponseDto(posts.getTag()));
+        post.setPostTag(postTagsResponseDto(posts.getPostTagsList()));
         post.setCommentsList(post.getCommentsList());
 
         return post;
@@ -66,15 +80,15 @@ public interface PostMapper {
 
     List<PostDto.Response> PostsToResponses(List<Posts> posts);
 
-    default List<PostDto.TagsResponse> TagsResponseDto(List<Tags> list) {
+    default List<PostDto.TagsResponse> postTagsResponseDto(List<PostTag> list) {
 
 
         List<PostDto.TagsResponse> tags=list.stream()
-                .map(tag -> {
+                .map(postTag -> {
                     PostDto.TagsResponse tagResponse = new PostDto.TagsResponse();
-                    tagResponse.setTageId(tag.getTagsId());
-                    tagResponse.setData(tag.getData());
-                    tagResponse.setPostsId(tag.getPosts().getPostId());
+                    tagResponse.setTageId(postTag.getTags().getTagsId());
+                    tagResponse.setName(postTag.getTags().getName());
+
                     return tagResponse;
                 }).collect(Collectors.toList());
 

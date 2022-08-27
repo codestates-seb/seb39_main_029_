@@ -1,5 +1,6 @@
 package codestates.preproject.stackoverflow.tags.entity;
 
+import codestates.preproject.stackoverflow.post.entity.PostTag;
 import codestates.preproject.stackoverflow.post.entity.Posts;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,6 +8,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -18,21 +21,20 @@ public class Tags {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long tagsId;
 
-    @Column()
-    private String data;
+    @Column
+    private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "POSTS_ID")
-    private Posts posts;
+    @OneToMany(mappedBy = "tags")
+    private List<PostTag> postTags = new ArrayList<>();
 
-    public Tags(String data) {
-        this.data = data;
+    public Tags(String name) {
+        this.name = name;
     }
 
-    public void addPosts(Posts posts) {
-        this.posts = posts;
-        if (!this.posts.getTag().contains(this)) {
-            this.posts.addTags(this);
+    public void addPostTag(PostTag postTag) {
+        this.postTags.add(postTag);
+        if (postTag.getTags()!=this) {
+            postTag.addTags(this);
         }
     }
 

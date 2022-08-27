@@ -31,7 +31,6 @@ public class PostController {
     }
 
 
-
     @PostMapping
     public ResponseEntity makePost(@Valid @RequestBody PostDto.Post post) {
         Posts posts = postService.createPost(mapper.makePostsToPosts(post));
@@ -62,10 +61,14 @@ public class PostController {
     @GetMapping
     public ResponseEntity getPosts(@Positive @RequestParam int page,
                                      @Positive @RequestParam int size,
-                                   @RequestParam String arrange
+                                   @RequestParam String arrange,
+                                   @RequestParam int tagCheckId
     ) {
         Page<Posts> pagePosts = postService.findPosts(page - 1, size,arrange);
         List<Posts> members = pagePosts.getContent();
+        if (tagCheckId != 0) {
+            members = postService.tagsCheck(members, tagCheckId);
+        }
         return new ResponseEntity<>(new MultiResponseDto<>(mapper.PostsToResponses(members), pagePosts),
                 HttpStatus.OK);
     }

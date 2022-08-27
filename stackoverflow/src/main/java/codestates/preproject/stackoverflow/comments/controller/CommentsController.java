@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
+import java.util.List;
 
 @RestController
 @Valid
@@ -37,8 +38,9 @@ public class CommentsController {
     }
 
     @DeleteMapping("/delete/{comments-id}")
-    public ResponseEntity deleteComments(@PathVariable("comments-id") @Positive long commentsid){
-        commentsService.deleteComments(commentsid);
+    public ResponseEntity deleteComments(@PathVariable("comments-id") @Positive long commentsid,
+                                         @RequestParam long memberid){
+        commentsService.deleteComments(commentsid, memberid);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
@@ -52,10 +54,25 @@ public class CommentsController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @PatchMapping("/votes/{comments-id}")
-    public ResponseEntity votesComments(@PathVariable("comments-id") @Positive long commentsid){
-        Comments comments = commentsService.votesComments(commentsid);
+    @PatchMapping("/upvotes/{comments-id}")
+    public ResponseEntity upVotesComments(@PathVariable("comments-id") @Positive long commentsid,
+                                        @RequestParam long memberid){
+        Comments comments = commentsService.UvotesComments(commentsid, memberid);
         CommentsDto.Response response = commentsMapper.CommentsToCommentsResponseDto(comments);
         return new ResponseEntity(response,HttpStatus.OK);
+    }
+
+    @PatchMapping("/downvotes/{comments-id}")
+    public ResponseEntity downVotesComments(@PathVariable("comments-id") @Positive long commentsid,
+                                        @RequestParam long memberid){
+        Comments comments = commentsService.DvotesComments(commentsid, memberid);
+        CommentsDto.Response response = commentsMapper.CommentsToCommentsResponseDto(comments);
+        return new ResponseEntity(response,HttpStatus.OK);
+    }
+
+    @GetMapping
+    public ResponseEntity getsComments(@RequestParam long postsid){
+        List<CommentsDto.Response> list = commentsService.getsComments(postsid);
+        return new ResponseEntity(list,HttpStatus.OK);
     }
 }

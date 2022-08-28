@@ -2,7 +2,7 @@ import styled from "styled-components";
 import Button from "../Assets/Button";
 import stackoverflowlogo from "../Assets/Imgs/stackoverflowlogo.png";
 import { useNavigate } from "react-router-dom";
-import ColorButton from "../Assets/BlueBtn";
+import ColorButton from "../Assets/ColorBtn";
 
 function MainNav() {
   const navigate = useNavigate();

@@ -65,14 +65,4 @@ public class Posts {
     //상수가 작성한 코드 입니다.
     @Column
     private int commentsCount;
-
-    /*@OneToMany(mappedBy = "posts", cascade = CascadeType.REMOVE)
-    List<Pvote> pVotes = new ArrayList<>();
-    public void addPVote(Pvote pVote){
-        this.pVotes.add(pVote);
-        if(pVote.getPosts() != this){
-            pVote.setPosts(this);
-
-        }
-    }*/
 }

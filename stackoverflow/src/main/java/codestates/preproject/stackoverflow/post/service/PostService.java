@@ -143,14 +143,5 @@ public class PostService {
 
     }
 
-    /*public Pvote findVotes(long postId, long memberId) {
-        Pvote pvote=pVoteService.findPVote(postId, memberId);
-        if (pvote == null) {
-            Posts post =findVerifiedPosts(postId);
-            post.setVotes(post.getVotes()+1);
-        }else{
-
-        }
-    }*/
 }
 

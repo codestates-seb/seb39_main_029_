@@ -109,4 +109,22 @@ public class PostDto {
         private int commentsCount;
         private LocalDateTime createAt;
     }
+
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class voteResponse{
+        private long postId;
+        private String subject;
+        private long memberId;
+        private String content;
+        private List<TagsResponse> postTag;
+        private int vote;
+        private LocalDateTime createAt;
+        private List<CommentsDto.Response> commentsList;
+        private int commentsCount;
+        private int reputation;
+        private boolean check=false;
+    }
 }

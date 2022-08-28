@@ -3,6 +3,7 @@ package codestates.preproject.stackoverflow.post.service;
 import codestates.preproject.stackoverflow.comments.service.CommentsService;
 import codestates.preproject.stackoverflow.exception.BusinessLogicException;
 import codestates.preproject.stackoverflow.exception.ExceptionCode;
+import codestates.preproject.stackoverflow.member.entity.Member;
 import codestates.preproject.stackoverflow.member.service.MemberService;
 import codestates.preproject.stackoverflow.post.dto.PostDto;
 import codestates.preproject.stackoverflow.post.entity.Posts;
@@ -145,12 +146,40 @@ public class PostService {
 
     }
 
-    /*public Pvote findVotes(long postId, long memberId) {
+    public void voteUpMember(long memberId) {
+        memberService.findVerifiedMember(memberId);
+        memberService.updateRep(memberId);
+    }
+    public void voteDownMember(long memberId){
+        memberService.findVerifiedMember(memberId);
+        memberService.downRep(memberId);
+    }
+    public Posts upVotes(long postId, long memberId) {
         Pvote pvote=pVoteService.findPVote(postId, memberId);
         if (pvote == null) {
             Posts post =findVerifiedPosts(postId);
             post.setVotes(post.getVotes()+1);
+            voteUpMember(post.getMember().getMemberid());
+            pVoteService.saveVotes(memberId,post);
+            post.setCheck(true);
+            return postRepository.save(post);
+        }else{
+            throw new BusinessLogicException(ExceptionCode.VOTES_ALREADY);
         }
-    }*/
+    }
+
+    public Posts downVotes(long postId, long memberId) {
+        Pvote pvote=pVoteService.findPVote(postId, memberId);
+        if (pvote != null) {
+            Posts post =findVerifiedPosts(postId);
+            post.setVotes(post.getVotes()-1);
+            voteDownMember(post.getMember().getMemberid());
+            pVoteService.deleteVotes(pvote);
+            post.setCheck(false);
+            return postRepository.save(post);
+        }else{
+            throw new BusinessLogicException(ExceptionCode.NOT_VOTES);
+        }
+    }
 }
 

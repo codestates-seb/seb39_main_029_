@@ -41,7 +41,6 @@ public class CommentsService {
         this.commentsMapper = commentsMapper;
     }
 
-
     public Comments createComments(Comments comments){
         verifyComments(comments);
         Comments saved = commentsRepository.save(comments);
@@ -110,7 +109,6 @@ public class CommentsService {
         Posts posts = comments.getPosts();
         posts.setCommentsCount(posts.getCommentsCount()-1);
         postService.updatePost(posts);
-
         commentsRepository.delete(comments);
     }
 

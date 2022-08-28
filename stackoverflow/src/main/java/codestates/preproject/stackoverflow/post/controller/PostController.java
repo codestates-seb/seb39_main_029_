@@ -88,11 +88,22 @@ public class PostController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    /*@PatchMapping("/votes/{post-id}")
-    public ResponseEntity checkVotes(
+    @PatchMapping("/upVotes/{post-id}")
+    public ResponseEntity upVotes(
             @PathVariable("post-id") @Positive long postId,
             @RequestParam @Positive long memberId
             ) {
-        postService.findVotes(postId, memberId);
-    }*/
+       Posts post= postService.upVotes(postId, memberId);
+       return new ResponseEntity(mapper.PostsToVoteResponse(post), HttpStatus.OK);
+    }
+
+    @PatchMapping("/downVotes/{post-id}")
+    public ResponseEntity downVotes(
+            @PathVariable("post-id") @Positive long postId,
+            @RequestParam @Positive long memberId
+    ) {
+        Posts post= postService.downVotes(postId, memberId);
+        PostDto.voteResponse response = mapper.PostsToVoteResponse(post);
+        return new ResponseEntity(response, HttpStatus.OK);
+    }
 }

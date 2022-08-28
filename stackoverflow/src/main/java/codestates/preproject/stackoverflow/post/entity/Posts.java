@@ -5,6 +5,7 @@ import codestates.preproject.stackoverflow.comments.entity.Comments;
 import codestates.preproject.stackoverflow.member.entity.Member;
 
 
+import codestates.preproject.stackoverflow.pvote.entity.Pvote;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -41,8 +42,12 @@ public class Posts {
     @Column
     private int votes=0;
 
+    @Column(name="isCheck")
+    private boolean isCheck=false;
+
     @Column(nullable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
+
 
     public void addPostTags(PostTag postTag) {
         this.postTagsList.add(postTag);
@@ -65,4 +70,18 @@ public class Posts {
     //상수가 작성한 코드 입니다.
     @Column
     private int commentsCount;
+
+    @OneToMany(mappedBy = "posts", cascade = CascadeType.REMOVE)
+    List<Pvote> PVotes = new ArrayList<>();
+
+    public void addPVote(Pvote pvote){
+        this.PVotes.add(pvote);
+        if(pvote.getPosts() != this){
+            pvote.setPosts(this);
+        }
+    }
+
+    public boolean getIsCheck() {
+        return this.isCheck;
+    }
 }

@@ -83,7 +83,6 @@ public interface PostMapper {
 
     default List<PostDto.TagsResponse> postTagsResponseDto(List<PostTag> list) {
 
-
         List<PostDto.TagsResponse> tags=list.stream()
                 .map(postTag -> {
                     PostDto.TagsResponse tagResponse = new PostDto.TagsResponse();
@@ -109,5 +108,22 @@ public interface PostMapper {
             response.setCommentsCount(posts.getCommentsCount());
             return response;
         }).collect(Collectors.toList());
+    }
+
+    default PostDto.voteResponse PostsToVoteResponse(Posts posts) {
+        PostDto.voteResponse post = new PostDto.voteResponse();
+        post.setPostId(posts.getPostId());
+        post.setSubject(posts.getSubject());
+        post.setMemberId(posts.getMember().getMemberid());
+        post.setVote(posts.getVotes());
+        post.setMemberId(posts.getMember().getMemberid());
+        post.setCreateAt(posts.getCreatedAt());
+        post.setPostTag(postTagsResponseDto(posts.getPostTagsList()));
+        post.setCommentsList(post.getCommentsList());
+        post.setCommentsCount(posts.getCommentsCount());
+        post.setReputation(posts.getMember().getReputation());
+        post.setCheck(posts.getIsCheck());
+
+        return post;
     }
 }

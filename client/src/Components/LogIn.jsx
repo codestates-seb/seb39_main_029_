@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import "../index";
-import logo from "../Assets/Imgs/stackoverflow--only-logo.png";
+import Logo from "../Assets/Imgs/stackoverflow-only";
 import Google from "../Assets/Imgs/google";
 import Github from "../Assets/Imgs/github";
 
@@ -9,7 +9,7 @@ function LogIn() {
     <Container>
       <Wrapper>
         <Img>
-          <img src={logo} alt="logo" />
+          <Logo />
         </Img>
         <SocialWrapper>
           <button>
@@ -56,9 +56,6 @@ const Wrapper = styled.div`
 const Img = styled.div`
   align-self: center;
   margin: 0 0 30px 0;
-  > img {
-    width: 30px;
-  }
 `;
 const SocialWrapper = styled.div`
   display: flex;

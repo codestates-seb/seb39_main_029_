@@ -99,10 +99,10 @@ public interface PostMapper {
             PostDto.uResponse response = new PostDto.uResponse();
             response.setPostId(posts.getPostId());
             response.setCreateAt(posts.getCreatedAt());
-            //List<PostDto.TagsResponse> tags = TagsResponseDto(posts.getTag());
-            //response.setTag(tags);
             response.setVote(posts.getVotes());
             response.setCommentsCount(posts.getCommentsCount());
+            response.setSubject(posts.getSubject());
+            response.setTag(postTagsResponseDto(posts.getPostTagsList()));
             return response;
         }).collect(Collectors.toList());
     }

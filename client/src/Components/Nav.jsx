@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { IoSearchSharp } from "react-icons/io5";
-import stackoverflowlogo from "../Assets/Imgs/stackoverflowlogo.png";
+import Stackoverflowlogo from "../Assets/Imgs/stackoverflow.jsx";
 import { ImTrophy } from "react-icons/im";
 
 function Nav() {
@@ -8,18 +8,20 @@ function Nav() {
     <Container>
       <Line />
       <Navbody>
-        <img src={stackoverflowlogo} className="logo" alt="react" />
+        <Stackoverflowlogo className="logo" alt="react" />
         <div className="btnwrapper">
           <Search>
             <IoSearchSharp className="searchicon" />
             <SearchInput placeholder="Search.."></SearchInput>
           </Search>
         </div>
-        <span className="img"></span>
-        <span className="reputation">10</span>
-        <span className="badge">
-          <ImTrophy />
-        </span>
+        <div className="profile">
+          <span className="img"></span>
+          <span className="reputation">10</span>
+          <span className="badge">
+            <ImTrophy />
+          </span>
+        </div>
       </Navbody>
     </Container>
   );
@@ -42,8 +44,13 @@ const Line = styled.div`
 const Navbody = styled.div`
   display: flex;
   align-items: center;
+  justify-content: center;
   width: 100%;
   height: 47px;
+  .profile {
+    display: flex;
+    margin-right: 20px;
+  }
   .btnwrapper {
     display: flex;
     margin-right: 20px;

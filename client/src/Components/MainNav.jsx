@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Button from "../Assets/Button";
-import stackoverflowlogo from "../Assets/Imgs/stackoverflowlogo.png";
+import Stackoverflowlogo from "../Assets/Imgs/stackoverflow.jsx";
 import { useNavigate } from "react-router-dom";
 import ColorButton from "../Assets/ColorBtn";
 
@@ -10,7 +10,7 @@ function MainNav() {
     <Container>
       <Line />
       <Navbody>
-        <img src={stackoverflowlogo} className="logo" alt="react" />
+        <Stackoverflowlogo className="logo" alt="react" />
         <div className="btnwrapper">
           <ColorButton
             mode="GREY"

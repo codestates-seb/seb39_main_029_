@@ -1,12 +1,14 @@
 package codestates.preproject.stackoverflow.post.dto;
 
-import codestates.preproject.stackoverflow.member.entity.Member;
-import codestates.preproject.stackoverflow.tags.Tags;
+import codestates.preproject.stackoverflow.comments.dto.CommentsDto;
+import codestates.preproject.stackoverflow.comments.entity.Comments;
+
+import codestates.preproject.stackoverflow.tags.entity.Tags;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
 
@@ -16,7 +18,8 @@ import java.util.List;
 public class PostDto {
 
     @Getter
-    @AllArgsConstructor // TODO 테스트를 위해 추가됨
+    @Setter
+    @AllArgsConstructor
     public static class Post {
         @NotBlank(message = "제목은 공백이 아니어야 합니다.")
         private String subject;
@@ -26,12 +29,13 @@ public class PostDto {
 
         @NotBlank(message = "내용은 공백이 아니어야 합니다.")
         private String content;
-
-        private List<Tags> tag;
+        @Valid
+        private List<PostTagDto> postTag;
     }
 
     @Getter
-    @AllArgsConstructor // TODO 테스트를 위해 추가됨
+    @Setter
+    @AllArgsConstructor
     public static class Patch {
 
         private long postId;
@@ -44,8 +48,8 @@ public class PostDto {
 
         @NotBlank(message = "내용은 공백이 아니어야 합니다.")
         private String content;
-
-        private List<Tags> tag;
+        @Valid
+        private List<PostTagDto> postTag;
 
         public void setPostId(long postId) {
             this.postId = postId;
@@ -53,7 +57,7 @@ public class PostDto {
     }
 
     @Getter
-    @AllArgsConstructor // TODO 테스트를 위해 추가됨'
+    @AllArgsConstructor
     @NoArgsConstructor
     @Setter
     public static class Response {
@@ -61,9 +65,61 @@ public class PostDto {
         private String subject;
         private long memberId;
         private String content;
-        private List<Tags> tag;
+        private List<TagsResponse> postTag;
         private int vote;
         private LocalDateTime createAt;
+        private List<CommentsDto.Response> commentsList;
+        private int commentsCount;
+    }
 
+
+    @Getter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Setter
+    public static class TagsResponse {
+        private long tageId;
+        private String name;
+    }
+
+    @Getter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Setter
+    public static class PostTagDto {
+
+        private long tagId;
+    }
+
+    //상수가 작성한 코드 입니다.
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class uResponse{
+        private long postId;
+        private String subject;
+        private int vote;
+        private List<TagsResponse> tag;
+        private int commentsCount;
+        private LocalDateTime createAt;
+    }
+
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class voteResponse{
+        private long postId;
+        private String subject;
+        private long memberId;
+        private String content;
+        private List<TagsResponse> postTag;
+        private int vote;
+        private LocalDateTime createAt;
+        private List<CommentsDto.Response> commentsList;
+        private int commentsCount;
+        private int reputation;
+        private boolean check=false;
     }
 }

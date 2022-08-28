@@ -1,7 +1,9 @@
 package codestates.preproject.stackoverflow.post.controller;
 
+import codestates.preproject.stackoverflow.comments.dto.CommentsDto;
+import codestates.preproject.stackoverflow.comments.entity.Comments;
+import codestates.preproject.stackoverflow.comments.service.CommentsService;
 import codestates.preproject.stackoverflow.dto.MultiResponseDto;
-import codestates.preproject.stackoverflow.dto.SingleResponseDto;
 import codestates.preproject.stackoverflow.post.dto.PostDto;
 import codestates.preproject.stackoverflow.post.entity.Posts;
 import codestates.preproject.stackoverflow.post.mapper.PostMapper;
@@ -22,20 +24,24 @@ import java.util.List;
 @Validated
 @Slf4j
 public class PostController {
+
+    private final CommentsService commentsService;
     private final PostMapper mapper;
     private final PostService postService;
 
-    public PostController(PostMapper mapper, PostService postService) {
+    public PostController(CommentsService commentsService, PostMapper mapper, PostService postService) {
+        this.commentsService = commentsService;
         this.mapper = mapper;
         this.postService = postService;
     }
+
 
     @PostMapping
     public ResponseEntity makePost(@Valid @RequestBody PostDto.Post post) {
         Posts posts = postService.createPost(mapper.makePostsToPosts(post));
         PostDto.Response response = mapper.PostsToResponse(posts);
 
-        return new ResponseEntity( new SingleResponseDto<>(response), HttpStatus.CREATED);
+        return new ResponseEntity( response, HttpStatus.CREATED);
     }
 
     @PatchMapping("/{post-id}")
@@ -44,29 +50,32 @@ public class PostController {
             @Valid @RequestBody PostDto.Patch requestBody
             ) {
         requestBody.setPostId(postId);
-        Posts findPost = mapper.PatchPostsToPosts(requestBody);
-        Posts posts = postService.updatePost(findPost);
-
-        return new ResponseEntity( new SingleResponseDto<>(posts), HttpStatus.OK);
+        Posts posts = postService.updatePost(mapper.PatchPostsToPosts(requestBody));
+        return new ResponseEntity<>( mapper.PostsToResponse(posts), HttpStatus.OK);
     }
 
     @GetMapping("/{post-id}")
     public ResponseEntity getPost(
             @PathVariable("post-id") @Positive long postId) {
         Posts posts = postService.findPost(postId);
-        return new ResponseEntity<>(
-                new SingleResponseDto<>(mapper.PostsToResponse(posts))
-                , HttpStatus.OK);
+        List<CommentsDto.Response> result = commentsService.getsComments(postId);
+        PostDto.Response response = mapper.PostsToResponse(posts);
+        response.setCommentsList(result);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @GetMapping
     public ResponseEntity getPosts(@Positive @RequestParam int page,
-                                     @Positive @RequestParam int size) {
-        Page<Posts> pagePosts = postService.findPosts(page - 1, size);
+                                     @Positive @RequestParam int size,
+                                   @RequestParam String arrange,
+                                   @RequestParam Long tagCheckId
+    ) {
+        Page<Posts> pagePosts = postService.findPosts(page - 1, size,arrange);
         List<Posts> members = pagePosts.getContent();
-        return new ResponseEntity<>(
-                new MultiResponseDto<>(mapper.PostsToResponses(members),
-                        pagePosts),
+        if (tagCheckId != -1) {
+            members = postService.tagsCheck(members, tagCheckId);
+        }
+        return new ResponseEntity<>(new MultiResponseDto<>(mapper.PostsToResponses(members), pagePosts),
                 HttpStatus.OK);
     }
 
@@ -76,5 +85,24 @@ public class PostController {
         postService.deletePost(postId);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PatchMapping("/upVotes/{post-id}")
+    public ResponseEntity upVotes(
+            @PathVariable("post-id") @Positive long postId,
+            @RequestParam @Positive long memberId
+            ) {
+       Posts post= postService.upVotes(postId, memberId);
+       return new ResponseEntity(mapper.PostsToVoteResponse(post), HttpStatus.OK);
+    }
+
+    @PatchMapping("/downVotes/{post-id}")
+    public ResponseEntity downVotes(
+            @PathVariable("post-id") @Positive long postId,
+            @RequestParam @Positive long memberId
+    ) {
+        Posts post= postService.downVotes(postId, memberId);
+        PostDto.voteResponse response = mapper.PostsToVoteResponse(post);
+        return new ResponseEntity(response, HttpStatus.OK);
     }
 }

@@ -110,7 +110,6 @@ public class PostService {
 
     @Transactional(readOnly = true)
     public Posts findVerifiedPosts(long postId) {
-
         Optional<Posts> post = postRepository.findById(postId);
         Posts findPosts = post.orElseThrow(() ->
                 new BusinessLogicException(ExceptionCode.POST_NOT_FOUND));

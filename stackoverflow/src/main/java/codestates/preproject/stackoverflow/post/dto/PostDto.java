@@ -1,6 +1,5 @@
 package codestates.preproject.stackoverflow.post.dto;
 
-
 import codestates.preproject.stackoverflow.comments.dto.CommentsDto;
 import codestates.preproject.stackoverflow.comments.entity.Comments;
 
@@ -8,8 +7,6 @@ import codestates.preproject.stackoverflow.tags.entity.Tags;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
@@ -32,7 +29,6 @@ public class PostDto {
 
         @NotBlank(message = "내용은 공백이 아니어야 합니다.")
         private String content;
-
         @Valid
         private List<PostTagDto> postTag;
     }
@@ -52,7 +48,6 @@ public class PostDto {
 
         @NotBlank(message = "내용은 공백이 아니어야 합니다.")
         private String content;
-
         @Valid
         private List<PostTagDto> postTag;
 

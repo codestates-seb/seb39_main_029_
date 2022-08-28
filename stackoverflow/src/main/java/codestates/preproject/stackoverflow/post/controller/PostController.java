@@ -50,7 +50,6 @@ public class PostController {
             @Valid @RequestBody PostDto.Patch requestBody
             ) {
         requestBody.setPostId(postId);
-
         Posts posts = postService.updatePost(mapper.PatchPostsToPosts(requestBody));
         return new ResponseEntity<>( mapper.PostsToResponse(posts), HttpStatus.OK);
     }

@@ -15,7 +15,6 @@ public interface PostMapper {
 
     default Posts makePostsToPosts(PostDto.Post requestBody){
         Posts posts = new Posts();
-
         Member member = new Member();
         member.setMemberid(requestBody.getMemberId());
 
@@ -40,7 +39,6 @@ public interface PostMapper {
 
         return posts;
     }
-
     default Posts PatchPostsToPosts(PostDto.Patch requestBody) {
         Posts posts = new Posts();
         posts.setPostId(requestBody.getPostId());
@@ -64,7 +62,6 @@ public interface PostMapper {
 
         return posts;
     }
-
     default PostDto.Response PostsToResponse(Posts posts) {
         PostDto.Response post = new PostDto.Response();
         post.setPostId(posts.getPostId());

@@ -8,6 +8,8 @@ import codestates.preproject.stackoverflow.post.dto.PostDto;
 import codestates.preproject.stackoverflow.post.entity.Posts;
 import codestates.preproject.stackoverflow.post.mapper.PostMapper;
 import codestates.preproject.stackoverflow.post.repository.PostRepository;
+import codestates.preproject.stackoverflow.pvote.entity.Pvote;
+import codestates.preproject.stackoverflow.pvote.service.PVoteService;
 import codestates.preproject.stackoverflow.tags.entity.Tags;
 import codestates.preproject.stackoverflow.tags.service.TagService;
 import org.springframework.data.domain.Page;
@@ -30,16 +32,16 @@ public class PostService {
     private final PostMapper postMapper;
     private final CommentsService commentsService;
 
-    /*private final PVoteService pVoteService;*/
+    private final PVoteService pVoteService;
 
     public PostService(TagService tagService, PostRepository postRepository, MemberService memberService,
-                       PostMapper postMapper, CommentsService commentsService) {
+                       PostMapper postMapper, CommentsService commentsService, PVoteService pVoteService) {
         this.tagService = tagService;
         this.postRepository = postRepository;
         this.memberService = memberService;
         this.postMapper = postMapper;
         this.commentsService = commentsService;
-
+        this.pVoteService = pVoteService;
     }
 
     public Posts createPost(Posts posts) {
@@ -143,5 +145,12 @@ public class PostService {
 
     }
 
+    /*public Pvote findVotes(long postId, long memberId) {
+        Pvote pvote=pVoteService.findPVote(postId, memberId);
+        if (pvote == null) {
+            Posts post =findVerifiedPosts(postId);
+            post.setVotes(post.getVotes()+1);
+        }
+    }*/
 }
 

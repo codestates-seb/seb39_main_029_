@@ -4,7 +4,7 @@ package codestates.preproject.stackoverflow.post.entity;
 import codestates.preproject.stackoverflow.comments.entity.Comments;
 import codestates.preproject.stackoverflow.member.entity.Member;
 
-import codestates.preproject.stackoverflow.tags.entity.Tags;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,7 +25,7 @@ public class Posts {
     private long postId;
 
     @ManyToOne
-    @JoinColumn(name = "MEMBER_ID")
+    @JoinColumn(name = "MEMBERID")
     private Member member;
 
     @Column
@@ -33,6 +33,7 @@ public class Posts {
 
     @OneToMany(mappedBy = "posts", cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
     private List<PostTag> postTagsList = new ArrayList<>();
+
 
     @Column
     private String content;
@@ -60,4 +61,18 @@ public class Posts {
 
         }
     }
+
+    //상수가 작성한 코드 입니다.
+    @Column
+    private int commentsCount;
+
+    /*@OneToMany(mappedBy = "posts", cascade = CascadeType.REMOVE)
+    List<Pvote> pVotes = new ArrayList<>();
+    public void addPVote(Pvote pVote){
+        this.pVotes.add(pVote);
+        if(pVote.getPosts() != this){
+            pVote.setPosts(this);
+
+        }
+    }*/
 }

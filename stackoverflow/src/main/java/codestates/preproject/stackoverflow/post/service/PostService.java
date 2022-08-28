@@ -1,9 +1,12 @@
 package codestates.preproject.stackoverflow.post.service;
 
+import codestates.preproject.stackoverflow.comments.service.CommentsService;
 import codestates.preproject.stackoverflow.exception.BusinessLogicException;
 import codestates.preproject.stackoverflow.exception.ExceptionCode;
 import codestates.preproject.stackoverflow.member.service.MemberService;
+import codestates.preproject.stackoverflow.post.dto.PostDto;
 import codestates.preproject.stackoverflow.post.entity.Posts;
+import codestates.preproject.stackoverflow.post.mapper.PostMapper;
 import codestates.preproject.stackoverflow.post.repository.PostRepository;
 import codestates.preproject.stackoverflow.tags.entity.Tags;
 import codestates.preproject.stackoverflow.tags.service.TagService;
@@ -23,11 +26,20 @@ public class PostService {
     private final TagService tagService;
     private final PostRepository postRepository;
     private final MemberService memberService;
+    //상수가 추가한 코드 입니다.
+    private final PostMapper postMapper;
+    private final CommentsService commentsService;
 
-    public PostService(TagService tagService, PostRepository postRepository, MemberService memberService) {
+    /*private final PVoteService pVoteService;*/
+
+    public PostService(TagService tagService, PostRepository postRepository, MemberService memberService,
+                       PostMapper postMapper, CommentsService commentsService) {
         this.tagService = tagService;
         this.postRepository = postRepository;
         this.memberService = memberService;
+        this.postMapper = postMapper;
+        this.commentsService = commentsService;
+
     }
 
     public Posts createPost(Posts posts) {
@@ -52,6 +64,9 @@ public class PostService {
                         );
                     }
                 });
+        //상수가 추가한 코드 입니다.
+        Optional.ofNullable(posts.getCommentsCount())
+                .ifPresent(count -> post.setCommentsCount(count));
 
         return postRepository.save(post);
     }
@@ -67,14 +82,18 @@ public class PostService {
     }
 
     //태그 클릭 페이지에서 question 페이지 이동시 사용하는 service 메서드
-    public List<Posts> tagsCheck(List<Posts> posts, int tagCheckId) {
+    public List<Posts> tagsCheck(List<Posts> posts, Long tagCheckId) {
         List<Posts> result = new ArrayList<>();
 
         Tags tag = tagService.findVerifiedTags(tagCheckId);
+
         for (int i = 0; i < posts.size(); i++) {
-            if (tag.getPostTags().contains(posts.get(i))) {
-                result.add(posts.get(i));
+            for (int j = 0; j < tag.getPostTags().size(); j++) {
+                if (tag.getPostTags().get(j).getPosts()==(posts.get(i))) {
+                    result.add(posts.get(i));
+                }
             }
+
         }
 
         return result;
@@ -105,6 +124,7 @@ public class PostService {
         }
     }
 
+
     public Posts findTagsId(Posts posts) {
 
         for (int i = 0; i < posts.getPostTagsList().size(); i++) {
@@ -115,5 +135,22 @@ public class PostService {
         }
         return posts;
     }
+    //상수가 추가한 posts 서비스 코드 입니다.
+    public List<PostDto.uResponse> findUserPosts(long memberid, int page, int size){
+        List<Posts> postsList = postRepository.findByMemberid(memberid, size*(page-1), size);
+        List<PostDto.uResponse> result = postMapper.PostsToPostuResponseDto(postsList);
+        return result;
+
+    }
+
+    /*public Pvote findVotes(long postId, long memberId) {
+        Pvote pvote=pVoteService.findPVote(postId, memberId);
+        if (pvote == null) {
+            Posts post =findVerifiedPosts(postId);
+            post.setVotes(post.getVotes()+1);
+        }else{
+
+        }
+    }*/
 }
 

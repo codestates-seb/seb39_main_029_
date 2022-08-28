@@ -36,6 +36,7 @@ public interface PostMapper {
                     return postsTag;
                 }).collect(Collectors.toList());
         posts.setPostTagsList(list);
+        posts.setCommentsCount(0);
 
         return posts;
     }
@@ -74,7 +75,7 @@ public interface PostMapper {
         post.setCreateAt(posts.getCreatedAt());
         post.setPostTag(postTagsResponseDto(posts.getPostTagsList()));
         post.setCommentsList(post.getCommentsList());
-
+        post.setCommentsCount(posts.getCommentsCount());
         return post;
     }
 
@@ -93,5 +94,20 @@ public interface PostMapper {
                 }).collect(Collectors.toList());
 
         return tags;
+    }
+
+    //상수가 추가한 코드 입니다.
+    // 태그 수정
+    default List<PostDto.uResponse> PostsToPostuResponseDto(List<Posts> requestBody){
+        return requestBody.stream().map(posts -> {
+            PostDto.uResponse response = new PostDto.uResponse();
+            response.setPostId(posts.getPostId());
+            response.setCreateAt(posts.getCreatedAt());
+            //List<PostDto.TagsResponse> tags = TagsResponseDto(posts.getTag());
+            //response.setTag(tags);
+            response.setVote(posts.getVotes());
+            response.setCommentsCount(posts.getCommentsCount());
+            return response;
+        }).collect(Collectors.toList());
     }
 }

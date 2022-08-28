@@ -1,7 +1,9 @@
 package codestates.preproject.stackoverflow.post.controller;
 
+import codestates.preproject.stackoverflow.comments.dto.CommentsDto;
+import codestates.preproject.stackoverflow.comments.entity.Comments;
+import codestates.preproject.stackoverflow.comments.service.CommentsService;
 import codestates.preproject.stackoverflow.dto.MultiResponseDto;
-import codestates.preproject.stackoverflow.dto.SingleResponseDto;
 import codestates.preproject.stackoverflow.post.dto.PostDto;
 import codestates.preproject.stackoverflow.post.entity.Posts;
 import codestates.preproject.stackoverflow.post.mapper.PostMapper;
@@ -22,10 +24,13 @@ import java.util.List;
 @Validated
 @Slf4j
 public class PostController {
+
+    private final CommentsService commentsService;
     private final PostMapper mapper;
     private final PostService postService;
 
-    public PostController(PostMapper mapper, PostService postService) {
+    public PostController(CommentsService commentsService, PostMapper mapper, PostService postService) {
+        this.commentsService = commentsService;
         this.mapper = mapper;
         this.postService = postService;
     }
@@ -54,19 +59,21 @@ public class PostController {
     public ResponseEntity getPost(
             @PathVariable("post-id") @Positive long postId) {
         Posts posts = postService.findPost(postId);
-
-        return new ResponseEntity<>(mapper.PostsToResponse(posts), HttpStatus.OK);
+        List<CommentsDto.Response> result = commentsService.getsComments(postId);
+        PostDto.Response response = mapper.PostsToResponse(posts);
+        response.setCommentsList(result);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @GetMapping
     public ResponseEntity getPosts(@Positive @RequestParam int page,
                                      @Positive @RequestParam int size,
                                    @RequestParam String arrange,
-                                   @RequestParam int tagCheckId
+                                   @RequestParam Long tagCheckId
     ) {
         Page<Posts> pagePosts = postService.findPosts(page - 1, size,arrange);
         List<Posts> members = pagePosts.getContent();
-        if (tagCheckId != 0) {
+        if (tagCheckId != -1) {
             members = postService.tagsCheck(members, tagCheckId);
         }
         return new ResponseEntity<>(new MultiResponseDto<>(mapper.PostsToResponses(members), pagePosts),
@@ -80,4 +87,12 @@ public class PostController {
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+    /*@PatchMapping("/votes/{post-id}")
+    public ResponseEntity checkVotes(
+            @PathVariable("post-id") @Positive long postId,
+            @RequestParam @Positive long memberId
+            ) {
+        postService.findVotes(postId, memberId);
+    }*/
 }

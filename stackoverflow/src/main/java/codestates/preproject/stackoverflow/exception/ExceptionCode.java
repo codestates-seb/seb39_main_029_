@@ -12,7 +12,12 @@ public enum ExceptionCode {
     POST_EXISTS(409, "Post is exists"),
     COMMENTS_NOT_FOUND(404,"Comments not found"),
 
-    TAGS_NOT_FOUND(404,"Tag not found");
+    TAGS_NOT_FOUND(404,"Tag not found"),
+
+    COMMENTS_MEMBER_NOT_SAME(404, "Member is not Owner"),
+    VOTES_ALREADY(404,"Votes Already"),
+    NOT_VOTES(404,"Not Vote");
+
 
 
     @Getter

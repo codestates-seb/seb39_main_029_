@@ -9,6 +9,7 @@ import codestates.preproject.stackoverflow.member.mapper.MemberMapper;
 import codestates.preproject.stackoverflow.member.service.MemberService;
 
 
+import codestates.preproject.stackoverflow.post.service.PostService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,33 +32,30 @@ import java.util.Map;
 @Validated
 @Slf4j
 public class MemberController {
+    private final MemberService memberService;
 
+    private final MemberMapper memberMapper;
 
+    private final PostService postService;
 
-    private MemberService memberService;
-
-    private MemberMapper memberMapper;
-
-    public MemberController(MemberService memberService, MemberMapper memberMapper){
+    public MemberController(MemberService memberService, MemberMapper memberMapper, PostService postService){
         this.memberMapper = memberMapper;
         this.memberService = memberService;
+        this.postService = postService;
     }
 
     @PostMapping("/join")
     public ResponseEntity joinMember(@Valid @RequestBody MemberDto.Join join){
         Member member = memberMapper.memberJoinToMember(join);
         memberService.createMember(member);
-//        Map<String,String> result = new HashMap<>(Map.of("result","완료"));
-        List<String> result = new ArrayList<>(List.of("java","what is"));
-        return new ResponseEntity(result,HttpStatus.CREATED);
+        return new ResponseEntity(HttpStatus.CREATED);
     }
 
     @PostMapping("/login")
     public ResponseEntity loginMember(@Valid @RequestBody MemberDto.Login login){
         Member member = memberMapper.memberLoginToMember(login);
-        memberService.loginMember(member);
-        Map<String,String> result = new HashMap<>(Map.of("result","완료"));
-        return new ResponseEntity(result,HttpStatus.OK);
+        Member findMember = memberService.loginMember(member);
+        return new ResponseEntity(memberMapper.memberToMemberResponseDto(findMember), HttpStatus.OK);
     }
 
     @PatchMapping("/update/{member-id}")
@@ -77,6 +75,14 @@ public class MemberController {
 
         return new ResponseEntity(HttpStatus.NO_CONTENT);
 
+    }
+
+    @GetMapping("/myPage/{member-id}")
+    public ResponseEntity showMember(@PathVariable("member-id") long memberid, @RequestParam int page, @RequestParam int size){
+        Member member = memberService.findVerifiedMember(memberid);
+        MemberDto.Response response = memberMapper.memberToMemberResponseDto(member);
+        response.setPostsList(postService.findUserPosts(memberid, page, size));
+        return new ResponseEntity(response,HttpStatus.OK);
     }
 
 }

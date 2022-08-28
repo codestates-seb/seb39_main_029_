@@ -1,14 +1,25 @@
 import styled from "styled-components";
 import "../index";
+import logo from "../Assets/Imgs/stackoverflow--only-logo.png";
+import Google from "../Assets/Imgs/google";
+import Github from "../Assets/Imgs/github";
 
 function LogIn() {
   return (
     <Container>
       <Wrapper>
-        <Img />
+        <Img>
+          <img src={logo} alt="logo" />
+        </Img>
         <SocialWrapper>
-          <button>Sign up with Google</button>
-          <button>Sign up with Github</button>
+          <button>
+            <Google className="icon" />
+            Sign up with Google
+          </button>
+          <button className="github">
+            <Github className="icon" />
+            Sign up with Github
+          </button>
         </SocialWrapper>
         <SignupWrapper>
           <label for="email">Email</label>
@@ -43,19 +54,31 @@ const Wrapper = styled.div`
   height: 100;
 `;
 const Img = styled.div`
-  border: 1px solid gold;
-  width: 50px;
-  height: 50px;
   align-self: center;
   margin: 0 0 30px 0;
+  > img {
+    width: 30px;
+  }
 `;
 const SocialWrapper = styled.div`
   display: flex;
   flex-direction: column;
   > button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     padding: 8px;
     margin: 0 0 10px 0;
     font-size: var(--normal-font);
+    border: 1px solid hsl(210, 8%, 85%);
+    border-radius: 5px;
+  }
+  .icon {
+    margin: 0 10px 0 0;
+  }
+  .github {
+    background-color: var(--theme-github-black);
+    color: var(--theme-white);
   }
 `;
 const SignupWrapper = styled.div`
@@ -73,11 +96,18 @@ const SignupWrapper = styled.div`
   > input {
     margin: 10px 0 20px 0;
     padding: 6px;
+    border: 1px solid hsl(210, 8%, 85%);
+    border-radius: 5px;
   }
   > button {
     margin-top: 20px;
     padding: 8px;
     font-size: var(--normal-font);
+    font-weight: bold;
+    border: 1px solid hsl(210, 8%, 85%);
+    border-radius: 5px;
+    color: var(--theme-white);
+    background-color: var(--theme-blue);
   }
   > span {
     margin-top: 20px;

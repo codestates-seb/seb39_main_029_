@@ -1,26 +1,47 @@
 import styled from "styled-components";
 import "../index";
+import Img1 from "../Assets/Imgs/signup-1.jsx";
+import Img2 from "../Assets/Imgs/signup-2.jsx";
+import Img3 from "../Assets/Imgs/signup-3.jsx";
+import Img4 from "../Assets/Imgs/signup-4.jsx";
+import Google from "../Assets/Imgs/google";
+import Github from "../Assets/Imgs/github";
 
 function SignUp() {
   return (
     <Container>
       <Ad>
         <h1>Join the Stack Overflow community</h1>
-        <p>Get unstuck — ask a question</p>
-        <p>Unlock new privileges like voting and commenting</p>
-        <p>Save your favorite tags, filters, and jobs</p>
-        <p>Earn reputation and badges</p>
+        <p>
+          <Img1 className="img" />
+          Get unstuck — ask a question
+        </p>
+        <p>
+          <Img2 className="img" />
+          Unlock new privileges like voting and commenting
+        </p>
+        <p>
+          <Img3 className="img" />
+          Save your favorite tags
+        </p>
+        <p>
+          <Img4 className="img" />
+          Earn reputation and badges
+        </p>
         <p className="explain">
           Collaborate and share knowledge with a private group for FREE.
-          <p className="link">
-            Get Stack Overflow for Teams free for up to 50 users.
-          </p>
         </p>
       </Ad>
       <Wrapper>
         <SocialWrapper>
-          <button>Sign up with Google</button>
-          <button>Sign up with Github</button>
+          <button>
+            <Google className="icon" />
+            Sign up with Google
+          </button>
+          <button className="github">
+            <Github className="icon" />
+            Sign up with Github
+          </button>
         </SocialWrapper>
         <SignupWrapper>
           <label for="id">Display name</label>
@@ -68,16 +89,17 @@ const Ad = styled.div`
     font-weight: normal;
   }
   > p {
+    display: flex;
     font-size: var(--text-font);
     margin: 10px;
+  }
+  .img {
+    fill: var(--theme-blue);
+    margin: 0 10px 0 0;
   }
   .explain {
     font-size: var(--normal-font);
     color: var(--font-color-gray);
-  }
-  .link {
-    margin: 0;
-    color: var(--font-color-blue);
   }
 `;
 const Wrapper = styled.div`
@@ -91,9 +113,22 @@ const SocialWrapper = styled.div`
   display: flex;
   flex-direction: column;
   > button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     padding: 8px;
     margin: 0 0 10px 0;
     font-size: var(--normal-font);
+    background-color: var(--theme-white);
+    border: 1px solid hsl(210, 8%, 85%);
+    border-radius: 5px;
+  }
+  .icon {
+    margin: 0 10px 0 0;
+  }
+  .github {
+    background-color: var(--theme-github-black);
+    color: var(--theme-white);
   }
 `;
 const SignupWrapper = styled.div`
@@ -111,11 +146,18 @@ const SignupWrapper = styled.div`
   > input {
     margin: 10px 0 20px 0;
     padding: 6px;
+    border: 1px solid hsl(210, 8%, 85%);
+    border-radius: 5px;
   }
   > button {
     margin-top: 20px;
     padding: 8px;
+    border: 1px solid hsl(210, 8%, 85%);
+    border-radius: 5px;
     font-size: var(--normal-font);
+    font-weight: bold;
+    color: var(--theme-white);
+    background-color: var(--theme-blue);
   }
   > p {
     font-size: var(--small-font);

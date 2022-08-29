@@ -58,7 +58,6 @@ public class Posts {
         this.commentsList.add(comments);
         if(comments.getPosts() != this){
             comments.setPosts(this);
-
         }
     }
 

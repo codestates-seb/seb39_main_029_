@@ -57,7 +57,7 @@ public class Posts {
     }
 
     @OneToMany(mappedBy = "posts", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
-    List<Comments> commentsList = new ArrayList<>();
+    private List<Comments> commentsList = new ArrayList<>();
 
     public void addComments(Comments comments){
         this.commentsList.add(comments);
@@ -72,7 +72,7 @@ public class Posts {
     private int commentsCount;
 
     @OneToMany(mappedBy = "posts", cascade = CascadeType.REMOVE)
-    List<Pvote> PVotes = new ArrayList<>();
+    private List<Pvote> PVotes = new ArrayList<>();
 
     public void addPVote(Pvote pvote){
         this.PVotes.add(pvote);

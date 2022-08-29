@@ -4,9 +4,7 @@ package codestates.preproject.stackoverflow.post.entity;
 import codestates.preproject.stackoverflow.comments.entity.Comments;
 import codestates.preproject.stackoverflow.member.entity.Member;
 import codestates.preproject.stackoverflow.pvote.entity.Pvote;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -14,7 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Posts {
@@ -36,7 +35,7 @@ public class Posts {
     private String content;
 
     @Column
-    private int vote=0;
+    private int votes=0;
 
     @Column(name="isvote")
     private boolean isvote=false;
@@ -52,14 +51,14 @@ public class Posts {
     }
 
     @OneToMany(mappedBy = "posts", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
-    List<Comments> commentsList = new ArrayList<>();
+    private List<Comments> commentsList = new ArrayList<>();
 
-    public void addComments(Comments comments){
-        this.commentsList.add(comments);
-        if(comments.getPosts() != this){
-            comments.setPosts(this);
-        }
-    }
+//    public void addComments(Comments comments){
+//        this.commentsList.add(comments);
+//        if(comments.getPosts() != this){
+//            comments.setPosts(this);
+//        }
+//    }
 
     //상수가 작성한 코드 입니다.
     @Column

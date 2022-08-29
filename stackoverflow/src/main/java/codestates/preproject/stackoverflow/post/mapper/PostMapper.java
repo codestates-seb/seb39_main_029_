@@ -67,7 +67,7 @@ public interface PostMapper {
         post.setPostId(posts.getPostId());
         post.setSubject(posts.getSubject());
         post.setContent(posts.getContent());
-        post.setVotes(posts.getVote());
+        post.setVotes(posts.getVotes());
         post.setMemberId(posts.getMember().getMemberid());
         post.setCreateAt(posts.getCreatedAt());
         post.setPostTag(postTagsResponseDto(posts.getPostTagsList()));
@@ -114,7 +114,7 @@ public interface PostMapper {
         post.setPostId(posts.getPostId());
         post.setSubject(posts.getSubject());
         post.setMemberId(posts.getMember().getMemberid());
-        post.setVotes(posts.getVote());
+        post.setVotes(posts.getVotes());
         post.setMemberId(posts.getMember().getMemberid());
         post.setCreateAt(posts.getCreatedAt());
         post.setPostTag(postTagsResponseDto(posts.getPostTagsList()));

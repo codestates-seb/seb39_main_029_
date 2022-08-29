@@ -113,7 +113,6 @@ public class PostService {
 
     @Transactional(readOnly = true)
     public Posts findVerifiedPosts(long postId) {
-
         Optional<Posts> post = postRepository.findById(postId);
         Posts findPosts = post.orElseThrow(() ->
                 new BusinessLogicException(ExceptionCode.POST_NOT_FOUND));
@@ -144,9 +143,12 @@ public class PostService {
     //상수가 추가한 posts 서비스 코드 입니다.
     public List<PostDto.uResponse> findUserPosts(long memberid, int page, int size){
         List<Posts> postsList = postRepository.findByMemberid(memberid, size*(page-1), size);
-        List<PostDto.uResponse> result = postMapper.PostsToPostuResponseDto(postsList);
+        List<Posts> newList = new ArrayList<>();
+        for(Posts posts : postsList){
+            newList.add(findTagsId(posts));
+        }
+        List<PostDto.uResponse> result = postMapper.PostsToPostuResponseDto(newList);
         return result;
-
     }
 
     public void voteUpMember(long memberId) {

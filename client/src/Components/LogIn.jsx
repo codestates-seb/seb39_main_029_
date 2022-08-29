@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import "../index";
 import Logo from "../Assets/Imgs/stackoverflow-only";
@@ -5,6 +6,8 @@ import Google from "../Assets/Imgs/google";
 import Github from "../Assets/Imgs/github";
 
 function LogIn() {
+  const navigate = useNavigate();
+
   return (
     <Container>
       <Wrapper>
@@ -26,9 +29,23 @@ function LogIn() {
           <input type="email" id="email" />
           <label for="pw">Password</label>
           <input type="password" id="pw" />
-          <button>Log in</button>
+          <button
+            onClick={() => {
+              navigate("/home");
+            }}
+          >
+            Log in
+          </button>
           <span>
-            Don’t have an account? <span className="toMain">Sign up</span>
+            Don’t have an account?{" "}
+            <span
+              className="toSignup"
+              onClick={() => {
+                navigate("/signup");
+              }}
+            >
+              Sign up
+            </span>
           </span>
         </SignupWrapper>
       </Wrapper>
@@ -67,8 +84,14 @@ const SocialWrapper = styled.div`
     padding: 8px;
     margin: 0 0 10px 0;
     font-size: var(--normal-font);
+    background-color: var(--theme-white);
     border: 1px solid hsl(210, 8%, 85%);
     border-radius: 5px;
+    cursor: pointer;
+
+    :hover {
+      filter: brightness(90%);
+    }
   }
   .icon {
     margin: 0 10px 0 0;
@@ -105,12 +128,19 @@ const SignupWrapper = styled.div`
     border-radius: 5px;
     color: var(--theme-white);
     background-color: var(--theme-blue);
+    cursor: pointer;
+
+    :hover {
+      filter: brightness(90%);
+    }
   }
   > span {
     margin-top: 20px;
     font-size: var(--small-font);
+    cursor: default;
   }
-  .toMain {
+  .toSignup {
+    cursor: pointer;
     color: var(--font-color-blue);
   }
 `;

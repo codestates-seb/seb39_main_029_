@@ -10,7 +10,14 @@ function MainNav() {
     <Container>
       <Line />
       <Navbody>
-        <Stackoverflowlogo className="logo" alt="react" />
+        <Stackoverflowlogo
+          className="logo"
+          alt="react"
+          cursor="pointer"
+          onClick={() => {
+            navigate("/");
+          }}
+        />
         <div className="btnwrapper">
           <ColorButton
             mode="GREY"

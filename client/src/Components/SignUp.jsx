@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import "../index";
 import Img1 from "../Assets/Imgs/signup-1.jsx";
@@ -8,6 +9,8 @@ import Google from "../Assets/Imgs/google";
 import Github from "../Assets/Imgs/github";
 
 function SignUp() {
+  const navigate = useNavigate();
+
   return (
     <Container>
       <Ad>
@@ -54,9 +57,23 @@ function SignUp() {
             Passwords must contain at least eight characters, including at least
             1 letter and 1 number.
           </p>
-          <button>Sign up</button>
+          <button
+            onClick={() => {
+              navigate("/");
+            }}
+          >
+            Sign up
+          </button>
           <span>
-            Already have an account? <span className="toMain">Log in</span>
+            Already have an account?{" "}
+            <span
+              className="toLogin"
+              onClick={() => {
+                navigate("/login");
+              }}
+            >
+              Log in
+            </span>
           </span>
         </SignupWrapper>
       </Wrapper>
@@ -122,6 +139,11 @@ const SocialWrapper = styled.div`
     background-color: var(--theme-white);
     border: 1px solid hsl(210, 8%, 85%);
     border-radius: 5px;
+    cursor: pointer;
+
+    :hover {
+      filter: brightness(90%);
+    }
   }
   .icon {
     margin: 0 10px 0 0;
@@ -158,17 +180,25 @@ const SignupWrapper = styled.div`
     font-weight: bold;
     color: var(--theme-white);
     background-color: var(--theme-blue);
+    cursor: pointer;
+
+    :hover {
+      filter: brightness(90%);
+    }
   }
   > p {
     font-size: var(--small-font);
     color: var(--font-color-gray);
+    cursor: default;
   }
   > span {
     margin-top: 20px;
     font-size: var(--small-font);
+    cursor: default;
   }
-  .toMain {
+  .toLogin {
     color: var(--font-color-blue);
+    cursor: pointer;
   }
 `;
 

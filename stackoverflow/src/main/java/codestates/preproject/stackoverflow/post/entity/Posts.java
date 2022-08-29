@@ -65,7 +65,7 @@ public class Posts {
     private int commentsCount;
 
     @OneToMany(mappedBy = "posts", cascade = CascadeType.REMOVE)
-    List<Pvote> PVotes = new ArrayList<>();
+    private List<Pvote> PVotes = new ArrayList<>();
 
     public void addPVote(Pvote pvote){
         this.PVotes.add(pvote);

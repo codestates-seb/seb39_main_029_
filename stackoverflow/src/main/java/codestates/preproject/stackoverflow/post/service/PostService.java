@@ -49,6 +49,8 @@ public class PostService {
 
         verifyPosts(posts);
         Posts post = findTagsId(posts);
+        post.setMember(memberService.findVerifiedMember(post.getMember().getMemberid()));
+
         return postRepository.save(post);
     }
 
@@ -186,6 +188,7 @@ public class PostService {
             throw new BusinessLogicException(ExceptionCode.NOT_VOTES);
         }
     }
+
 
 //    public List<Posts> findPostsByWord(int page, int size, String word){
 //        StringBuilder sb = new StringBuilder(word);

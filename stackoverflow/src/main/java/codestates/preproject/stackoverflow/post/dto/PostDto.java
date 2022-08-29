@@ -71,6 +71,8 @@ public class PostDto {
         private LocalDateTime createAt;
         private List<CommentsDto.Response> commentsList;
         private int commentsCount;
+        private String nickName;
+        private int reputation;
     }
 
 

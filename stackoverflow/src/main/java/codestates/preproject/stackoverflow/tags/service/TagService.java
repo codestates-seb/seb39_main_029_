@@ -27,6 +27,7 @@ public class TagService {
     }
 
     public Tags createTags(Tags tags) {
+        findTagsName(tags.getName());
         return repository.save(tags);
     }
 
@@ -69,5 +70,14 @@ public class TagService {
                         new BusinessLogicException(ExceptionCode.TAGS_NOT_FOUND));
 
         return findTags;
+    }
+
+    public void findTagsName(String name) {
+        Optional<Tags> tag=repository.findByName(name);
+
+        if (tag.isPresent()) {
+            throw new BusinessLogicException(ExceptionCode.TAGS_EXISTS);
+        }
+
     }
 }

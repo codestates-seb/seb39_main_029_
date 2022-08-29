@@ -36,10 +36,10 @@ public class Posts {
     private String content;
 
     @Column
-    private int votes=0;
+    private int vote=0;
 
-    @Column(name="isCheck")
-    private boolean isCheck=false;
+    @Column(name="isvote")
+    private boolean isvote=false;
 
     @Column(nullable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
@@ -76,7 +76,9 @@ public class Posts {
         }
     }
 
-    public boolean getIsCheck() {
-        return this.isCheck;
+
+
+    public boolean getIsVote() {
+        return this.isvote;
     }
 }

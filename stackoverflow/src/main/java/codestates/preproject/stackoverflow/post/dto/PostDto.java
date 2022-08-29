@@ -67,7 +67,7 @@ public class PostDto {
         private long memberId;
         private String content;
         private List<TagsResponse> postTag;
-        private int vote;
+        private int votes;
         private LocalDateTime createAt;
         private List<CommentsDto.Response> commentsList;
         private int commentsCount;
@@ -79,7 +79,7 @@ public class PostDto {
     @NoArgsConstructor
     @Setter
     public static class TagsResponse {
-        private long tageId;
+        private long tagId;
         private String name;
     }
 
@@ -116,11 +116,11 @@ public class PostDto {
         private long memberId;
         private String content;
         private List<TagsResponse> postTag;
-        private int vote;
+        private int votes;
         private LocalDateTime createAt;
         private List<CommentsDto.Response> commentsList;
         private int commentsCount;
         private int reputation;
-        private boolean check=false;
+        private boolean isvote;
     }
 }

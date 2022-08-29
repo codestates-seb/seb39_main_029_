@@ -186,5 +186,14 @@ public class PostService {
             throw new BusinessLogicException(ExceptionCode.NOT_VOTES);
         }
     }
+
+//    public List<Posts> findPostsByWord(int page, int size, String word){
+//        StringBuilder sb = new StringBuilder(word);
+//        sb.append("%",0,1);
+//        sb.append("%");
+//        word = sb.toString();
+//        List<Posts> list = postRepository.findByWord(word,size*(page-1), size);
+//        return list;
+//    }
 }
 

@@ -23,6 +23,8 @@ import java.util.List;
 @RequestMapping("/v1/posts")
 @Validated
 @Slf4j
+@CrossOrigin(origins = {"https://localhost:3000","https://localhost:3001","localhost:3000","localhost:3001"},
+        allowedHeaders = {"POST","GET","PATCH","DELETE"})
 public class PostController {
 
     private final CommentsService commentsService;
@@ -105,4 +107,18 @@ public class PostController {
         PostDto.voteResponse response = mapper.PostsToVoteResponse(post);
         return new ResponseEntity(response, HttpStatus.OK);
     }
+
+//    @GetMapping("/word")
+//    public ResponseEntity getPostsByWord(@Positive @RequestParam int page,
+//                                   @Positive @RequestParam int size,
+//                                   @RequestParam String arrange,
+//                                   @RequestParam Long tagCheckId
+//    ) {
+//        List<Posts> members = postService.findPostsByWord(page,size,arrange);
+//        if (tagCheckId != -1) {
+//            members = postService.tagsCheck(members, tagCheckId);
+//        }
+//        return new ResponseEntity<>(new MultiResponseDto<>(mapper.PostsToResponses(members), null),
+//                HttpStatus.OK);
+//    }
 }

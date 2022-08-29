@@ -23,6 +23,9 @@ import java.util.List;
 @RequestMapping("/v1/posts")
 @Validated
 @Slf4j
+@CrossOrigin(originPatterns = {"https://localhost:3000","https://localhost:3001","http://localhost:3000","http://localhost:3001",
+        "http://localhost:3000/","http://localhost:3001/"},
+        allowedHeaders = {"POST","GET","PATCH","DELETE"})
 public class PostController {
 
     private final CommentsService commentsService;
@@ -50,7 +53,6 @@ public class PostController {
             @Valid @RequestBody PostDto.Patch requestBody
             ) {
         requestBody.setPostId(postId);
-
         Posts posts = postService.updatePost(mapper.PatchPostsToPosts(requestBody));
         return new ResponseEntity<>( mapper.PostsToResponse(posts), HttpStatus.OK);
     }
@@ -106,4 +108,18 @@ public class PostController {
         PostDto.voteResponse response = mapper.PostsToVoteResponse(post);
         return new ResponseEntity(response, HttpStatus.OK);
     }
+
+//    @GetMapping("/word")
+//    public ResponseEntity getPostsByWord(@Positive @RequestParam int page,
+//                                   @Positive @RequestParam int size,
+//                                   @RequestParam String arrange,
+//                                   @RequestParam Long tagCheckId
+//    ) {
+//        List<Posts> members = postService.findPostsByWord(page,size,arrange);
+//        if (tagCheckId != -1) {
+//            members = postService.tagsCheck(members, tagCheckId);
+//        }
+//        return new ResponseEntity<>(new MultiResponseDto<>(mapper.PostsToResponses(members), null),
+//                HttpStatus.OK);
+//    }
 }

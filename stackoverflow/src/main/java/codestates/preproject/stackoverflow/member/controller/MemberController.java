@@ -31,6 +31,9 @@ import java.util.Map;
 @RequestMapping("/v1/members")
 @Validated
 @Slf4j
+@CrossOrigin(originPatterns = {"https://localhost:3000","https://localhost:3001","http://localhost:3000","http://localhost:3001",
+        "http://localhost:3000/","http://localhost:3001/"},
+        allowedHeaders = {"POST","GET","PATCH","DELETE"})
 public class MemberController {
     private final MemberService memberService;
 

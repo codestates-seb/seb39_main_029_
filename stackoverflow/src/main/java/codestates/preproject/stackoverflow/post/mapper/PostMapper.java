@@ -15,7 +15,6 @@ public interface PostMapper {
 
     default Posts makePostsToPosts(PostDto.Post requestBody){
         Posts posts = new Posts();
-
         Member member = new Member();
         member.setMemberid(requestBody.getMemberId());
 
@@ -40,7 +39,6 @@ public interface PostMapper {
 
         return posts;
     }
-
     default Posts PatchPostsToPosts(PostDto.Patch requestBody) {
         Posts posts = new Posts();
         posts.setPostId(requestBody.getPostId());
@@ -64,13 +62,12 @@ public interface PostMapper {
 
         return posts;
     }
-
     default PostDto.Response PostsToResponse(Posts posts) {
         PostDto.Response post = new PostDto.Response();
         post.setPostId(posts.getPostId());
         post.setSubject(posts.getSubject());
         post.setContent(posts.getContent());
-        post.setVotes(posts.getVote());
+        post.setVotes(posts.getVotes());
         post.setMemberId(posts.getMember().getMemberid());
         post.setCreateAt(posts.getCreatedAt());
         post.setPostTag(postTagsResponseDto(posts.getPostTagsList()));
@@ -102,10 +99,12 @@ public interface PostMapper {
             PostDto.uResponse response = new PostDto.uResponse();
             response.setPostId(posts.getPostId());
             response.setCreateAt(posts.getCreatedAt());
-            //List<PostDto.TagsResponse> tags = TagsResponseDto(posts.getTag());
-            //response.setTag(tags);
-            response.setVote(posts.getVote());
+
+            response.setVote(posts.getVotes());
+
             response.setCommentsCount(posts.getCommentsCount());
+            response.setSubject(posts.getSubject());
+            response.setTag(postTagsResponseDto(posts.getPostTagsList()));
             return response;
         }).collect(Collectors.toList());
     }
@@ -115,7 +114,7 @@ public interface PostMapper {
         post.setPostId(posts.getPostId());
         post.setSubject(posts.getSubject());
         post.setMemberId(posts.getMember().getMemberid());
-        post.setVotes(posts.getVote());
+        post.setVotes(posts.getVotes());
         post.setMemberId(posts.getMember().getMemberid());
         post.setCreateAt(posts.getCreatedAt());
         post.setPostTag(postTagsResponseDto(posts.getPostTagsList()));

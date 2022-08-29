@@ -1,7 +1,5 @@
 package codestates.preproject.stackoverflow.member.entity;
 
-
-
 import codestates.preproject.stackoverflow.comments.entity.Comments;
 
 import codestates.preproject.stackoverflow.post.entity.Posts;

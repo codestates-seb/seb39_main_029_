@@ -113,7 +113,6 @@ public class PostService {
 
     @Transactional(readOnly = true)
     public Posts findVerifiedPosts(long postId) {
-
         Optional<Posts> post = postRepository.findById(postId);
         Posts findPosts = post.orElseThrow(() ->
                 new BusinessLogicException(ExceptionCode.POST_NOT_FOUND));
@@ -144,9 +143,12 @@ public class PostService {
     //상수가 추가한 posts 서비스 코드 입니다.
     public List<PostDto.uResponse> findUserPosts(long memberid, int page, int size){
         List<Posts> postsList = postRepository.findByMemberid(memberid, size*(page-1), size);
-        List<PostDto.uResponse> result = postMapper.PostsToPostuResponseDto(postsList);
+        List<Posts> newList = new ArrayList<>();
+        for(Posts posts : postsList){
+            newList.add(findTagsId(posts));
+        }
+        List<PostDto.uResponse> result = postMapper.PostsToPostuResponseDto(newList);
         return result;
-
     }
 
     public void voteUpMember(long memberId) {
@@ -161,7 +163,7 @@ public class PostService {
         Pvote pvote=pVoteService.findPVote(postId, memberId);
         if (pvote == null) {
             Posts post =findVerifiedPosts(postId);
-            post.setVote(post.getVote()+1);
+            post.setVotes(post.getVotes()+1);
             voteUpMember(post.getMember().getMemberid());
             pVoteService.saveVotes(memberId,post);
             post.setIsvote(true);
@@ -175,7 +177,7 @@ public class PostService {
         Pvote pvote=pVoteService.findPVote(postId, memberId);
         if (pvote != null) {
             Posts post =findVerifiedPosts(postId);
-            post.setVote(post.getVote()-1);
+            post.setVotes(post.getVotes()-1);
             voteDownMember(post.getMember().getMemberid());
             pVoteService.deleteVotes(pvote);
             post.setIsvote(false);
@@ -184,5 +186,14 @@ public class PostService {
             throw new BusinessLogicException(ExceptionCode.NOT_VOTES);
         }
     }
+
+//    public List<Posts> findPostsByWord(int page, int size, String word){
+//        StringBuilder sb = new StringBuilder(word);
+//        sb.append("%",0,1);
+//        sb.append("%");
+//        word = sb.toString();
+//        List<Posts> list = postRepository.findByWord(word,size*(page-1), size);
+//        return list;
+//    }
 }
 

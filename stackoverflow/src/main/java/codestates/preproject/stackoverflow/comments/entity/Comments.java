@@ -40,6 +40,10 @@ public class Comments {
 
     public void setPosts(Posts posts) {
         this.posts = posts;
+        /*if(!posts.getCommentsList().contains(this)){
+            posts.addComments(this);
+        }*/
+
     }
 
     public void addlist(Cvote cvote){

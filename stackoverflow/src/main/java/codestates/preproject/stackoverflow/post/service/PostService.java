@@ -163,7 +163,7 @@ public class PostService {
         Pvote pvote=pVoteService.findPVote(postId, memberId);
         if (pvote == null) {
             Posts post =findVerifiedPosts(postId);
-            post.setVote(post.getVote()+1);
+            post.setVotes(post.getVotes()+1);
             voteUpMember(post.getMember().getMemberid());
             pVoteService.saveVotes(memberId,post);
             post.setIsvote(true);
@@ -177,7 +177,7 @@ public class PostService {
         Pvote pvote=pVoteService.findPVote(postId, memberId);
         if (pvote != null) {
             Posts post =findVerifiedPosts(postId);
-            post.setVote(post.getVote()-1);
+            post.setVotes(post.getVotes()-1);
             voteDownMember(post.getMember().getMemberid());
             pVoteService.deleteVotes(pvote);
             post.setIsvote(false);

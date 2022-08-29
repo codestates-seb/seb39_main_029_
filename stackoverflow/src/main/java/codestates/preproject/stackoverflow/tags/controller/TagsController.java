@@ -20,7 +20,7 @@ import java.util.List;
 @RequestMapping("/v1/tags")
 @Validated
 @Slf4j
-@CrossOrigin(origins = {"https://localhost:3000","https://localhost:3001","http://localhost:3000","http://localhost:3001",
+@CrossOrigin(originPatterns = {"https://localhost:3000","https://localhost:3001","http://localhost:3000","http://localhost:3001",
         "http://localhost:3000/","http://localhost:3001/"},
         allowedHeaders = {"POST","GET","PATCH","DELETE"})
 public class TagsController {

@@ -70,7 +70,7 @@ public interface PostMapper {
         post.setPostId(posts.getPostId());
         post.setSubject(posts.getSubject());
         post.setContent(posts.getContent());
-        post.setVote(posts.getVotes());
+        post.setVotes(posts.getVote());
         post.setMemberId(posts.getMember().getMemberid());
         post.setCreateAt(posts.getCreatedAt());
         post.setPostTag(postTagsResponseDto(posts.getPostTagsList()));
@@ -86,7 +86,7 @@ public interface PostMapper {
         List<PostDto.TagsResponse> tags=list.stream()
                 .map(postTag -> {
                     PostDto.TagsResponse tagResponse = new PostDto.TagsResponse();
-                    tagResponse.setTageId(postTag.getTags().getTagsId());
+                    tagResponse.setTagId(postTag.getTags().getTagsId());
                     tagResponse.setName(postTag.getTags().getName());
 
                     return tagResponse;
@@ -104,7 +104,7 @@ public interface PostMapper {
             response.setCreateAt(posts.getCreatedAt());
             //List<PostDto.TagsResponse> tags = TagsResponseDto(posts.getTag());
             //response.setTag(tags);
-            response.setVote(posts.getVotes());
+            response.setVote(posts.getVote());
             response.setCommentsCount(posts.getCommentsCount());
             return response;
         }).collect(Collectors.toList());
@@ -115,14 +115,14 @@ public interface PostMapper {
         post.setPostId(posts.getPostId());
         post.setSubject(posts.getSubject());
         post.setMemberId(posts.getMember().getMemberid());
-        post.setVote(posts.getVotes());
+        post.setVotes(posts.getVote());
         post.setMemberId(posts.getMember().getMemberid());
         post.setCreateAt(posts.getCreatedAt());
         post.setPostTag(postTagsResponseDto(posts.getPostTagsList()));
         post.setCommentsList(post.getCommentsList());
         post.setCommentsCount(posts.getCommentsCount());
         post.setReputation(posts.getMember().getReputation());
-        post.setCheck(posts.getIsCheck());
+        post.setIsvote(posts.getIsVote());
 
         return post;
     }

@@ -62,9 +62,14 @@ public class PostService {
         Optional.ofNullable(posts.getPostTagsList())
                 .ifPresent(tag -> {
                     for (int i = 0; i < tag.size(); i++) {
+                        post.getPostTagsList().get(i).setTags(
+                                tag.get(i).getTags()
+                        );
+
                         post.getPostTagsList().get(i).getTags().setName(
                                 tagService.findVerifiedTags(tag.get(i).getTags().getTagsId()).getName()
                         );
+
                     }
                 });
         //상수가 추가한 코드 입니다.
@@ -96,9 +101,7 @@ public class PostService {
                     result.add(posts.get(i));
                 }
             }
-
         }
-
         return result;
     }
 
@@ -158,10 +161,10 @@ public class PostService {
         Pvote pvote=pVoteService.findPVote(postId, memberId);
         if (pvote == null) {
             Posts post =findVerifiedPosts(postId);
-            post.setVotes(post.getVotes()+1);
+            post.setVote(post.getVote()+1);
             voteUpMember(post.getMember().getMemberid());
             pVoteService.saveVotes(memberId,post);
-            post.setCheck(true);
+            post.setIsvote(true);
             return postRepository.save(post);
         }else{
             throw new BusinessLogicException(ExceptionCode.VOTES_ALREADY);
@@ -172,10 +175,10 @@ public class PostService {
         Pvote pvote=pVoteService.findPVote(postId, memberId);
         if (pvote != null) {
             Posts post =findVerifiedPosts(postId);
-            post.setVotes(post.getVotes()-1);
+            post.setVote(post.getVote()-1);
             voteDownMember(post.getMember().getMemberid());
             pVoteService.deleteVotes(pvote);
-            post.setCheck(false);
+            post.setIsvote(false);
             return postRepository.save(post);
         }else{
             throw new BusinessLogicException(ExceptionCode.NOT_VOTES);

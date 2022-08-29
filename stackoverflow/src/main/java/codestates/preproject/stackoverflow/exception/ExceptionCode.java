@@ -16,7 +16,9 @@ public enum ExceptionCode {
 
     COMMENTS_MEMBER_NOT_SAME(404, "Member is not Owner"),
     VOTES_ALREADY(404,"Votes Already"),
-    NOT_VOTES(404,"Not Vote");
+    NOT_VOTES(404,"Not Vote"),
+
+    TAGS_EXISTS(409, "Tags is exists");
 
 
 

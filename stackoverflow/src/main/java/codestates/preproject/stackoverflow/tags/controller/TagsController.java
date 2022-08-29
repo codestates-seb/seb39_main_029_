@@ -33,7 +33,7 @@ public class TagsController {
 
     @PostMapping
     public ResponseEntity postTags(@Valid @RequestBody TagsDto.Post requestBody) {
-        System.out.println(requestBody.getName());
+
         Tags tag = tagService.createTags(mapper.TagPostDtoToTag(requestBody));
 
         return new ResponseEntity(mapper.tagToTagResponse(tag), HttpStatus.CREATED);

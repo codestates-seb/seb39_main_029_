@@ -12,7 +12,8 @@ public interface TagRepository extends JpaRepository<Tags,Long> {
     @Query(value = "SELECT * FROM TAGS WHERE POSTS_ID = :postId", nativeQuery = true)
     Optional<List<Tags>> findTagsAll(long postId);
 
-
+    @Query(value = "SELECT * FROM TAGS WHERE NAME = :name", nativeQuery = true)
+    Optional<Tags> findByName(String name);
 }
 
 

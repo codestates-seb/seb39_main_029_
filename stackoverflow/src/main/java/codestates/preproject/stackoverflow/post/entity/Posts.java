@@ -53,13 +53,6 @@ public class Posts {
     @OneToMany(mappedBy = "posts", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private List<Comments> commentsList = new ArrayList<>();
 
-//    public void addComments(Comments comments){
-//        this.commentsList.add(comments);
-//        if(comments.getPosts() != this){
-//            comments.setPosts(this);
-//        }
-//    }
-
     //상수가 작성한 코드 입니다.
     @Column
     private int commentsCount;

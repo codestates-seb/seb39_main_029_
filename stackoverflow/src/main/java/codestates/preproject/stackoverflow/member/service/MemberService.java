@@ -5,6 +5,7 @@ import codestates.preproject.stackoverflow.exception.BusinessLogicException;
 import codestates.preproject.stackoverflow.exception.ExceptionCode;
 import codestates.preproject.stackoverflow.member.entity.Member;
 import codestates.preproject.stackoverflow.member.repository.MemberRepository;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,19 +16,26 @@ import java.util.Optional;
 public class MemberService {
     private MemberRepository memberRepository;
 
-    public MemberService(MemberRepository memberRepository){
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    public MemberService(MemberRepository memberRepository, BCryptPasswordEncoder bCryptPasswordEncoder){
         this.memberRepository = memberRepository;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     public void createMember(Member member){
         verifyExistsNickName(member.getNickName());
+        String password = member.getPassword();
+        String BCypassord = bCryptPasswordEncoder.encode(password);
+        member.setPassword(BCypassord);
+        member.setRoles("ROLE_ADMIN");
         memberRepository.save(member);
     }
 
     public Member loginMember(Member member){
         Optional<Member> optionalMember = memberRepository.findByEmail(member.getEmail());
         Member findMember = optionalMember.orElseThrow(()->new BusinessLogicException(ExceptionCode.EMAIL_NOT_FOUND));
-        if(!findMember.getPassword().equals(member.getPassword())){
+        if(!findMember.getPassword().equals(bCryptPasswordEncoder.encode(member.getPassword()))){
             throw new BusinessLogicException(ExceptionCode.PASSWORD_NOT_FOUND);
         }
         return findMember;

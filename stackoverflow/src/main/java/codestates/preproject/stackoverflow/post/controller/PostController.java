@@ -25,9 +25,9 @@ import java.util.List;
 @RequestMapping("/v1/posts")
 @Validated
 @Slf4j
-@CrossOrigin(originPatterns = {"https://localhost:3000","https://localhost:3001","http://localhost:3000","http://localhost:3001",
-        "http://localhost:3000/","http://localhost:3001/"},
-        allowedHeaders = {"POST","GET","PATCH","DELETE"})
+//@CrossOrigin(originPatterns = {"https://localhost:3000","https://localhost:3001","http://localhost:3000","http://localhost:3001",
+//        "http://localhost:3000/","http://localhost:3001/"},
+//        allowedHeaders = {"POST","GET","PATCH","DELETE"})
 public class PostController {
 
     private final CommentsService commentsService;

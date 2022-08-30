@@ -31,9 +31,9 @@ import java.util.Map;
 @RequestMapping("/v1/members")
 @Validated
 @Slf4j
-@CrossOrigin(originPatterns = {"https://localhost:3000","https://localhost:3001","http://localhost:3000","http://localhost:3001",
-        "http://localhost:3000/","http://localhost:3001/"},
-        allowedHeaders = {"POST","GET","PATCH","DELETE"})
+//@CrossOrigin(originPatterns = {"https://localhost:3000","https://localhost:3001","http://localhost:3000","http://localhost:3001",
+//        "http://localhost:3000/","http://localhost:3001/"},
+//        allowedHeaders = {"POST","GET","PATCH","DELETE"})
 public class MemberController {
     private final MemberService memberService;
 
@@ -53,15 +53,7 @@ public class MemberController {
         memberService.createMember(member);
         return new ResponseEntity(HttpStatus.CREATED);
     }
-
-    @PostMapping("/login")
-    public ResponseEntity loginMember(@Valid @RequestBody MemberDto.Login login){
-        Member member = memberMapper.memberLoginToMember(login);
-        Member findMember = memberService.loginMember(member);
-        return new ResponseEntity(memberMapper.memberToMemberResponseDto(findMember), HttpStatus.OK);
-    }
-
-    @PatchMapping("/update/{member-id}")
+    @PatchMapping("/v1/members/update/{member-id}")
     public ResponseEntity patchMember(@PathVariable("member-id") @Positive long memberid,
                                       @RequestBody MemberDto.Patch patch){
         patch.setMemberid(memberid);
@@ -72,7 +64,7 @@ public class MemberController {
         return new ResponseEntity(result,HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete/{member-id}")
+    @DeleteMapping("/v1/members/delete/{member-id}")
     public ResponseEntity deleteMember(@PathVariable("member-id") @Positive long memberid){
         memberService.deleteMember(memberid);
 
@@ -80,7 +72,7 @@ public class MemberController {
 
     }
 
-    @GetMapping("/myPage/{member-id}")
+    @GetMapping("/v1/members/myPage/{member-id}")
     public ResponseEntity showMember(@PathVariable("member-id") long memberid, @RequestParam int page, @RequestParam int size){
         Member member = memberService.findVerifiedMember(memberid);
         MemberDto.Response response = memberMapper.memberToMemberResponseDto(member);
@@ -88,4 +80,9 @@ public class MemberController {
         return new ResponseEntity(response,HttpStatus.OK);
     }
 
+    @GetMapping("/myPage")
+    public ResponseEntity test(){
+        System.out.println("몇번 요청 되나");
+        return new ResponseEntity("이건 몇번 요청 되나",HttpStatus.OK);
+    }
 }

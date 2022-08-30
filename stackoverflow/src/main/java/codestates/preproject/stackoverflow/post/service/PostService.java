@@ -49,6 +49,8 @@ public class PostService {
 
         verifyPosts(posts);
         Posts post = findTagsId(posts);
+        post.setMember(memberService.findVerifiedMember(post.getMember().getMemberid()));
+
         return postRepository.save(post);
     }
 

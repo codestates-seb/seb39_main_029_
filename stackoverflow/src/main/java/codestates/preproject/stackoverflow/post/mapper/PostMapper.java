@@ -73,6 +73,10 @@ public interface PostMapper {
         post.setPostTag(postTagsResponseDto(posts.getPostTagsList()));
         post.setCommentsList(post.getCommentsList());
         post.setCommentsCount(posts.getCommentsCount());
+
+        post.setNickName(posts.getMember().getNickName());
+        post.setReputation(posts.getMember().getReputation());
+
         return post;
     }
 

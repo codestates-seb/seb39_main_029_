@@ -1,20 +1,25 @@
 import styled from "styled-components";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
-function PostBox() {
+function PostBox({ post }) {
   return (
     <Container>
       <Leftside>
-        <div className="votes">3321 votes</div>
-        <div className="answer">31 answer</div>
+        <div className="votes">{post.votes} votes</div>
+        <div className="answer">{post.commentsCount} answer</div>
       </Leftside>
       <Rightside>
-        <Righttop>
-          how can i make pre-project perfectly, im afraid i cant!!!
-        </Righttop>
+        <Righttop>{post.subject}</Righttop>
         <Rightbottom>
-          <div className="tags">javascript</div>
-          <div className="tags">java</div>
-          <div className="tags">react</div>
+          {post.postTag.map((el, idx) => {
+            return (
+              <div className="tags" key={idx}>
+                {el.name}
+              </div>
+            );
+          })}
+
           <div className="footer">
             <div className="nickname">Iguwana</div>
             <div className="reputation">029</div>

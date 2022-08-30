@@ -7,9 +7,34 @@ import Img3 from "../Assets/Imgs/signup-3.jsx";
 import Img4 from "../Assets/Imgs/signup-4.jsx";
 import Google from "../Assets/Imgs/google";
 import Github from "../Assets/Imgs/github";
+import { useState } from "react";
+import axios from "axios";
 
 function SignUp() {
   const navigate = useNavigate();
+  const [nickname, setNickname] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  console.log(nickname);
+  console.log(email);
+  console.log(password);
+
+  const SignUpForm = {
+    nickName: nickname,
+    password: password,
+    email: email,
+  };
+
+  const SignUpHandler = () => {
+    axios
+      .post(
+        "http://ec2-15-165-204-159.ap-northeast-2.compute.amazonaws.com:8080/v1/members/join",
+        SignUpForm
+      )
+      .then((res) => {
+        console.log(res);
+      });
+  };
 
   return (
     <Container>
@@ -48,17 +73,36 @@ function SignUp() {
         </SocialWrapper>
         <SignupWrapper>
           <label for="id">Display name</label>
-          <input type="text" id="id" />
+          <input
+            type="text"
+            id="id"
+            onChange={(e) => {
+              setNickname(e.target.value);
+            }}
+          />
           <label for="email">Email</label>
-          <input type="email" id="email" />
+          <input
+            type="email"
+            id="email"
+            onChange={(e) => {
+              setEmail(e.target.value);
+            }}
+          />
           <label for="pw">Password</label>
-          <input type="password" id="pw" />
+          <input
+            type="password"
+            id="pw"
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
+          />
           <p>
             Passwords must contain at least eight characters, including at least
             1 letter and 1 number.
           </p>
           <button
             onClick={() => {
+              SignUpHandler();
               navigate("/");
             }}
           >

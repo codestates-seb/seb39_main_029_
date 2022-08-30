@@ -4,9 +4,36 @@ import "../index";
 import Logo from "../Assets/Imgs/stackoverflow-only";
 import Google from "../Assets/Imgs/google";
 import Github from "../Assets/Imgs/github";
+import axios from "axios";
+import { useState } from "react";
+import { useRecoilState } from "recoil";
+import { UserState } from "../States/UserState";
 
 function LogIn() {
   const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [user, setUser] = useRecoilState(UserState);
+
+  console.log(email);
+  console.log(password);
+
+  const userLoginForm = {
+    email: email,
+    password: password,
+  };
+
+  const SigninHandler = () => {
+    axios
+      .post(
+        "http://ec2-15-165-204-159.ap-northeast-2.compute.amazonaws.com:8080/v1/members/login",
+        userLoginForm
+      )
+      .then((res) => {
+        setUser(res.data);
+        console.log(res.data);
+      });
+  };
 
   return (
     <Container>
@@ -26,11 +53,24 @@ function LogIn() {
         </SocialWrapper>
         <SignupWrapper>
           <label for="email">Email</label>
-          <input type="email" id="email" />
+          <input
+            type="email"
+            id="email"
+            onChange={(e) => {
+              setEmail(e.target.value);
+            }}
+          />
           <label for="pw">Password</label>
-          <input type="password" id="pw" />
+          <input
+            type="password"
+            id="pw"
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
+          />
           <button
             onClick={() => {
+              SigninHandler();
               navigate("/home");
             }}
           >

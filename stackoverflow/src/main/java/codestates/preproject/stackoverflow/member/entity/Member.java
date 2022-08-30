@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Entity
@@ -46,10 +47,21 @@ public class Member {
     @Column
     private int reputation;
 
+    @Column
+    private String roles;
+
 
     @OneToMany(mappedBy = "member")
     List<Posts> postsList = new ArrayList<>();
 
     @OneToMany(mappedBy = "member")
     List<Comments> commentsList = new ArrayList<>();
+
+    public List<String> getRoleList() {
+        if(this.roles.length() > 0) {
+            return Arrays.asList(this.roles.split(","));
+        }
+        return new ArrayList<>();
+    }
+
 }

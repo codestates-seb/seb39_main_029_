@@ -76,17 +76,14 @@ function Sidebar() {
 }
 
 const Side = styled.div`
-  position: absolute;
-  top: 50px;
-  left: 0px;
   width: 240px;
-  height: 100%;
+  height: 100vmax;
   border-right: 1px solid var(--font-color-gray);
 `;
 const Home = styled.div`
   display: flex;
   align-items: center;
-  margin-top: 20px;
+  margin-top: 90px;
   padding-left: 10px;
   width: 230px;
   height: 34px;
@@ -98,7 +95,7 @@ const Home = styled.div`
 const SelectedHome = styled.div`
   display: flex;
   align-items: center;
-  margin-top: 20px;
+  margin-top: 90px;
   padding-left: 10px;
   width: 225px;
   height: 34px;

@@ -88,7 +88,7 @@ const Navbody = styled.div`
 const Search = styled.div`
   display: flex;
   align-items: center;
-  width: 1100px;
+  width: 780px;
   height: 33px;
   margin-left: 65px;
   border: 1px solid var(--font-color-gray);

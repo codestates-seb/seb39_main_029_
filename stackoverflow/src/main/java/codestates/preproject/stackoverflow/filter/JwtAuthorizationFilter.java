@@ -37,19 +37,27 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
             return;
         }
 
+        String[] url = request.getRequestURL().toString().split("/");
+
         String jwtToken = jwtHeader.replace("Bearer ", "");
 
-        String username = JWT.require(Algorithm.HMAC512("cos_jwt_token")).build().verify(jwtToken).getClaim("nickName").asString();
+//        if(url[url.length-1].equals("refresh")){
+//            chain.doFilter(request,response);
+//        }else{
+            String username = JWT.require(Algorithm.HMAC512("cos_jwt_token")).build().verify(jwtToken).getClaim("nickName").asString();
 
-        if (username != null) {
-            Member memberEntity = memberRepository.findByNickName(username).get();
+            if (username != null) {
+                Member memberEntity = memberRepository.findByNickName(username).get();
 
-            PrincipalDetails principalDetails = new PrincipalDetails(memberEntity);
-            Authentication authentication = new UsernamePasswordAuthenticationToken(principalDetails, null, principalDetails.getAuthorities());
-            SecurityContextHolder.getContext().setAuthentication(authentication);
+                PrincipalDetails principalDetails = new PrincipalDetails(memberEntity);
+                Authentication authentication = new UsernamePasswordAuthenticationToken(principalDetails, null, principalDetails.getAuthorities());
+                SecurityContextHolder.getContext().setAuthentication(authentication);
 
-            chain.doFilter(request, response);
-        }
+                chain.doFilter(request, response);
+            }
+//        }
+
+
 
 //        super.doFilterInternal(request, response, chain);
     }

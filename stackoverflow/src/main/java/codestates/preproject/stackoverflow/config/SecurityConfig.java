@@ -2,6 +2,7 @@ package codestates.preproject.stackoverflow.config;
 
 import codestates.preproject.stackoverflow.filter.JwtAuthenticationFilter;
 import codestates.preproject.stackoverflow.filter.JwtAuthorizationFilter;
+//import codestates.preproject.stackoverflow.filter.testfilter;
 import codestates.preproject.stackoverflow.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,9 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.filter.CorsFilter;
 
 @Configuration
@@ -25,6 +28,9 @@ public class SecurityConfig {
     @Autowired
     private MemberRepository memberRepository;
 
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http.csrf().disable();
@@ -34,10 +40,11 @@ public class SecurityConfig {
                 .and()
                 .formLogin().disable()
                 .httpBasic().disable()
+//                .addFilterBefore(new testfilter(memberRepository), UsernamePasswordAuthenticationFilter.class)
                 .apply(new CustomDsl())
                 .and()
                 .authorizeRequests()
-                .antMatchers("/v1/members/join")
+                .antMatchers("/v1/members/join","/v1/members/refresh")
                 .permitAll()
                 .antMatchers("/v1/**")
                 .access("hasRole('ROLE_ADMIN')")
@@ -52,11 +59,8 @@ public class SecurityConfig {
             AuthenticationManager authenticationManager = builder.getSharedObject(AuthenticationManager.class);
             builder
                     .addFilter(corsFilter)
-                    .addFilter(new JwtAuthenticationFilter(authenticationManager))
+                    .addFilter(new JwtAuthenticationFilter(authenticationManager, memberRepository, bCryptPasswordEncoder))
                     .addFilter(new JwtAuthorizationFilter(authenticationManager, memberRepository));
         }
     }
 }
-
-
-//"/v1/members/update/**","/v1/members/delete/**",

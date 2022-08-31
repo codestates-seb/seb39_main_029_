@@ -11,6 +11,7 @@ import codestates.preproject.stackoverflow.member.service.MemberService;
 
 import codestates.preproject.stackoverflow.post.service.PostService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -18,6 +19,7 @@ import org.springframework.validation.annotation.Validated;
 
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 
@@ -80,10 +82,11 @@ public class MemberController {
         return new ResponseEntity(response,HttpStatus.OK);
     }
 
-//    @PostMapping("/login")
-//    public ResponseEntity loginMember(@Valid @RequestBody MemberDto.Login login){
-//        Member member = memberMapper.memberLoginToMember(login);
-//        Member findMember = memberService.loginMember(member);
-//        return new ResponseEntity(memberMapper.memberToMemberResponseDto(findMember), HttpStatus.OK);
-//    }
+    @PostMapping("/refresh")
+    public ResponseEntity<String> loginMember(@Valid @RequestBody MemberDto.Refresh refresh, HttpServletResponse response){
+        String result = memberService.refresh(refresh, response);
+        response.addHeader("Authorization",result);
+        response.addHeader("Memberid", String.valueOf(refresh.getMemberid()));
+        return new ResponseEntity(HttpStatus.OK);
+    }
 }

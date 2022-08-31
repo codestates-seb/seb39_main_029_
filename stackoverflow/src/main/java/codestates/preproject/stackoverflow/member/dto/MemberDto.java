@@ -85,4 +85,11 @@ public class MemberDto {
         private List<PostDto.uResponse> postsList;
     }
 
+    @Getter
+    @Setter
+    @AllArgsConstructor // TODO 테스트를 위해 추가됨
+    public static class Refresh {
+        private long memberid;
+        private String none;
+    }
 }

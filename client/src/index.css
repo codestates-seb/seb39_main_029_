@@ -37,6 +37,14 @@
   --serif:'Roboto Slab', serif;
   --sans-serif:'Source Sans Pro', sans-serif;
 
+  /* badge */
+  --bronze: #cd7f32;
+  --silver: #c3c7c7;
+  --gold: #ffd700;
+  --jade: #00a86b;
+  --diamond: #cfe4ee;
+  --master: #3e2022;
+
 }
 
 body {

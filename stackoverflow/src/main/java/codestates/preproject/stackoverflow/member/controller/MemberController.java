@@ -80,10 +80,10 @@ public class MemberController {
         return new ResponseEntity(response,HttpStatus.OK);
     }
 
-    @PostMapping("/login")
-    public ResponseEntity loginMember(@Valid @RequestBody MemberDto.Login login){
-        Member member = memberMapper.memberLoginToMember(login);
-        Member findMember = memberService.loginMember(member);
-        return new ResponseEntity(memberMapper.memberToMemberResponseDto(findMember), HttpStatus.OK);
-    }
+//    @PostMapping("/login")
+//    public ResponseEntity loginMember(@Valid @RequestBody MemberDto.Login login){
+//        Member member = memberMapper.memberLoginToMember(login);
+//        Member findMember = memberService.loginMember(member);
+//        return new ResponseEntity(memberMapper.memberToMemberResponseDto(findMember), HttpStatus.OK);
+//    }
 }

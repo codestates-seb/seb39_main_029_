@@ -80,9 +80,10 @@ public class MemberController {
         return new ResponseEntity(response,HttpStatus.OK);
     }
 
-    @GetMapping("/myPage")
-    public ResponseEntity test(){
-        System.out.println("몇번 요청 되나");
-        return new ResponseEntity("이건 몇번 요청 되나",HttpStatus.OK);
-    }
+//    @PostMapping("/login")
+//    public ResponseEntity loginMember(@Valid @RequestBody MemberDto.Login login){
+//        Member member = memberMapper.memberLoginToMember(login);
+//        Member findMember = memberService.loginMember(member);
+//        return new ResponseEntity(memberMapper.memberToMemberResponseDto(findMember), HttpStatus.OK);
+//    }
 }

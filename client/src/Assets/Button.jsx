@@ -33,7 +33,7 @@ const Frame = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 3px;
+  border-radius: 5px;
   width: ${(props) => props.width}px;
   height: ${(props) => props.height}px;
   padding: ${(props) => props.padding}px;

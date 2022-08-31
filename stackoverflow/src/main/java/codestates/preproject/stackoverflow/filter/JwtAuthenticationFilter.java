@@ -56,7 +56,6 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 .withClaim("nickName", principalDetails.getMember().getNickName())
                 .sign(Algorithm.HMAC512("cos_jwt_token"));
         response.addHeader("Authorization", "Bearer " + jwtToken);
-        Cookie cookie = new Cookie("Memberid",String.valueOf(principalDetails.getMember().getMemberid()));
-        response.addCookie(cookie);
+        response.addHeader("Memberid", String.valueOf(principalDetails.getMember().getMemberid()));
     }
 }

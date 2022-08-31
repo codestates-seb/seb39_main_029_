@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import Button from "../Assets/Button";
 import Stackoverflowlogo from "../Assets/Imgs/stackoverflow.jsx";
 import { useNavigate } from "react-router-dom";
 import ColorButton from "../Assets/ColorBtn";
+import "../index";
 
 function MainNav() {
   const navigate = useNavigate();
@@ -47,6 +47,7 @@ const Container = styled.div`
   height: 50px;
   background-color: #f8f9f9;
   box-shadow: 0 1px 2px lightgray;
+  font-family: var(--sans-serif);
 `;
 const Line = styled.div`
   width: 100%;
@@ -70,9 +71,7 @@ const Navbody = styled.div`
     margin-right: 10px;
   }
   .logo {
-    width: 158px;
-    height: 30px;
-    margin-left: 56px;
+    margin-left: 30px;
   }
 `;
 

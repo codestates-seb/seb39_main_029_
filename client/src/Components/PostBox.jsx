@@ -6,25 +6,26 @@ function PostBox({ post }) {
   return (
     <Container>
       <Leftside>
-        <div className="votes">{post.votes} votes</div>
-        <div className="answer">{post.commentsCount} answer</div>
+        <span className="votes">{post.votes} votes</span>
+        <span className="answer">{post.commentsCount} answer</span>
       </Leftside>
       <Rightside>
         <Righttop>{post.subject}</Righttop>
         <Rightbottom>
-          {post.postTag.map((el, idx) => {
-            return (
-              <div className="tags" key={idx}>
-                {el.name}
-              </div>
-            );
-          })}
-
-          <div className="footer">
-            <div className="nickname">Iguwana</div>
-            <div className="reputation">029</div>
-            <div className="createdAt">2022-08-24 Wed</div>
-          </div>
+          <span>
+            {post.postTag.map((el, idx) => {
+              return (
+                <span className="tags" key={idx}>
+                  {el.name}
+                </span>
+              );
+            })}
+          </span>
+          <span className="footer">
+            <span className="nickname">Iguwana</span>
+            <span className="reputation">29</span>
+            <span className="createdAt">2022-08-24 Wed</span>
+          </span>
         </Rightbottom>
       </Rightside>
     </Container>
@@ -32,76 +33,66 @@ function PostBox({ post }) {
 }
 
 const Container = styled.div`
-  width: 1032px;
-  height: 120px;
-  border-top: 1px solid var(--font-color-gray);
+  border-bottom: 1px solid hsl(210, 8%, 85%);
   display: flex;
 `;
 
 const Leftside = styled.div`
-  width: 120px;
-  height: 120px;
+  width: 100px;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
-  padding-left: 40px;
+  padding: 10px;
   .votes {
     color: var(--font-color-black);
     font-size: var(--text-font);
     font-weight: bold;
-    margin-bottom: 8px;
+    margin: 0 0 10px 0;
   }
   .answer {
     color: var(--font-color-gray);
     font-size: var(--text-font);
-    margin-top: 8px;
   }
 `;
 const Rightside = styled.div`
-  width: 922px;
-  height: 120px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  width: 100%;
+  padding: 10px;
 `;
 const Righttop = styled.div`
   color: var(--font-color-blue);
   font-size: var(--header-font);
-  margin-bottom: 6px;
-  margin-left: 20px;
+  padding: 10px;
 `;
 const Rightbottom = styled.div`
   display: flex;
-  margin-top: 6px;
-  margin-left: 20px;
+  align-items: center;
+  justify-content: space-between;
   .tags {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-right: 5px;
+    margin: 0 10px 0 10px;
     padding: 1px 10px;
     height: 20px;
     background-color: var(--theme-button-blue);
     color: var(--font-color-teal);
-    border-radius: 3px;
+    border-radius: 5px;
     font-size: var(--small-font);
   }
   .footer {
     display: flex;
-    margin-left: 440px;
+    justify-content: center;
+    align-items: center;
   }
   .nickname {
     color: var(--font-color-blue);
-    margin: 2px;
+    margin: 0 10px 0 10px;
   }
   .reputation {
     font-weight: bold;
-    margin: 2px;
+    margin: 0 10px 0 10px;
   }
   .createdAt {
     color: var(--font-color-gray);
-    margin: 2px;
+    margin: 0 10px 0 10px;
   }
 `;
 

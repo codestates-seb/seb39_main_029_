@@ -6,6 +6,7 @@ import Button from "../Assets/Button";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import "../index";
 
 function HomePage() {
   const [totalPosts, setTotalPosts] = useState([]);
@@ -22,67 +23,54 @@ function HomePage() {
   }, []);
 
   return (
-    <Container>
+    <>
       <Nav />
       <Wrapper>
         <Sidebar />
         <Body>
-          <Title>
-            <Titletop>
-              <span className="top">Top Questions</span>
-              <Button
-                text={"Ask Question"}
-                bgcolor="var(--theme-blue)"
-                padding={10}
-                color="var(--font-color-white)"
-                ftsize={13}
-                onClick={() => {
-                  navigate("/ask");
-                }}
-              />
-            </Titletop>
-            <Titlebottom></Titlebottom>
-          </Title>
+          <Titletop>
+            <div className="top">Top Questions</div>
+            <Button
+              text={"Ask Question"}
+              bgcolor="var(--theme-blue)"
+              padding={10}
+              color="var(--font-color-white)"
+              ftsize={13}
+              onClick={() => {
+                navigate("/ask");
+              }}
+            />
+          </Titletop>
+          <Titlebottom></Titlebottom>
           {totalPosts.map((el, idx) => (
             <PostBox key={idx} post={el} />
           ))}
         </Body>
       </Wrapper>
-    </Container>
+    </>
   );
 }
 
-const Container = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: auto;
-`;
-
 const Wrapper = styled.div`
+  font-family: var(--sans-serif);
   display: flex;
-  justify-content: center;
 `;
 
 const Body = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-top: 50px;
+  height: 100vmax;
+  width: 100%;
 `;
 
-const Title = styled.div`
-  width: 100%;
-  height: 130px;
-`;
 const Titletop = styled.div`
   display: flex;
-  margin-top: 20px;
-  margin-left: 20px;
-  height: 40px;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  height: 100px;
+  border-bottom: 1px solid hsl(210, 8%, 85%);
   .top {
+    font-weight: bold;
     font-size: var(--header-font);
-    margin-right: 730px;
   }
 `;
 const Titlebottom = styled.div``;

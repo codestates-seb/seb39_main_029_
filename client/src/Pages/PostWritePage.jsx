@@ -12,8 +12,8 @@ function PostWritePage() {
 
   return (
     <Container>
-      <Title>Ask a Public question</Title>
       <Nav />
+      <Title>Ask a Public question</Title>
       <Wrapper>
         <AskBody />
         <ArcodianBox />
@@ -28,31 +28,29 @@ function PostWritePage() {
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
+  justify-content: center;
   background-color: var(--theme-selected-grey);
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100vmax;
-  height: 100vmax;
 `;
 const Title = styled.div`
-  width: 1233px;
   display: flex;
-  margin-top: 100px;
+  margin-top: 30px;
   font-size: var(--header-font);
+  font-weight: bold;
+  padding: 0 0 0 40px;
 `;
 
 const Wrapper = styled.div`
-  width: 1243px;
-  margin-top: 45px;
+  width: 100%;
+  height: 100%;
+  margin-top: 30px;
   display: flex;
-  justify-content: space-between;
+  padding: 0 0 0 20px;
 `;
 
 const ButtonWrapper = styled.div`
-  margin-top: 40px;
-  width: 1233px;
+  padding: 0 0 20px 20px;
+  margin-top: 10px;
   display: flex;
 `;
 export default PostWritePage;

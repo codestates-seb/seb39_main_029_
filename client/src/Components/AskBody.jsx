@@ -40,9 +40,9 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: space-around;
   background-color: var(--theme-white);
-  padding: 16px;
-  width: 876px;
-  height: 577px;
+  padding: 10px;
+  width: 800px;
+  height: 550px;
   box-shadow: 1px 1px 5px gray;
   .subject {
     padding: 2px;
@@ -57,7 +57,7 @@ const Container = styled.div`
 
 const Top = styled.div`
   .title {
-    width: 865px;
+    width: 780px;
     height: 30px;
   }
 `;
@@ -66,7 +66,7 @@ const Body = styled.div``;
 
 const Tag = styled.div`
   .tag {
-    width: 865px;
+    width: 780px;
     height: 30px;
   }
 `;

@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { IoEarthSharp } from "react-icons/io5";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "../index";
 
 function Sidebar() {
   const [Homeselect, setHomeselect] = useState(true);
@@ -27,6 +28,7 @@ function Sidebar() {
     setHomeselect(false);
     setQuestionselect(false);
     setTagselect(true);
+    navigate("/tag");
   };
 
   return (
@@ -76,18 +78,19 @@ function Sidebar() {
 }
 
 const Side = styled.div`
-  width: 240px;
-  height: 100vmax;
-  border-right: 1px solid var(--font-color-gray);
+  width: 200px;
+  height: 100;
+  border-right: 1px solid hsl(210, 8%, 85%);
+  padding: 20px 0 0 0px;
+  font-family: var(--sans-serif);
 `;
 const Home = styled.div`
   display: flex;
   align-items: center;
-  margin-top: 90px;
   padding-left: 10px;
-  width: 230px;
+  width: 200px;
   height: 34px;
-  font-size: 13px;
+  font-size: 15px;
   color: #6a737c;
   cursor: pointer;
 `;
@@ -95,33 +98,32 @@ const Home = styled.div`
 const SelectedHome = styled.div`
   display: flex;
   align-items: center;
-  margin-top: 90px;
-  padding-left: 10px;
-  width: 225px;
+  width: 185px;
   height: 34px;
+  padding-left: 10px;
   background-color: #f1f2f3;
   font-weight: bold;
-  font-size: 13px;
+  font-size: 15px;
   color: black;
   cursor: pointer;
   border-right: 5px solid orange;
 `;
 
 const Public = styled.div`
-  margin-left: 10px;
   margin-top: 17px;
-  font-size: 11px;
+  font-size: 12px;
+  padding-left: 10px;
   color: #6a737c;
 `;
 
 const List = styled.div`
   color: #525960;
-  font-size: 13px;
+  font-size: 15px;
   .question {
     margin-top: 2px;
     display: flex;
     align-items: center;
-    width: 240px;
+    width: 200px;
     height: 34px;
     cursor: pointer;
   }
@@ -129,7 +131,7 @@ const List = styled.div`
     margin-top: 2px;
     display: flex;
     align-items: center;
-    width: 235px;
+    width: 185px;
     height: 34px;
     color: black;
     background-color: #f1f2f3;
@@ -138,24 +140,23 @@ const List = styled.div`
     cursor: pointer;
   }
   .earth {
-    margin: 0px 8px;
-    padding: 0px;
+    margin: 10px;
     width: 18px;
     height: 18px;
   }
   .tags {
-    padding-left: 35px;
+    padding-left: 40px;
     display: flex;
     align-items: center;
-    width: 205px;
+    width: 200px;
     height: 34px;
     cursor: pointer;
   }
   .selectedtags {
-    padding-left: 35px;
+    padding-left: 40px;
     display: flex;
     align-items: center;
-    width: 200px;
+    width: 155px;
     height: 34px;
     cursor: pointer;
     color: black;

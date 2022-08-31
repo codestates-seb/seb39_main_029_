@@ -4,7 +4,8 @@ function ArcodianBox() {
   return <Container></Container>;
 }
 const Container = styled.div`
-  width: 316px;
+  margin: 0 0 0 20px;
+  width: 300px;
   height: 330px;
   background-color: var(--theme-white);
   box-shadow: 1px 1px 5px gray;

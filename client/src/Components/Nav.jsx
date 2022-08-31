@@ -1,14 +1,26 @@
 import styled from "styled-components";
 import { IoSearchSharp } from "react-icons/io5";
 import Stackoverflowlogo from "../Assets/Imgs/stackoverflow.jsx";
-import { ImTrophy } from "react-icons/im";
+import Badge from "../Assets/Imgs/badge";
+import "../index";
+import { useNavigate } from "react-router-dom";
 
 function Nav() {
+  const navigate = useNavigate();
+
+  const tohome = () => {
+    navigate("/home");
+  };
+
   return (
     <Container>
       <Line />
       <Navbody>
-        <Stackoverflowlogo className="logo" alt="react" />
+        <Stackoverflowlogo
+          className="logo"
+          alt="react"
+          onClick={() => tohome()}
+        />
         <div className="btnwrapper">
           <Search>
             <IoSearchSharp className="searchicon" />
@@ -18,9 +30,7 @@ function Nav() {
         <div className="profile">
           <span className="img"></span>
           <span className="reputation">10</span>
-          <span className="badge">
-            <ImTrophy />
-          </span>
+          <Badge className="badge" />
         </div>
       </Navbody>
     </Container>
@@ -28,13 +38,11 @@ function Nav() {
 }
 
 const Container = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
   height: 50px;
   background-color: #f8f9f9;
   box-shadow: 0 1px 2px lightgray;
+  font-family: var(--sans-serif);
 `;
 const Line = styled.div`
   width: 100%;
@@ -44,59 +52,48 @@ const Line = styled.div`
 const Navbody = styled.div`
   display: flex;
   align-items: center;
-  justify-content: center;
-  width: 100%;
+  justify-content: space-between;
+  width: 100;
   height: 47px;
-  .profile {
-    display: flex;
-    margin-right: 20px;
+  .logo {
+    margin: 0 0 0 30px;
   }
   .btnwrapper {
+  }
+  .profile {
     display: flex;
-    margin-right: 20px;
-  }
-  .loginpbtn {
-    margin-right: 10px;
-  }
-  .logo {
-    width: 158px;
-    height: 30px;
-    margin-left: 56px;
-  }
-  .signupbtn {
-    margin-left: 10px;
+    justify-content: center;
+    align-items: center;
   }
   .img {
-    width: 18px;
-    height: 18px;
-    border: 1px solid var(--font-color-gray);
-    margin-left: 35px;
+    width: 30px;
+    height: 30px;
+    margin: 0 10px 0 0;
+    border: 1px solid hsl(210, 8%, 85%);
+    border-radius: 5px;
   }
   .reputation {
     font-weight: bold;
-    font-size: var(--small-font);
-    margin-left: 10px;
+    font-size: var(--normal-font);
   }
   .badge {
-    width: 18px;
-    height: 18px;
-    margin-left: 10px;
-    color: gold;
+    fill: var(--gold);
+    margin: 0 30px 0 20px;
   }
 `;
 
 const Search = styled.div`
   display: flex;
   align-items: center;
-  width: 780px;
+  width: 800px;
   height: 33px;
-  margin-left: 65px;
-  border: 1px solid var(--font-color-gray);
+  border: 1px solid hsl(210, 8%, 85%);
+  border-radius: 5px;
   .searchicon {
     color: var(--font-color-gray);
     width: 23px;
     height: 23px;
-    margin-left: 10px;
+    margin: 0 10px 0 10px;
   }
 `;
 
@@ -104,6 +101,7 @@ const SearchInput = styled.input`
   width: 1050px;
   height: 23px;
   border: none;
+  background-color: #f8f9f9;
   :focus {
     outline: none;
   }

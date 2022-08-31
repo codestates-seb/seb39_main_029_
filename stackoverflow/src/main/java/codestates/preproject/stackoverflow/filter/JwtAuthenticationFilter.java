@@ -14,6 +14,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -55,5 +56,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 .withClaim("nickName", principalDetails.getMember().getNickName())
                 .sign(Algorithm.HMAC512("cos_jwt_token"));
         response.addHeader("Authorization", "Bearer " + jwtToken);
+        Cookie cookie = new Cookie("Memberid",String.valueOf(principalDetails.getMember().getMemberid()));
+        response.addCookie(cookie);
     }
 }

@@ -6,17 +6,11 @@ import Google from "../Assets/Imgs/google";
 import Github from "../Assets/Imgs/github";
 import axios from "axios";
 import { useState } from "react";
-import { useRecoilState } from "recoil";
-import { UserState } from "../States/UserState";
 
 function LogIn() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [user, setUser] = useRecoilState(UserState);
-
-  console.log(email);
-  console.log(password);
 
   const userLoginForm = {
     email: email,
@@ -25,13 +19,12 @@ function LogIn() {
 
   const SigninHandler = () => {
     axios
-      .post(
-        "http://ec2-15-165-204-159.ap-northeast-2.compute.amazonaws.com:8080/v1/members/login",
-        userLoginForm
-      )
+      .post("http://seb039pre029.ga:8080/login", userLoginForm)
       .then((res) => {
-        setUser(res.data);
-        console.log(res.data);
+        localStorage.setItem("memberId", res.headers.memberid);
+        localStorage.setItem("accessToken", res.headers.authorization);
+        console.log(res.headers.authorization);
+        navigate("/home");
       });
   };
 
@@ -71,7 +64,6 @@ function LogIn() {
           <button
             onClick={() => {
               SigninHandler();
-              navigate("/home");
             }}
           >
             Log in

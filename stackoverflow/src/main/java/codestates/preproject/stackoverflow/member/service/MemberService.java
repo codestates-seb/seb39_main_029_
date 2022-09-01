@@ -34,7 +34,7 @@ public class MemberService {
 
     private Random random = new Random();
     
-    public MemberService(MemberRepository memberRepository, ApplicationEventPublisher publisher, EmailRepository emailRepository){
+    public MemberService(MemberRepository memberRepository, ApplicationEventPublisher publisher, EmailRepository emailRepository,BCryptPasswordEncoder bCryptPasswordEncoder){
         this.memberRepository = memberRepository;
         this.publisher = publisher;
         this.emailRepository = emailRepository;

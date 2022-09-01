@@ -16,7 +16,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.cors.CorsUtils;
 import org.springframework.web.filter.CorsFilter;
 
 @Configuration
@@ -34,9 +33,8 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
-        http.cors();
         http.csrf().disable();
-        http.headers().frameOptions().disable();
+//        http.headers().frameOptions().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .formLogin().disable()
@@ -45,12 +43,13 @@ public class SecurityConfig {
                 .apply(new CustomDsl())
                 .and()
                 .authorizeRequests()
-//                .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
-//                .anyRequest().authenticated()
-                .antMatchers("/v1/members/myPage/**","/v1/members/update/**","/v1/members/delete/**","/v1/members/refresh","/v1/posts/**","/v1/comments/**","/v1/tags")
+                .antMatchers("/h2-console/**")
+                .permitAll()
+                .antMatchers("/v1/members/join","/v1/members/refresh")
+                .permitAll()
+                .antMatchers("/v1/**")
                 .access("hasRole('ROLE_ADMIN')")
                 .anyRequest().permitAll();
-
         return http.build();
     }
 

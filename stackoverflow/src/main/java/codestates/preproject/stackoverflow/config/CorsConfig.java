@@ -30,6 +30,7 @@ public class CorsConfig {
         config.addAllowedOrigin("http://localhost:3000/login");
         config.addAllowedOrigin("http://localhost:3001/ask/1");
         config.addAllowedOrigin("http://localhost:3000/ask/1");
+        config.addAllowedOrigin("http://localhost:8080/h2");
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
         config.addAllowedMethod("POST");
@@ -41,7 +42,7 @@ public class CorsConfig {
         config.addAllowedHeader("Authorization");
         config.addExposedHeader("Set-Cookie");
         config.addExposedHeader("Memberid");
-        source.registerCorsConfiguration("/**", config);
+        source.registerCorsConfiguration("/v1/**", config);
 
         return new CorsFilter(source);
     }

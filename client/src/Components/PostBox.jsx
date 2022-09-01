@@ -1,8 +1,10 @@
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function PostBox({ post }) {
+  const navigate = useNavigate();
   return (
     <Container>
       <Leftside>
@@ -10,7 +12,13 @@ function PostBox({ post }) {
         <span className="answer">{post.commentsCount} answer</span>
       </Leftside>
       <Rightside>
-        <Righttop>{post.subject}</Righttop>
+        <Righttop
+          onClick={() => {
+            navigate(`/qna/${post.postId}`);
+          }}
+        >
+          {post.subject}
+        </Righttop>
         <Rightbottom>
           <span>
             {post.postTag.map((el, idx) => {

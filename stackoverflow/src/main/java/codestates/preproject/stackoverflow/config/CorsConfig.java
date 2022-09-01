@@ -15,9 +15,19 @@ public class CorsConfig {
     public CorsFilter corsFilter() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(Arrays.asList("http://localhost:3000/**","http://localhost:3001","https://localhost:3000","https://localhost:3001"));
-        config.addAllowedOrigin("http://localhost:3001");
-        config.addAllowedOrigin("http://localhost:3000");
+        config.setAllowedOrigins(Arrays.asList("http://localhost:3000/ask","http://localhost:3001/ask","http://localhost:3000","http://localhost:3001"));
+        config.addAllowedOrigin("http://localhost:3001/signup");
+        config.addAllowedOrigin("http://localhost:3000/signup");
+        config.addAllowedOrigin("http://localhost:3001/home");
+        config.addAllowedOrigin("http://localhost:3000/home");
+        config.addAllowedOrigin("http://localhost:3001/edit");
+        config.addAllowedOrigin("http://localhost:3000/edit");
+        config.addAllowedOrigin("http://localhost:3001/question");
+        config.addAllowedOrigin("http://localhost:3000/question");
+        config.addAllowedOrigin("http://localhost:3001/tag");
+        config.addAllowedOrigin("http://localhost:3000/tag");
+        config.addAllowedOrigin("http://localhost:3001/login");
+        config.addAllowedOrigin("http://localhost:3000/login");
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
         config.addExposedHeader("Authorization");

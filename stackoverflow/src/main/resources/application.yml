@@ -26,6 +26,9 @@ mail:
   subject:
     member:
       registration: Nice Meet you! We are Iguana!
+server:
+  port: 8081
+
 #jasypt:
 #  encryptor:
 #    bean: jasyptStringEncryptor

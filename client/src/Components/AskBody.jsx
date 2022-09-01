@@ -1,7 +1,25 @@
 import styled from "styled-components";
 import TextEditor from "./TextEditor";
 
-function AskBody() {
+function AskBody({
+  setTitle,
+  setContent,
+  totalTags,
+  setAutoSelected,
+  editorRef,
+}) {
+  const addTag = (e) => {
+    const Tags = totalTags.slice(); // 그냥 복사
+
+    const filteredTags = Tags.filter((el) => {
+      return el.name.includes(e.target.value);
+    });
+    setAutoSelected(filteredTags);
+    if (e.target.value === "") {
+      setAutoSelected([]);
+    }
+  };
+
   return (
     <Container>
       <Top>
@@ -12,6 +30,9 @@ function AskBody() {
         <input
           className="title"
           placeholder="e.g. is there an R function for finding the index of an element in a vector?"
+          onChange={(e) => {
+            setTitle(e.target.value);
+          }}
         ></input>
       </Top>
       <Body>
@@ -19,7 +40,7 @@ function AskBody() {
         <div className="introduce">
           include all the information someone would need to answer your question
         </div>
-        <TextEditor />
+        <TextEditor setContent={setContent} editorRef={editorRef} />
       </Body>
       <Tag>
         <div className="subject">Tags</div>
@@ -29,6 +50,7 @@ function AskBody() {
         <input
           className="tag"
           placeholder="e.g. (javascript sql-server database)"
+          onKeyUp={addTag}
         ></input>
       </Tag>
     </Container>

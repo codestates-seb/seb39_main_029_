@@ -30,6 +30,10 @@ public class CorsConfig {
         config.addAllowedOrigin("http://localhost:3000/login");
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
+        config.addAllowedMethod("POST");
+        config.addAllowedMethod("PATCH");
+        config.addAllowedMethod("GET");
+        config.addAllowedMethod("DELETE");
         config.addExposedHeader("Authorization");
         config.setAllowCredentials(true);
         config.addExposedHeader("Set-Cookie");

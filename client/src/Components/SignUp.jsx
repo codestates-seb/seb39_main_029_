@@ -27,10 +27,7 @@ function SignUp() {
 
   const SignUpHandler = () => {
     axios
-      .post(
-        "http://ec2-15-165-204-159.ap-northeast-2.compute.amazonaws.com:8080/v1/members/join",
-        SignUpForm
-      )
+      .post("http://seb039pre029.ga:8080/v1/members/join", SignUpForm)
       .then((res) => {
         console.log(res);
       });

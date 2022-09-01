@@ -9,7 +9,7 @@ import codestates.preproject.stackoverflow.member.service.MemberService;
 
 
 import codestates.preproject.stackoverflow.post.service.PostService;
-import codestates.preproject.stackoverflow.s3.upload.S3Upload;
+/*import codestates.preproject.stackoverflow.s3.upload.S3Upload;*/
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -37,12 +37,12 @@ public class MemberController {
     private final MemberMapper memberMapper;
 
     private final PostService postService;
-    private final S3Upload s3Upload;
-    public MemberController(MemberService memberService, MemberMapper memberMapper, PostService postService, S3Upload s3Upload){
+    /*private final S3Upload s3Upload;*/
+    public MemberController(MemberService memberService, MemberMapper memberMapper, PostService postService){
         this.memberMapper = memberMapper;
         this.memberService = memberService;
         this.postService = postService;
-        this.s3Upload = s3Upload;
+
     }
 
     @PostMapping("/join")
@@ -78,8 +78,8 @@ public class MemberController {
         Member member = memberMapper.memberPatchToMember(patch);
         Member updateMember = memberService.updateMember(member);
         MemberDto.Response result = memberMapper.memberToMemberResponseDto(updateMember);
-        String imageUrl = s3Upload.upload(multipartFile);
-        result.setImageUrl(imageUrl);
+        /*String imageUrl = s3Upload.upload(multipartFile);
+        result.setImageUrl(imageUrl);*/
         return new ResponseEntity(result,HttpStatus.OK);
     }
 

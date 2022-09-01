@@ -12,6 +12,10 @@ function Nav() {
     navigate("/home");
   };
 
+  const toinfo = () => {
+    navigate("/info");
+  };
+
   return (
     <Container>
       <Line />
@@ -28,7 +32,7 @@ function Nav() {
           </Search>
         </div>
         <div className="profile">
-          <span className="img"></span>
+          <span className="img" onClick={() => toinfo()}></span>
           <span className="reputation">10</span>
           <Badge className="badge" />
         </div>

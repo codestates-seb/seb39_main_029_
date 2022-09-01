@@ -6,16 +6,21 @@ import Button from "../Assets/Button";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import "../index";
 
 function HomePage() {
   const [totalPosts, setTotalPosts] = useState([]);
   const navigate = useNavigate();
+  const token = localStorage.getItem("accessToken");
 
   useEffect(() => {
     axios
       .get(
-        "http://ec2-15-165-204-159.ap-northeast-2.compute.amazonaws.com:8080/v1/posts?page=1&size=10&arrange=createdAt&tagCheckId=-1"
+        "http://seb039pre029.ga:8080/v1/posts?page=1&size=10&arrange=createdAt&tagCheckId=-1",
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
       )
       .then((res) => {
         setTotalPosts(res.data.data);
@@ -29,7 +34,7 @@ function HomePage() {
         <Sidebar />
         <Body>
           <Titletop>
-            <div className="top">Top Questions</div>
+            <span className="top">Top Questions</span>
             <Button
               text={"Ask Question"}
               bgcolor="var(--theme-blue)"
@@ -42,6 +47,7 @@ function HomePage() {
             />
           </Titletop>
           <Titlebottom></Titlebottom>
+
           {totalPosts.map((el, idx) => (
             <PostBox key={idx} post={el} />
           ))}
@@ -52,24 +58,25 @@ function HomePage() {
 }
 
 const Wrapper = styled.div`
-  font-family: var(--sans-serif);
   display: flex;
+  justify-content: center;
 `;
 
 const Body = styled.div`
   height: 100vmax;
-  width: 100%;
+  width: 1200px;
 `;
-
 const Titletop = styled.div`
   display: flex;
+  height: 40px;
   justify-content: space-between;
-  align-items: center;
-  padding: 20px;
+  align-items: flex-start;
+  margin-top: 20px;
   height: 100px;
   border-bottom: 1px solid hsl(210, 8%, 85%);
   .top {
-    font-weight: bold;
+    margin-left: 20px;
+    font-weight: 500;
     font-size: var(--header-font);
   }
 `;

@@ -35,6 +35,8 @@ function PostBox({ post }) {
 const Container = styled.div`
   border-bottom: 1px solid hsl(210, 8%, 85%);
   display: flex;
+  height: 110px;
+  padding-left: 30px;
 `;
 
 const Leftside = styled.div`
@@ -57,11 +59,12 @@ const Leftside = styled.div`
 `;
 const Rightside = styled.div`
   width: 100%;
-  padding: 10px;
+  padding: 20px;
 `;
 const Righttop = styled.div`
   color: var(--font-color-blue);
-  font-size: var(--header-font);
+  font-size: var(--content-font);
+  font-weight: 500;
   padding: 10px;
 `;
 const Rightbottom = styled.div`
@@ -69,12 +72,12 @@ const Rightbottom = styled.div`
   align-items: center;
   justify-content: space-between;
   .tags {
-    margin: 0 10px 0 10px;
-    padding: 1px 10px;
+    margin: 0 5px 0 5px;
+    padding: 5px 10px;
     height: 20px;
     background-color: var(--theme-button-blue);
     color: var(--font-color-teal);
-    border-radius: 5px;
+    border-radius: 0.1rem;
     font-size: var(--small-font);
   }
   .footer {

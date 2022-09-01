@@ -11,8 +11,9 @@ function Tags() {
         <div className="h">Tags</div>
         <div className="p">
           A tag is a keyword or label that categorizes your question with other,
-          similar questions. Using the right tags makes it easier for others to
-          find and answer your question.
+          similar questions. <br />
+          Using the right tags makes it easier for others to find and answer
+          your question.
         </div>
       </Explain>
       <Search>
@@ -29,7 +30,7 @@ function Tags() {
         {DummyTag.map((el) => {
           return (
             <Taglist key={el.id}>
-              <ColorButton mode="BLUE" text={el.tag} />
+              <ColorButton mode="GREY" text={el.tag} ftsize={12} padding={5} />
               <div>{el.exp}</div>
             </Taglist>
           );
@@ -42,19 +43,19 @@ function Tags() {
 const Container = styled.div`
   display: flex;
   flex-direction: column;
+  max-width: 1200px;
   height: 100;
-  font-family: var(--sans-serif);
-  padding: 30px;
 `;
 const Explain = styled.div`
   display: flex;
-  align-items: center;
-  justify-content: start;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
   padding: 30px;
   .h {
+    font-weight: 500;
     font-size: var(--header-font);
-    font-weight: bold;
-    margin: 0 30px 0 30px;
+    margin: 0 30px 20px 0px;
   }
   .p {
     font-size: var(--text-font);
@@ -62,7 +63,7 @@ const Explain = styled.div`
 `;
 const Search = styled.div`
   display: flex;
-  padding: 20px 60px;
+  padding: 20px 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -91,16 +92,22 @@ const ButtonWrapper = styled.div`
 const TagWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  margin: 10px;
   align-items: center;
 `;
 const Taglist = styled.div`
+  overflow: hidden;
+  overflow-y: scroll;
   border: 1px solid hsl(210, 8%, 85%);
   border-radius: 5px;
-  width: 300px;
-  height: 300px;
-  margin: 20px;
+  width: 253px;
+  height: 176px;
+  margin: 10px;
   padding: 10px;
+  font-size: var(--small-font);
+  > div {
+    margin-top: 10px;
+  }
 `;
 
 export default Tags;

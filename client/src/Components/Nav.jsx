@@ -56,18 +56,17 @@ const Line = styled.div`
 const Navbody = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   width: 100;
   height: 47px;
   .logo {
-    margin: 0 0 0 30px;
-  }
-  .btnwrapper {
+    margin: 0 30px 0 0;
   }
   .profile {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin: 0 0 0 30px;
   }
   .img {
     width: 30px;

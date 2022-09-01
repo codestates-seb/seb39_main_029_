@@ -22,6 +22,9 @@ public class TagsDto {
         @NotBlank(message = "제목은 공백이 아니어야 합니다.")
         private String name;
 
+        @NotBlank
+        private String content;
+
     }
 
     @Getter
@@ -47,6 +50,8 @@ public class TagsDto {
         private String name;
 
         private Long count;
+
+        private String content;
 
     }
 }

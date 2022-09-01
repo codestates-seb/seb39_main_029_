@@ -83,6 +83,8 @@ public class MemberDto {
         private Integer reputation;
 
         private List<PostDto.uResponse> postsList;
+
+        private String imageUrl;
     }
 
     @Getter

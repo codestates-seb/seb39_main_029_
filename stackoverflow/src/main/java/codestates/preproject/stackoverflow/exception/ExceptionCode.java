@@ -18,7 +18,10 @@ public enum ExceptionCode {
     VOTES_ALREADY(404,"Votes Already"),
     NOT_VOTES(404,"Not Vote"),
 
-    TAGS_EXISTS(409, "Tags is exists");
+    TAGS_EXISTS(409, "Tags is exists"),
+    CODE_NOT_FOUND(404, "Code is not correct");
+
+
 
 
 

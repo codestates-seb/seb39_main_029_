@@ -1,14 +1,20 @@
 package codestates.preproject.stackoverflow.member.service;
 
-import codestates.preproject.stackoverflow.comments.entity.Comments;
 import codestates.preproject.stackoverflow.exception.BusinessLogicException;
 import codestates.preproject.stackoverflow.exception.ExceptionCode;
-import codestates.preproject.stackoverflow.member.dto.MemberDto;
+
+import codestates.preproject.stackoverflow.helper.email.entity.Email;
+import codestates.preproject.stackoverflow.helper.email.repository.EmailRepository;
+import codestates.preproject.stackoverflow.helper.event.MemberRegistrationApplicationEvent;
 import codestates.preproject.stackoverflow.member.entity.Member;
 import codestates.preproject.stackoverflow.member.repository.MemberRepository;
+import org.springframework.context.ApplicationEventPublisher;
+
+import codestates.preproject.stackoverflow.member.dto.MemberDto;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,26 +22,65 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 import java.util.Optional;
+import java.util.Random;
 
 @Service
 @Transactional
 public class MemberService {
     private MemberRepository memberRepository;
-
+    private final ApplicationEventPublisher publisher;
+    private final EmailRepository emailRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public MemberService(MemberRepository memberRepository, BCryptPasswordEncoder bCryptPasswordEncoder){
+    private Random random = new Random();
+    
+    public MemberService(MemberRepository memberRepository, ApplicationEventPublisher publisher, EmailRepository emailRepository){
         this.memberRepository = memberRepository;
+        this.publisher = publisher;
+        this.emailRepository = emailRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-    }
+    }    
+
 
     public void createMember(Member member){
         verifyExistsNickName(member.getNickName());
-        String password = member.getPassword();
-        String BCypassord = bCryptPasswordEncoder.encode(password);
-        member.setPassword(BCypassord);
-        member.setRoles("ROLE_ADMIN");
-        memberRepository.save(member);
+        
+        
+
+        String code = random.nextInt()+"";
+
+        publisher.publishEvent(new MemberRegistrationApplicationEvent(this, member,code));
+        Email email = new Email();
+        email.setCode(code);
+        email.setPassword(member.getPassword());
+        email.setNickName(member.getNickName());
+        email.setEmail(member.getEmail());
+        emailRepository.save(email);
+    }
+
+    public void emailCheckMember(String code) {
+        Optional<Email> result = emailRepository.findByCodes(code);
+        System.out.println(result.get().getCode());
+        if(result.isPresent()){
+            Email email = result.get();
+            Member member = new Member();
+            member.setEmail(email.getEmail());
+            member.setNickName(email.getNickName());
+          
+            String password = member.getPassword();
+            String BCypassord = bCryptPasswordEncoder.encode(password);
+            member.setPassword(BCypassord);
+            member.setRoles("ROLE_ADMIN");
+            memberRepository.save(member);
+            
+          
+        }else{
+            throw new BusinessLogicException(ExceptionCode.CODE_NOT_FOUND);
+        }
+
+
+        
+
     }
 
     public Member loginMember(Member member){

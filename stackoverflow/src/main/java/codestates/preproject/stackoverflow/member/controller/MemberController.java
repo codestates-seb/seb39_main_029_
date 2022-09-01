@@ -82,7 +82,7 @@ public class MemberController {
         return new ResponseEntity(response,HttpStatus.OK);
     }
 
-    @PostMapping("/login")
+    @PostMapping("/refresh")
     public ResponseEntity<String> loginMember(@Valid @RequestBody MemberDto.Refresh refresh, HttpServletResponse response){
         String result = memberService.refresh(refresh, response);
         response.addHeader("Authorization",result);

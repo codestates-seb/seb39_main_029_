@@ -1,27 +1,60 @@
 package codestates.preproject.stackoverflow.member.service;
 
-import codestates.preproject.stackoverflow.comments.entity.Comments;
 import codestates.preproject.stackoverflow.exception.BusinessLogicException;
 import codestates.preproject.stackoverflow.exception.ExceptionCode;
+import codestates.preproject.stackoverflow.helper.email.entity.Email;
+import codestates.preproject.stackoverflow.helper.email.repository.EmailRepository;
+import codestates.preproject.stackoverflow.helper.event.MemberRegistrationApplicationEvent;
 import codestates.preproject.stackoverflow.member.entity.Member;
 import codestates.preproject.stackoverflow.member.repository.MemberRepository;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
+import java.util.Random;
 
 @Service
 @Transactional
 public class MemberService {
     private MemberRepository memberRepository;
+    private final ApplicationEventPublisher publisher;
+    private final EmailRepository emailRepository;
 
-    public MemberService(MemberRepository memberRepository){
+    private Random random = new Random();
+    public MemberService(MemberRepository memberRepository, ApplicationEventPublisher publisher, EmailRepository emailRepository){
         this.memberRepository = memberRepository;
+        this.publisher = publisher;
+        this.emailRepository = emailRepository;
     }
 
     public void createMember(Member member){
         verifyExistsNickName(member.getNickName());
-        memberRepository.save(member);
+        String code = random.nextInt()+"";
+
+        publisher.publishEvent(new MemberRegistrationApplicationEvent(this, member,code));
+        Email email = new Email();
+        email.setCode(code);
+        email.setPassword(member.getPassword());
+        email.setNickName(member.getNickName());
+        email.setEmail(member.getEmail());
+        emailRepository.save(email);
+    }
+
+    public void emailCheckMember(String code) {
+        Optional<Email> result = emailRepository.findByCodes(code);
+        System.out.println(result.get().getCode());
+        if(result.isPresent()){
+            Email email = result.get();
+            Member member = new Member();
+            member.setEmail(email.getEmail());
+            member.setNickName(email.getNickName());
+            member.setPassword(email.getPassword());
+            memberRepository.save(member);
+        }else{
+            throw new BusinessLogicException(ExceptionCode.CODE_NOT_FOUND);
+        }
+
     }
 
     public Member loginMember(Member member){

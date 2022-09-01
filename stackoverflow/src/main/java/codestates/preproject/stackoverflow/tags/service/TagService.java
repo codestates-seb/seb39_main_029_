@@ -48,6 +48,7 @@ public class TagService {
                     response.setTagsId(tag.getTagsId());
                     response.setName(tag.getName());
                     response.setCount((long) tag.getPostTags().size());
+                    response.setContent(tag.getContent());
                     return response;
                 }).collect(Collectors.toList());
 

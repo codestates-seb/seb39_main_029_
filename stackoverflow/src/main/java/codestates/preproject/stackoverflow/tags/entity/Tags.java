@@ -38,4 +38,8 @@ public class Tags {
         }
     }
 
+    @Column
+    private String content;
+
+
 }

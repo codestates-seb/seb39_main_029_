@@ -34,7 +34,8 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http.csrf().disable();
-//        http.headers().frameOptions().disable();
+        http.cors();
+        http.headers().frameOptions().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .formLogin().disable()
@@ -43,8 +44,6 @@ public class SecurityConfig {
                 .apply(new CustomDsl())
                 .and()
                 .authorizeRequests()
-                .antMatchers("/h2-console/**")
-                .permitAll()
                 .antMatchers("/v1/members/join","/v1/members/refresh")
                 .permitAll()
                 .antMatchers("/v1/**")

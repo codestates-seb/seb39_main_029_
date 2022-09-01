@@ -68,7 +68,7 @@ const InfoWrapper = styled.div`
   font-size: var(--content-font);
   .id {
     font-size: var(--name-font);
-    font-weight: bold;
+    font-weight: 500;
   }
   .reputation {
     display: flex;

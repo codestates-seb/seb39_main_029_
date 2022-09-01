@@ -189,14 +189,33 @@ public class PostService {
         }
     }
 
+    public List<Posts> findPostsByWord(String word){
+        StringBuilder sb = new StringBuilder(word);
+        sb.insert(0,"%");
+        sb.append("%");
+        word = sb.toString().toLowerCase();
+        List<Posts> list = postRepository.findByWord(word);
+        return list;
+    }
 
-//    public List<Posts> findPostsByWord(int page, int size, String word){
+    public List<Posts> findLimit(List<Posts> posts, int page, int size){
+        List<Posts> result = new ArrayList<>();
+        int count =0;
+        for(int i=(page-1)*size; i<posts.size(); i++){
+            if(count == size) break;
+            result.add(posts.get(i));
+            count++;
+        }
+        return result;
+    }
+
+//    Other Solution
+//    public Page<Posts> findTests(int page, int size, String word){
 //        StringBuilder sb = new StringBuilder(word);
-//        sb.append("%",0,1);
+//        sb.insert(0,"%");
 //        sb.append("%");
-//        word = sb.toString();
-//        List<Posts> list = postRepository.findByWord(word,size*(page-1), size);
-//        return list;
+//        word = sb.toString().toLowerCase();
+//        return postRepository.findAllTest(PageRequest.of(page, size), word);
 //    }
 }
 

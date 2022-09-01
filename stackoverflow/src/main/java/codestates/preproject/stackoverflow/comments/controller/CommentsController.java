@@ -17,9 +17,6 @@ import java.util.List;
 @RestController
 @Valid
 @RequestMapping("/v1/comments")
-/*@CrossOrigin(originPatterns = {"https://localhost:3000","https://localhost:3001","http://localhost:3000","http://localhost:3001",
-        "http://localhost:3000/","http://localhost:3001/"},
-        allowedHeaders = {"POST","GET","PATCH","DELETE"})*/
 public class CommentsController {
     private final CommentsRepository commentsRepository;
 

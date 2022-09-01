@@ -11,6 +11,7 @@ import codestates.preproject.stackoverflow.member.service.MemberService;
 import codestates.preproject.stackoverflow.post.service.PostService;
 import codestates.preproject.stackoverflow.s3.upload.S3Upload;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -30,9 +31,6 @@ import java.io.IOException;
 @RequestMapping("/v1/members")
 @Validated
 @Slf4j
-/*@CrossOrigin(originPatterns = {"https://localhost:3000","https://localhost:3001","http://localhost:3000","http://localhost:3001",
-        "http://localhost:3000/","http://localhost:3001/"},
-        allowedHeaders = {"POST","GET","PATCH","DELETE"})*/
 public class MemberController {
     private final MemberService memberService;
 
@@ -63,12 +61,14 @@ public class MemberController {
     }
 
 
+
     @PostMapping("/login")
     public ResponseEntity loginMember(@Valid @RequestBody MemberDto.Login login){
         Member member = memberMapper.memberLoginToMember(login);
         Member findMember = memberService.loginMember(member);
         return new ResponseEntity(memberMapper.memberToMemberResponseDto(findMember), HttpStatus.OK);
     }
+
 
     @PatchMapping("/update/{member-id}")
     public ResponseEntity patchMember(@PathVariable("member-id") @Positive long memberid,
@@ -99,4 +99,11 @@ public class MemberController {
         return new ResponseEntity(response,HttpStatus.OK);
     }
 
+    @PostMapping("/refresh")
+    public ResponseEntity<String> loginMember(@Valid @RequestBody MemberDto.Refresh refresh, HttpServletResponse response){
+        String result = memberService.refresh(refresh, response);
+        response.addHeader("Authorization",result);
+        response.addHeader("Memberid", String.valueOf(refresh.getMemberid()));
+        return new ResponseEntity(HttpStatus.OK);
+    }
 }

@@ -44,7 +44,7 @@ public class SecurityConfig {
                 .apply(new CustomDsl())
                 .and()
                 .authorizeRequests()
-                .antMatchers("/v1/members/join","/v1/members/refresh")
+                .antMatchers("/v1/members/join")
                 .permitAll()
                 .antMatchers("/v1/**")
                 .access("hasRole('ROLE_ADMIN')")

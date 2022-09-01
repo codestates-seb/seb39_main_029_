@@ -36,6 +36,7 @@ public class CorsConfig {
         config.addAllowedMethod("DELETE");
         config.addExposedHeader("Authorization");
         config.setAllowCredentials(true);
+        config.addAllowedHeader("Authorization");
         config.addExposedHeader("Set-Cookie");
         config.addExposedHeader("Memberid");
         source.registerCorsConfiguration("/**", config);

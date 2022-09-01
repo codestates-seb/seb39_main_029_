@@ -3,12 +3,18 @@ package codestates.preproject.stackoverflow.member.service;
 import codestates.preproject.stackoverflow.comments.entity.Comments;
 import codestates.preproject.stackoverflow.exception.BusinessLogicException;
 import codestates.preproject.stackoverflow.exception.ExceptionCode;
+import codestates.preproject.stackoverflow.member.dto.MemberDto;
 import codestates.preproject.stackoverflow.member.entity.Member;
 import codestates.preproject.stackoverflow.member.repository.MemberRepository;
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
 import java.util.Optional;
 
 @Service
@@ -83,5 +89,18 @@ public class MemberService {
         if(member.isPresent())
             //비지니스 로직으로 추후 변경
             throw new BusinessLogicException(ExceptionCode.NICKNAME_EXISTS);
+    }
+
+    public String refresh(MemberDto.Refresh refresh, HttpServletResponse response){
+        Member member = memberRepository.findById(refresh.getMemberid()).get();
+        String jwtToken = JWT.create()
+                .withSubject("cos jwt token")
+                .withExpiresAt(new Date(System.currentTimeMillis() + (60 * 1000)))
+                .withClaim("email", member.getEmail())
+                .withClaim("nickName", member.getNickName())
+                .sign(Algorithm.HMAC512("cos_jwt_token"));
+        StringBuilder sb = new StringBuilder(jwtToken);
+        sb.insert(0,"Bearer ");
+        return sb.toString();
     }
 }

@@ -8,9 +8,9 @@ import "tui-color-picker/dist/tui-color-picker.css";
 import "@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css";
 import "@toast-ui/editor/dist/i18n/ko-kr";
 
-function TextEditor() {
+function TextEditor({ setContent, editorRef }) {
   // Editor DOM 선택용
-  const editorRef = useRef();
+  // const editorRef = useRef();
 
   // 등록 버튼 핸들러
   const handleRegisterButton = () => {
@@ -19,7 +19,6 @@ function TextEditor() {
     // 입력창에 입력한 내용을 MarkDown 형태로 취득
     console.log(editorRef.current?.getInstance().getMarkdown());
   };
-
   return (
     <div>
       <Editor

@@ -52,6 +52,8 @@ function DetailQnA() {
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
+  width: 100%;
+  padding: 30px;
   font-family: var(--sans-serif);
   font-size: var(--text-font);
   .vote {
@@ -62,7 +64,7 @@ const Wrapper = styled.div`
 const TitleWrapper = styled.div`
   border-bottom: 1px solid hsl(210, 8%, 85%);
   padding: 20px;
-  margin: 0 0 20px 20px;
+  margin: 0 0 20px 0;
   .title {
     font-size: var(--header-font);
     margin: 0 0 10px 0;

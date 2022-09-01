@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;700&family=Source+Sans+Pro:wght@400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;700&family=Source+Sans+Pro:wght@400;700&display=swap");
 
 :root {
   /* color */
@@ -25,17 +25,17 @@
   /* size */
   --tiny-font: 11px;
   --small-font: 12px;
-  --normal-font: 13px; 
+  --normal-font: 13px;
   --text-font: 15px;
-  --content-font: 17px
-  --ad-font: 19px;
+  --content-font: 17px;
+  --ad-font: 20px;
   --header-font: 27px;
   --name-font: 34px;
   --banner-font: 55px;
 
   /* font */
-  --serif:'Roboto Slab', serif;
-  --sans-serif:'Source Sans Pro', sans-serif;
+  --serif: "Roboto Slab", serif;
+  --sans-serif: "Source Sans Pro", sans-serif;
 
   /* badge */
   --bronze: #cd7f32;
@@ -44,7 +44,6 @@
   --jade: #00a86b;
   --diamond: #cfe4ee;
   --master: #3e2022;
-
 }
 
 body {

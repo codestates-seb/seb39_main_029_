@@ -2,16 +2,14 @@ package codestates.preproject.stackoverflow.post.entity;
 
 
 import codestates.preproject.stackoverflow.tags.entity.Tags;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
 @Setter
+@AllArgsConstructor
 @NoArgsConstructor
 public class PostTag {
 
@@ -20,7 +18,7 @@ public class PostTag {
     private long postTagId;
 
     @ManyToOne
-    @JoinColumn(name = "POSTS_ID")
+    @JoinColumn(name = "POST_ID")
     private Posts posts;
 
     @ManyToOne

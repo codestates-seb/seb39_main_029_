@@ -8,6 +8,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface CommentsRepository extends JpaRepository<Comments, Long> {
-    @Query(value = "SELECT * FROM COMMENTS WHERE POSTSID = :postsid", nativeQuery = true)
+    @Query(value = "select * form comments where post_id = :postsid", nativeQuery = true)
     List<Comments> findByPostsId(long postsid);
 }

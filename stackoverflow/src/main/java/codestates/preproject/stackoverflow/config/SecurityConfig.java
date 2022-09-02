@@ -20,9 +20,10 @@ import org.springframework.web.filter.CorsFilter;
 
 import static org.springframework.http.HttpMethod.OPTIONS;
 
-@RequiredArgsConstructor
+
 @Configuration
-@EnableWebSecurity
+@EnableWebSecurity(debug = false)
+//@RequiredArgsConstructor
 public class SecurityConfig {
     @Autowired
     private CorsFilter corsFilter;

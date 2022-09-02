@@ -13,13 +13,15 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Comments {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long commentsid;
 
     @ManyToOne
-    @JoinColumn(name = "POSTSID")
+    @JoinColumn(name = "POST_ID")
     private Posts posts;
 
     @ManyToOne
@@ -40,9 +42,9 @@ public class Comments {
 
     public void setPosts(Posts posts) {
         this.posts = posts;
-        /*if(!posts.getCommentsList().contains(this)){
-            posts.addComments(this);
-        }*/
+//        if(!posts.getCommentsList().contains(this)){
+//            posts.addComments(this);
+//        }
 
     }
 

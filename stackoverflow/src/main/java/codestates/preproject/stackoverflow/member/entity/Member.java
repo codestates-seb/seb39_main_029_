@@ -17,6 +17,8 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,9 +36,6 @@ public class Member {
 
     @Column(columnDefinition = "Text")
     private String selfId;
-
-//    @Column
-//    private String image;
 
     @Column
     private String location;

@@ -46,7 +46,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             if(!bCryptPasswordEncoder.matches(member.getPassword(),findMember.getPassword())){
                 throw new BusinessLogicException(ExceptionCode.PASSWORD_NOT_FOUND);
             }
-
+            System.out.println("여기는 언제 들어오나");
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(member.getEmail(), member.getPassword());
 
             Authentication authentication = authenticationManager.authenticate(authenticationToken);

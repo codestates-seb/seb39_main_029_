@@ -108,7 +108,7 @@ public interface PostMapper {
 
             response.setCommentsCount(posts.getCommentsCount());
             response.setSubject(posts.getSubject());
-            response.setTag(postTagsResponseDto(posts.getPostTagsList()));
+            response.setPostTag(postTagsResponseDto(posts.getPostTagsList()));
             return response;
         }).collect(Collectors.toList());
     }

@@ -16,8 +16,10 @@ public class CorsConfig {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
 
-        config.setAllowCredentials(false);
-        config.addAllowedOrigin("*");
+        config.setAllowCredentials(true);
+        config.addAllowedOriginPattern("*");
+//        config.addAllowedOrigin("*");
+
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
         config.addAllowedMethod("POST");
@@ -25,8 +27,8 @@ public class CorsConfig {
         config.addAllowedMethod("GET");
         config.addAllowedMethod("DELETE");
         config.addExposedHeader("Authorization");
-        config.addAllowedHeader("Authorization");
 
+        config.addAllowedHeader("Authorization");
         config.addExposedHeader("Memberid");
         source.registerCorsConfiguration("/**", config);
 

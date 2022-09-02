@@ -51,7 +51,6 @@ public class SecurityConfig {
                 .authorizeRequests()
                 .antMatchers("/v1/members/join","/v1/members/refresh")
                 .permitAll()
-                .antMatchers(OPTIONS, "/**").permitAll()
                 .antMatchers("/v1/**")
                 .access("hasRole('ROLE_ADMIN')")
                 .anyRequest().permitAll();

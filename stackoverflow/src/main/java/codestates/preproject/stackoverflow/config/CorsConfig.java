@@ -31,9 +31,14 @@ public class CorsConfig {
         config.addAllowedOrigin("*");
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
+        config.addAllowedMethod("POST");
+        config.addAllowedMethod("PATCH");
+        config.addAllowedMethod("GET");
+        config.addAllowedMethod("DELETE");
         config.addExposedHeader("Authorization");
         config.setAllowCredentials(false);
-        config.addExposedHeader("Set-Cookie");
+        config.addAllowedHeader("Authorization");
+
         config.addExposedHeader("Memberid");
         source.registerCorsConfiguration("/**", config);
 

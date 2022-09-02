@@ -15,10 +15,10 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.web.cors.CorsUtils;
+
 import org.springframework.web.filter.CorsFilter;
 
-import static org.springframework.http.HttpMethod.OPTIONS;
+
 
 
 @Configuration
@@ -33,9 +33,6 @@ public class SecurityConfig {
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
-
-    @Autowired(required = true)
-    private HttpSecurity httpSecurity;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{

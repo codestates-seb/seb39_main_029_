@@ -30,36 +30,21 @@ dependencies {
 	asciidoctorExtensions 'org.springframework.restdocs:spring-restdocs-asciidoctor'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
-	implementation 'org.springframework.boot:spring-boot-starter-web','io.jsonwebtoken:jjwt-api:0.11.2'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	runtimeOnly 'mysql:mysql-connector-java'
 	compileOnly 'org.projectlombok:lombok'
-
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	implementation 'org.mapstruct:mapstruct:1.5.1.Final'
 	annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.1.Final'
-	/*implementation 'org.springframework.boot:spring-boot-starter-mail'*/
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
 	implementation 'com.google.code.gson:gson'
-	runtimeOnly 'mysql:mysql-connector-java'
 
-	implementation 'org.springframework.cloud:spring-cloud-starter-aws-parameter-store-config'
-	//implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
-
-	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.2',
-			'io.jsonwebtoken:jjwt-jackson:0.11.2'
-	compileOnly "com.fasterxml.jackson.core:jackson-databind:2.9.4"
-
-  	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	testImplementation 'org.springframework.security:spring-security-test'
 	implementation 'com.auth0:java-jwt:3.19.2'
 }
-
-dependencyManagement {
-	imports {
-		mavenBom "org.springframework.cloud:spring-cloud-starter-parent:Hoxton.SR12"
-	}
-}
-
 
 
 // 6
@@ -89,11 +74,11 @@ build {
 	dependsOn copyDocument
 }
 
-// 10
-//bootJar {
-//	dependsOn copyDocument
-//	from ("${asciidoctor.outputDir}") {
-//		into 'static/docs'
-//	}
-//}
+ 10
+bootJar {
+	dependsOn copyDocument
+	from ("${asciidoctor.outputDir}") {
+		into 'static/docs'
+	}
+}
 

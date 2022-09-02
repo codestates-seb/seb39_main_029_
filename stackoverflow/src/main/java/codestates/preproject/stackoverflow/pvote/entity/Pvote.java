@@ -1,14 +1,13 @@
 package codestates.preproject.stackoverflow.pvote.entity;
 
 import codestates.preproject.stackoverflow.post.entity.Posts;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Pvote {

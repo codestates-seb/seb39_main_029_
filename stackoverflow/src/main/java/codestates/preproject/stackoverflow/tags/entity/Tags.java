@@ -2,16 +2,15 @@ package codestates.preproject.stackoverflow.tags.entity;
 
 import codestates.preproject.stackoverflow.post.entity.PostTag;
 import codestates.preproject.stackoverflow.post.entity.Posts;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
+@Setter
+@Getter
 @AllArgsConstructor
 @Entity
 @NoArgsConstructor

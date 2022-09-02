@@ -30,7 +30,7 @@ public class SecurityConfig {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    @Autowired
+    @Autowired(required = true)
     private HttpSecurity httpSecurity;
 
     @Bean

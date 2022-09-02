@@ -7,7 +7,7 @@ spring:
         web-allow-others: true
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://rds-pre-029.cnuf9an3lpvk.ap-northeast-2.rds.amazonaws.com:13306/test
+    url: jdbc:mysql://rds-pre-029.cnuf9an3lpvk.ap-northeast-2.rds.amazonaws.com:13306
     username: admin
     password: Eulja2013*
   jpa:

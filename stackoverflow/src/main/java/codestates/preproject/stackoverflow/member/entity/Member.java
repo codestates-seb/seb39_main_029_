@@ -37,9 +37,6 @@ public class Member {
     @Column(columnDefinition = "Text")
     private String selfId;
 
-//    @Column
-//    private String image;
-
     @Column
     private String location;
 

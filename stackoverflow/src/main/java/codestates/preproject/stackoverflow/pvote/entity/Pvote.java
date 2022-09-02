@@ -17,7 +17,7 @@ public class Pvote {
     private long pVoteId;
 
     @ManyToOne
-    @JoinColumn(name = "POSTS_ID")
+    @JoinColumn(name = "POST_ID")
     private Posts posts;
 
     public void addPosts(Posts posts) {

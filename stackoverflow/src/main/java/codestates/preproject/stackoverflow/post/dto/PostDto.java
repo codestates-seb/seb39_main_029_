@@ -103,7 +103,7 @@ public class PostDto {
         private long postId;
         private String subject;
         private int vote;
-        private List<TagsResponse> tag;
+        private List<TagsResponse> postTag;
         private int commentsCount;
         private LocalDateTime createAt;
     }

@@ -1,3 +1,4 @@
+/*
 package codestates.preproject.stackoverflow.helper.email;
 
 import org.springframework.mail.MailSendException;
@@ -19,3 +20,4 @@ public class EmailSender {
         emailSendable.send(to, subject, message);
     }
 }
+*/

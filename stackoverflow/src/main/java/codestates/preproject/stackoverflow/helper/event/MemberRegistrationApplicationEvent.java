@@ -1,3 +1,4 @@
+/*
 package codestates.preproject.stackoverflow.helper.event;
 
 import codestates.preproject.stackoverflow.member.entity.Member;
@@ -15,3 +16,4 @@ public class MemberRegistrationApplicationEvent extends ApplicationEvent {
         this.code = code;
     }
 }
+*/

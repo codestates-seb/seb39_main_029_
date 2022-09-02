@@ -1,3 +1,4 @@
+/*
 package codestates.preproject.stackoverflow.helper.email;
 
 import lombok.extern.slf4j.Slf4j;
@@ -24,3 +25,4 @@ public class SimpleEmailSendable implements EmailSendable {
         log.info("Sent simple email!");
     }
 }
+*/

@@ -1,3 +1,4 @@
+/*
 package codestates.preproject.stackoverflow.schedle;
 
 import codestates.preproject.stackoverflow.helper.email.repository.EmailRepository;
@@ -27,7 +28,8 @@ public class ScheduleService {
     }
 
     // [2초 후 3초마다 반복 실행 스케줄링]
-    /*@Scheduled(fixedDelay = 3000,  initialDelay = 2000)
+    */
+/*@Scheduled(fixedDelay = 3000,  initialDelay = 2000)
     public void threeRepeatJob(){
         System.out.println("\n");
         System.out.println("=======================================");
@@ -35,14 +37,18 @@ public class ScheduleService {
         System.out.println("[JopTime] : " + getNowDateTime24());
         System.out.println("=======================================");
         System.out.println("\n");
-    }*/
+    }*//*
 
-    /*// [1초 후 5초마다 반복 실행 스케줄링]
+
+    */
+/*//*
+/ [1초 후 5초마다 반복 실행 스케줄링]
     @Scheduled(fixedDelay = 15000,  initialDelay = 1000)
     public void fiveRepeatJob(){
         System.out.println("hihihihihihihihihihihiihihihihihh");
         tagRepository.deleteAll();
-    }*/
+    }*//*
+
 
 
 
@@ -53,4 +59,4 @@ public class ScheduleService {
         emailRepository.deleteAll();
     }
 
-}
+}*/

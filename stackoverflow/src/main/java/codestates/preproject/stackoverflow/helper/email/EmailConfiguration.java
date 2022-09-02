@@ -1,3 +1,4 @@
+/*
 package codestates.preproject.stackoverflow.helper.email;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -55,3 +56,4 @@ public class EmailConfiguration {
         return mailSender;
     }
 }
+*/

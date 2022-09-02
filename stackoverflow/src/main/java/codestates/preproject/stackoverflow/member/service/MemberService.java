@@ -3,9 +3,9 @@ package codestates.preproject.stackoverflow.member.service;
 import codestates.preproject.stackoverflow.exception.BusinessLogicException;
 import codestates.preproject.stackoverflow.exception.ExceptionCode;
 
-import codestates.preproject.stackoverflow.helper.email.entity.Email;
+/*import codestates.preproject.stackoverflow.helper.email.entity.Email;
 import codestates.preproject.stackoverflow.helper.email.repository.EmailRepository;
-import codestates.preproject.stackoverflow.helper.event.MemberRegistrationApplicationEvent;
+import codestates.preproject.stackoverflow.helper.event.MemberRegistrationApplicationEvent;*/
 import codestates.preproject.stackoverflow.member.entity.Member;
 import codestates.preproject.stackoverflow.member.repository.MemberRepository;
 import org.springframework.context.ApplicationEventPublisher;
@@ -29,25 +29,25 @@ import java.util.Random;
 public class MemberService {
     private MemberRepository memberRepository;
     private final ApplicationEventPublisher publisher;
-    private final EmailRepository emailRepository;
+
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     private Random random = new Random();
     
-    public MemberService(MemberRepository memberRepository, ApplicationEventPublisher publisher, EmailRepository emailRepository,BCryptPasswordEncoder bCryptPasswordEncoder){
+    public MemberService(MemberRepository memberRepository, ApplicationEventPublisher publisher, BCryptPasswordEncoder bCryptPasswordEncoder){
         this.memberRepository = memberRepository;
         this.publisher = publisher;
-        this.emailRepository = emailRepository;
+        /*this.emailRepository = emailRepository;*/
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }    
 
 
-    public void createMember(Member member){
+    public Member createMember(Member member){
         verifyExistsNickName(member.getNickName());
         
         
 
-        String code = random.nextInt()+"";
+        /*String code = random.nextInt()+"";
 
         publisher.publishEvent(new MemberRegistrationApplicationEvent(this, member,code));
         Email email = new Email();
@@ -55,10 +55,12 @@ public class MemberService {
         email.setPassword(member.getPassword());
         email.setNickName(member.getNickName());
         email.setEmail(member.getEmail());
-        emailRepository.save(email);
+        emailRepository.save(email);*/
+        return memberRepository.save(member);
+
     }
 
-    public void emailCheckMember(String code) {
+    /*public void emailCheckMember(String code) {
         Optional<Email> result = emailRepository.findByCodes(code);
         System.out.println(result.get().getCode());
         if(result.isPresent()){
@@ -81,7 +83,7 @@ public class MemberService {
 
         
 
-    }
+    }*/
 
     public Member loginMember(Member member){
         Optional<Member> optionalMember = memberRepository.findByEmail(member.getEmail());

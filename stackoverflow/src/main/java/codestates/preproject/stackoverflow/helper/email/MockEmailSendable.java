@@ -1,3 +1,4 @@
+/*
 package codestates.preproject.stackoverflow.helper.email;
 
 public class MockEmailSendable implements EmailSendable {
@@ -7,3 +8,4 @@ public class MockEmailSendable implements EmailSendable {
         System.out.println("Sent mock email!");
     }
 }
+*/

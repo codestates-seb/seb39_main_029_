@@ -14,18 +14,18 @@ spring:
     properties:
       hibernate:
         format_sql: true  # (3) SQL pretty print
-mail:
-  smtp:
-    host: smtp.gmail.com
-    port: 587
-    username: tiXBICK7ldzsbEa5I/pMNqLEYiosRfinM8jtRILy064=
-    password: bVcgptKKvBiK4bl1bcYV6Z+GZs57Q1Kg2+msH377Nxs=
-    auth: true
-    starttls:
-      enable: true
-  subject:
-    member:
-      registration: Nice Meet you! We are Iguana!
+#mail:
+#  smtp:
+#    host: smtp.gmail.com
+#    port: 587
+#    username: tiXBICK7ldzsbEa5I/pMNqLEYiosRfinM8jtRILy064=
+#    password: bVcgptKKvBiK4bl1bcYV6Z+GZs57Q1Kg2+msH377Nxs=
+#    auth: true
+#    starttls:
+#      enable: true
+#  subject:
+#    member:
+#      registration: Nice Meet you! We are Iguana!
 server:
   port: 8081
 

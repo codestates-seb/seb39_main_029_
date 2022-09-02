@@ -1,3 +1,4 @@
+/*
 package codestates.preproject.stackoverflow.helper.email;
 
 import org.springframework.mail.MailSendException;
@@ -9,3 +10,4 @@ public class MockExceptionEmailSendable implements EmailSendable {
         throw new MailSendException("error while sending Mock email");
     }
 }
+*/

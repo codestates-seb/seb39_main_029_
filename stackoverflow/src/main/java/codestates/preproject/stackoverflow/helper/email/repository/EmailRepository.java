@@ -1,3 +1,4 @@
+/*
 package codestates.preproject.stackoverflow.helper.email.repository;
 
 import codestates.preproject.stackoverflow.helper.email.entity.Email;
@@ -12,3 +13,4 @@ public interface EmailRepository extends JpaRepository<Email,Long> {
     @Query(value = "SELECT * FROM EMAIL WHERE CODE = :code", nativeQuery = true)
     Optional<Email> findByCodes(String code);
 }
+*/

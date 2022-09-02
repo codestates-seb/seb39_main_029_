@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+/*
 
 @Entity
 @Getter
@@ -30,3 +31,4 @@ public class Email {
     @Column(nullable = false)
     private String email;
 }
+*/

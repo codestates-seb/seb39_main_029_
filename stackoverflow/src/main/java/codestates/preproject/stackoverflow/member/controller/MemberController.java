@@ -46,19 +46,22 @@ public class MemberController {
     }
 
     @PostMapping("/join")
-    public void joinMember(@Valid @RequestBody MemberDto.Join join, HttpServletResponse response) throws IOException {
+    public ResponseEntity joinMember(@Valid @RequestBody MemberDto.Join join, HttpServletResponse response) throws IOException {
         Member member = memberMapper.memberJoinToMember(join);
-        memberService.createMember(member);
 
-        String redirect_uri="/check";
-        response.sendRedirect(redirect_uri);
+        /*String redirect_uri="/check";
+        response.sendRedirect(redirect_uri);*/
+
+
+        //나중에 삭제
+        return new ResponseEntity(memberMapper.memberToMemberResponseDto(memberService.createMember(member)), HttpStatus.OK);
     }
-    @PostMapping("/check")
+    /*@PostMapping("/check")
     public ResponseEntity checkMember(String code) {
         System.out.println(code);
          memberService.emailCheckMember(code);
          return new ResponseEntity<>(HttpStatus.CREATED);
-    }
+    }*/
 
 
 

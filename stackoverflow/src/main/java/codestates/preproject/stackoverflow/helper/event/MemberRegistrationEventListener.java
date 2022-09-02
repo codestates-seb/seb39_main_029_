@@ -1,5 +1,6 @@
 package codestates.preproject.stackoverflow.helper.event;
 
+/*
 import codestates.preproject.stackoverflow.helper.email.EmailSender;
 import codestates.preproject.stackoverflow.member.entity.Member;
 import codestates.preproject.stackoverflow.member.service.MemberService;
@@ -47,3 +48,4 @@ public class MemberRegistrationEventListener {
         }
     }
 }
+*/

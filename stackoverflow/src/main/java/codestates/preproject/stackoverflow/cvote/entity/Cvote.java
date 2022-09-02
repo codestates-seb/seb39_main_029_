@@ -11,8 +11,8 @@ import javax.persistence.*;
 @Entity
 @Setter
 @Getter
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 public class Cvote {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

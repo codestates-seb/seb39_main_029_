@@ -15,7 +15,7 @@ public class CorsConfig {
     public CorsFilter corsFilter() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(Arrays.asList("http://localhost:3000/ask","http://localhost:3001/ask","http://localhost:3000","http://localhost:3001"));
+       /* config.setAllowedOrigins(Arrays.asList("http://localhost:3000/ask","http://localhost:3001/ask","http://localhost:3000","http://localhost:3001"));
         config.addAllowedOrigin("http://localhost:3001/signup");
         config.addAllowedOrigin("http://localhost:3000/signup");
         config.addAllowedOrigin("http://localhost:3001/home");
@@ -27,11 +27,12 @@ public class CorsConfig {
         config.addAllowedOrigin("http://localhost:3001/tag");
         config.addAllowedOrigin("http://localhost:3000/tag");
         config.addAllowedOrigin("http://localhost:3001/login");
-        config.addAllowedOrigin("http://localhost:3000/login");
+        config.addAllowedOrigin("http://localhost:3000/login");*/
+        config.addAllowedOrigin("*");
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
         config.addExposedHeader("Authorization");
-        config.setAllowCredentials(true);
+        config.setAllowCredentials(false);
         config.addExposedHeader("Set-Cookie");
         config.addExposedHeader("Memberid");
         source.registerCorsConfiguration("/**", config);

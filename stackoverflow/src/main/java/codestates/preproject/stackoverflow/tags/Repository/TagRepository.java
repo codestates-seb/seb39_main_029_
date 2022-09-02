@@ -9,10 +9,10 @@ import java.util.List;
 import java.util.Optional;
 
 public interface TagRepository extends JpaRepository<Tags,Long> {
-    @Query(value = "SELECT * FROM TAGS WHERE POSTS_ID = :postId", nativeQuery = true)
+    @Query(value = "select * from tags where posts_id = :postId", nativeQuery = true)
     Optional<List<Tags>> findTagsAll(long postId);
 
-    @Query(value = "SELECT * FROM TAGS WHERE NAME = :name", nativeQuery = true)
+    @Query(value = "select * from tags where name = :name", nativeQuery = true)
     Optional<Tags> findByName(String name);
 }
 

@@ -51,6 +51,7 @@ public class MemberService {
         Email email = new Email();
         email.setCode(code);
         email.setPassword(member.getPassword());
+
         email.setNickName(member.getNickName());
         email.setEmail(member.getEmail());
         emailRepository.save(email);
@@ -66,8 +67,10 @@ public class MemberService {
             member.setEmail(email.getEmail());
             member.setNickName(email.getNickName());
           
-            String password = member.getPassword();
+            String password = email.getPassword();
+
             String BCypassord = bCryptPasswordEncoder.encode(password);
+            System.out.println(BCypassord);
             member.setPassword(BCypassord);
             member.setRoles("ROLE_ADMIN");
             memberRepository.save(member);

@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Slf4j
 public class MemberRegistrationEventListener {
-    @Value("${spring.mail.subject.member.registration}")
+    @Value("${mail.subject.member.registration}")
     private String subject;
     private final EmailSender emailSender;
     private final MemberService memberService;

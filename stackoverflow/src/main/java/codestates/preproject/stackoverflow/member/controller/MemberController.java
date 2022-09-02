@@ -53,7 +53,7 @@ public class MemberController {
     @PostMapping("/join")
     public void joinMember(@Valid @RequestBody MemberDto.Join join, HttpServletResponse response) throws IOException {
         Member member = memberMapper.memberJoinToMember(join);
-
+        memberService.createMember(member);
         String redirect_uri="/check";
         response.sendRedirect(redirect_uri);
 

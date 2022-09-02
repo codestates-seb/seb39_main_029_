@@ -1,3 +1,17 @@
+
+
+mail:
+  smtp:
+    host: smtp.gmail.com
+    port: 587
+    username: jungdo8016@gmail.com
+    password: ijfjzvldnhndzzvf
+    auth: true
+    starttls:
+      enable: true
+  subject:
+    member:
+      registration: Nice Meet you! We are Iguana!
 spring:
   h2:
     console:
@@ -19,18 +33,7 @@ spring:
     properties:
       hibernate:
         format_sql: true  # (3) SQL pretty print
-  mail:
-    smtp:
-      host: smtp.gmail.com
-      port: 587
-      username: jungdo8016@gmail.com
-      password: ijfjzvldnhndzzvf
-      auth: true
-      starttls:
-        enable: true
-    subject:
-      member:
-        registration: Nice Meet you! We are Iguana!
+
 
 server:
   port: 8088

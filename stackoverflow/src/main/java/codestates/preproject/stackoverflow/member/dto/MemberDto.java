@@ -1,20 +1,18 @@
 package codestates.preproject.stackoverflow.member.dto;
 
 import codestates.preproject.stackoverflow.post.dto.PostDto;
-import codestates.preproject.stackoverflow.post.entity.Posts;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Value;
 
-import javax.persistence.Column;
 
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
+
 import java.util.List;
 
 public class MemberDto {
@@ -33,6 +31,7 @@ public class MemberDto {
         @NotBlank
         @Email
         private String email;
+
     }
 
 

@@ -45,11 +45,11 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 //        if(url[url.length-1].equals("refresh")){
 //            chain.doFilter(request,response);
 //        }else{
-            String username = JWT.require(Algorithm.HMAC512("cos_jwt_token")).build().verify(jwtToken).getClaim("nickName").asString();
+            String email = JWT.require(Algorithm.HMAC512("cos_jwt_token")).build().verify(jwtToken).getClaim("email").asString();
         System.out.println("유효성 검증 통과");
 
-            if (username != null) {
-                Member memberEntity = memberRepository.findByNickName(username).get();
+            if (email != null) {
+                Member memberEntity = memberRepository.findByEmail(email).get();
                 System.out.println(memberEntity.getEmail() + "\n:이메일 인증 통과");
                 PrincipalDetails principalDetails = new PrincipalDetails(memberEntity);
                 Authentication authentication = new UsernamePasswordAuthenticationToken(principalDetails, null, principalDetails.getAuthorities());

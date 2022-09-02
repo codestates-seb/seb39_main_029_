@@ -1,6 +1,5 @@
 package codestates.preproject.stackoverflow.helper.event;
 
-/*
 import codestates.preproject.stackoverflow.helper.email.EmailSender;
 import codestates.preproject.stackoverflow.member.entity.Member;
 import codestates.preproject.stackoverflow.member.service.MemberService;
@@ -19,7 +18,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Slf4j
 public class MemberRegistrationEventListener {
-    @Value("${mail.subject.member.registration}")
+    @Value("${spring.mail.subject.member.registration}")
     private String subject;
     private final EmailSender emailSender;
     private final MemberService memberService;
@@ -48,4 +47,3 @@ public class MemberRegistrationEventListener {
         }
     }
 }
-*/

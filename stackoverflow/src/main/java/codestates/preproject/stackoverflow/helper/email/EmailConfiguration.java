@@ -1,4 +1,3 @@
-/*
 package codestates.preproject.stackoverflow.helper.email;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -12,22 +11,22 @@ import java.util.Properties;
 
 @Configuration
 public class EmailConfiguration {
-    @Value("${mail.smtp.host}")
+    @Value("${spring.mail.smtp.host}")
     private String host;
 
-    @Value("${mail.smtp.port}")
+    @Value("${spring.mail.smtp.port}")
     private int port;
 
-    @Value("${mail.smtp.username}")
+    @Value("${spring.mail.smtp.username}")
     private String username;
 
-    @Value("${mail.smtp.password}")
+    @Value("${spring.mail.smtp.password}")
     private String password;
 
-    @Value("${mail.smtp.auth}")
+    @Value("${spring.mail.smtp.auth}")
     private String auth;
 
-    @Value("${mail.smtp.starttls.enable}")
+    @Value("${spring.mail.smtp.starttls.enable}")
     private String tlsEnable;
 
     @Bean
@@ -50,10 +49,9 @@ public class EmailConfiguration {
         mailSender.setPassword(password);
 
         Properties props = mailSender.getJavaMailProperties();
-        props.put("mail.smtp.auth", auth);
-        props.put("mail.smtp.starttls.enable", tlsEnable);
+        props.put("spring.mail.smtp.auth", auth);
+        props.put("spring.mail.smtp.starttls.enable", tlsEnable);
         mailSender.setJavaMailProperties(props);
         return mailSender;
     }
 }
-*/

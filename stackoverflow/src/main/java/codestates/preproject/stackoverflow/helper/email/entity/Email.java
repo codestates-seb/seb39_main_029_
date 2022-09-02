@@ -1,13 +1,12 @@
 package codestates.preproject.stackoverflow.helper.email.entity;
 
 
-import codestates.preproject.stackoverflow.member.entity.Member;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-/*
 
 @Entity
 @Getter
@@ -31,4 +30,3 @@ public class Email {
     @Column(nullable = false)
     private String email;
 }
-*/

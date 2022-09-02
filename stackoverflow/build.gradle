@@ -39,9 +39,8 @@ dependencies {
 	annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.1.Final'
 	/*implementation 'org.springframework.boot:spring-boot-starter-mail'*/
 	implementation 'com.google.code.gson:gson'
-	implementation 'mysql:mysql-connector-java'
+	runtimeOnly 'mysql:mysql-connector-java'
 
-	implementation 'com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.3'
 	implementation 'org.springframework.cloud:spring-cloud-starter-aws-parameter-store-config'
 	//implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
   

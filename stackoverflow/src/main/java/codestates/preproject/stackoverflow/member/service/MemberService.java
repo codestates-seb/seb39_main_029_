@@ -82,9 +82,9 @@ public class MemberService {
     }
 
     public Member loginMember(Member member){
-        System.out.println(0);
+
         Optional<Member> optionalMember = memberRepository.findByEmail(member.getEmail());
-        System.out.println(1);
+
         Member findMember = optionalMember.orElseThrow(()->new BusinessLogicException(ExceptionCode.EMAIL_NOT_FOUND));
         if(!findMember.getPassword().equals(bCryptPasswordEncoder.encode(member.getPassword()))){
             throw new BusinessLogicException(ExceptionCode.PASSWORD_NOT_FOUND);

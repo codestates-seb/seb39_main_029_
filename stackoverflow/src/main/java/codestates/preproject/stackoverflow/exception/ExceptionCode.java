@@ -19,9 +19,10 @@ public enum ExceptionCode {
     NOT_VOTES(404,"Not Vote"),
 
     TAGS_EXISTS(409, "Tags is exists"),
-    CODE_NOT_FOUND(404, "Code is not correct");
+    CODE_NOT_FOUND(404, "Code is not correct"),
 
-
+    IMAGE_EXISTS(409, "Image is exists"),
+    IMAGE_NOT_FOUND(404, "Image not found");
 
 
 

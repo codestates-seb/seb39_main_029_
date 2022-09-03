@@ -3,6 +3,8 @@ package codestates.preproject.stackoverflow.member.entity;
 import codestates.preproject.stackoverflow.comments.entity.Comments;
 
 import codestates.preproject.stackoverflow.post.entity.Posts;
+import codestates.preproject.stackoverflow.s3.entity.Images;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 
@@ -63,4 +65,14 @@ public class Member {
         return new ArrayList<>();
     }
 
+    @JsonManagedReference
+    @OneToOne(mappedBy = "member", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    private Images image;
+
+    public void addImage(Images image) {
+        this.image = image;
+        if (image.getMember() != this) {
+            image.setMember(this);
+        }
+    }
 }

@@ -12,4 +12,6 @@ public interface MemberMapper {
     Member memberPatchToMember(MemberDto.Patch requestBody);
 
     MemberDto.Response memberToMemberResponseDto(Member requestBody);
+
+
 }

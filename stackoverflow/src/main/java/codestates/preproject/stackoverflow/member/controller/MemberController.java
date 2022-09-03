@@ -9,7 +9,6 @@ import codestates.preproject.stackoverflow.member.service.MemberService;
 
 
 import codestates.preproject.stackoverflow.post.service.PostService;
-import codestates.preproject.stackoverflow.s3.upload.S3Upload;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,7 +31,6 @@ import java.io.IOException;
 @RequestMapping("/v1/members")
 @Validated
 @Slf4j
-@CrossOrigin("*")
 public class MemberController {
     private final MemberService memberService;
 
@@ -40,16 +38,16 @@ public class MemberController {
 
     private final PostService postService;
 
-    private final S3Upload s3Upload;
-    public MemberController(MemberService memberService, MemberMapper memberMapper, PostService postService, S3Upload s3Upload){
+    /*private final S3Upload s3Upload;*/
+
+    public MemberController(MemberService memberService, MemberMapper memberMapper, PostService postService ){
         this.memberMapper = memberMapper;
         this.memberService = memberService;
         this.postService = postService;
-
-        this.s3Upload = s3Upload;
     }
 
     @PostMapping("/join")
+    @ResponseStatus(HttpStatus.OK)
     public void joinMember(@Valid @RequestBody MemberDto.Join join, HttpServletResponse response) throws IOException {
         Member member = memberMapper.memberJoinToMember(join);
         memberService.createMember(member);
@@ -58,35 +56,43 @@ public class MemberController {
 
     }
     @PostMapping("/check")
-    public ResponseEntity checkMember(String code) {
+    @ResponseStatus(HttpStatus.CREATED)
+    public String checkMember(String code) {
 
          memberService.emailCheckMember(code);
-         return new ResponseEntity<>(HttpStatus.CREATED);
+         return "인증 완료";
     }
 
 
 
-    @PostMapping("/login")
+    /*@PostMapping("/login")
     public ResponseEntity loginMember(@Valid @RequestBody MemberDto.Login login){
         System.out.println("---1");
         Member member = memberMapper.memberLoginToMember(login);
         Member findMember = memberService.loginMember(member);
         return new ResponseEntity(memberMapper.memberToMemberResponseDto(findMember), HttpStatus.OK);
-    }
+    }*/
 
 
     @PatchMapping("/update/{member-id}")
     public ResponseEntity patchMember(@PathVariable("member-id") @Positive long memberid,
-                                      @RequestBody MemberDto.Patch patch,
-            @RequestParam("images") MultipartFile multipartFile) throws IOException {
+                                      @RequestBody MemberDto.Patch patch
+            ) {
         patch.setMemberid(memberid);
         Member member = memberMapper.memberPatchToMember(patch);
         Member updateMember = memberService.updateMember(member);
         MemberDto.Response result = memberMapper.memberToMemberResponseDto(updateMember);
-        String imageUrl = s3Upload.upload(multipartFile);
-        result.setImageUrl(imageUrl);
+
         return new ResponseEntity(result,HttpStatus.OK);
     }
+
+    /*@PostMapping("/image")
+    public String postImage(
+            @RequestPart("file") MultipartFile file
+    ) throws IOException {
+        String imageUrl = s3Uploader.upload(file);
+        return imageUrl;
+    }*/
 
     @DeleteMapping("/delete/{member-id}")
     public ResponseEntity deleteMember(@PathVariable("member-id") @Positive long memberid){
@@ -101,6 +107,7 @@ public class MemberController {
         Member member = memberService.findVerifiedMember(memberid);
         MemberDto.Response response = memberMapper.memberToMemberResponseDto(member);
         response.setPostsList(postService.findUserPosts(memberid, page, size));
+        response.setImageUrl(member.getImage().getImagesKey());
         return new ResponseEntity(response,HttpStatus.OK);
     }
 

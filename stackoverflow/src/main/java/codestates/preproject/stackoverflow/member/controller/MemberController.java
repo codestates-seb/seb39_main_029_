@@ -9,9 +9,8 @@ import codestates.preproject.stackoverflow.member.service.MemberService;
 
 
 import codestates.preproject.stackoverflow.post.service.PostService;
-/*import codestates.preproject.stackoverflow.s3.upload.S3Upload;*/
+import codestates.preproject.stackoverflow.s3.upload.S3Upload;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -21,10 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import org.springframework.web.context.support.HttpRequestHandlerServlet;
 
-
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
@@ -36,18 +32,21 @@ import java.io.IOException;
 @RequestMapping("/v1/members")
 @Validated
 @Slf4j
+@CrossOrigin("*")
 public class MemberController {
     private final MemberService memberService;
 
     private final MemberMapper memberMapper;
 
     private final PostService postService;
-    /*private final S3Upload s3Upload;*/
-    public MemberController(MemberService memberService, MemberMapper memberMapper, PostService postService){
+
+    private final S3Upload s3Upload;
+    public MemberController(MemberService memberService, MemberMapper memberMapper, PostService postService, S3Upload s3Upload){
         this.memberMapper = memberMapper;
         this.memberService = memberService;
         this.postService = postService;
 
+        this.s3Upload = s3Upload;
     }
 
     @PostMapping("/join")
@@ -69,6 +68,7 @@ public class MemberController {
 
     @PostMapping("/login")
     public ResponseEntity loginMember(@Valid @RequestBody MemberDto.Login login){
+        System.out.println("---1");
         Member member = memberMapper.memberLoginToMember(login);
         Member findMember = memberService.loginMember(member);
         return new ResponseEntity(memberMapper.memberToMemberResponseDto(findMember), HttpStatus.OK);
@@ -83,8 +83,8 @@ public class MemberController {
         Member member = memberMapper.memberPatchToMember(patch);
         Member updateMember = memberService.updateMember(member);
         MemberDto.Response result = memberMapper.memberToMemberResponseDto(updateMember);
-        /*String imageUrl = s3Upload.upload(multipartFile);
-        result.setImageUrl(imageUrl);*/
+        String imageUrl = s3Upload.upload(multipartFile);
+        result.setImageUrl(imageUrl);
         return new ResponseEntity(result,HttpStatus.OK);
     }
 

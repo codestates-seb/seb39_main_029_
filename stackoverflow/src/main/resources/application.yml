@@ -1,3 +1,15 @@
+cloud:
+  aws:
+    credentials:
+      accessKey: AKIAQJ6UTMJFI2LQRURG      # AWS IAM AccessKey 적기
+      secretKey: +3OXekM1xhli1KuDKCudMd7H3zynwDNFfLUVDW1F   # AWS IAM SecretKey 적기
+    s3:
+      bucket: pre-029-bucket   # ex) marryting-gyunny
+      dir: /Temp/ # ex) /gyunny
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false
 
 
 mail:

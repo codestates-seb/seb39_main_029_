@@ -1,4 +1,4 @@
-/*package codestates.preproject.stackoverflow.s3.upload;
+package codestates.preproject.stackoverflow.s3.upload;
 
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.ObjectMetadata;
@@ -23,7 +23,7 @@ public class S3Upload {
 
     private final AmazonS3Client s3Client;
 
-    *//*public String upload(InputStream inputStream, String originFileName, String fileSize) {
+   /* public String upload(InputStream inputStream, String originFileName, String fileSize) {
         String s3FileName = UUID.randomUUID() + "-" + originFileName;
 
         ObjectMetadata objMeta = new ObjectMetadata();
@@ -32,7 +32,7 @@ public class S3Upload {
         s3Client.putObject(bucket, s3FileName, inputStream, objMeta);
 
         return s3Client.getUrl(bucket, dir + s3FileName).toString();
-    }*//*
+    }*/
 
 
     public String upload(MultipartFile multipartFile) throws IOException {
@@ -44,4 +44,4 @@ public class S3Upload {
 
         return s3Client.getUrl(bucket, dir + s3FileName).toString();
     }
-}*/
+}

@@ -21,7 +21,7 @@ public class CorsConfig {
 //        config.addAllowedOrigin("*");
 
         config.addAllowedHeader("*");
-        config.addAllowedMethod("*");
+
         config.addAllowedMethod("POST");
         config.addAllowedMethod("PATCH");
         config.addAllowedMethod("GET");

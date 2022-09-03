@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Value;
 
@@ -69,6 +70,7 @@ public class MemberDto {
     @Getter
     @Setter
     @AllArgsConstructor // TODO 테스트를 위해 추가됨
+    @NoArgsConstructor
     public static class Response {
         private long memberid;
 

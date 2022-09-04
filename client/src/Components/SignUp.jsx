@@ -30,6 +30,10 @@ function SignUp() {
       .post("http://seb039pre029.ga:8080/v1/members/join", SignUpForm)
       .then((res) => {
         console.log(res);
+        navigate("/login");
+      })
+      .catch((err) => {
+        alert("에러입니다.");
       });
   };
 
@@ -100,7 +104,6 @@ function SignUp() {
           <button
             onClick={() => {
               SignUpHandler();
-              navigate("/");
             }}
           >
             Sign up

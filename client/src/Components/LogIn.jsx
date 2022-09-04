@@ -23,7 +23,6 @@ function LogIn() {
       .then((res) => {
         localStorage.setItem("memberId", res.headers.memberid);
         localStorage.setItem("accessToken", res.headers.authorization);
-        console.log(res.headers.authorization);
         navigate("/home");
       });
   };
@@ -45,7 +44,7 @@ function LogIn() {
           </button>
         </SocialWrapper>
         <SignupWrapper>
-          <label for="email">Email</label>
+          <label htmlFor="email">Email</label>
           <input
             type="email"
             id="email"
@@ -53,7 +52,7 @@ function LogIn() {
               setEmail(e.target.value);
             }}
           />
-          <label for="pw">Password</label>
+          <label htmlFor="pw">Password</label>
           <input
             type="password"
             id="pw"

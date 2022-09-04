@@ -6,6 +6,7 @@ import "../index";
 
 function MainNav() {
   const navigate = useNavigate();
+
   return (
     <Container>
       <Line />

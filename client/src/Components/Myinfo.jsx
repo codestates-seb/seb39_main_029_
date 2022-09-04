@@ -3,37 +3,93 @@ import "../index";
 import Badge from "../Assets/Imgs/badge";
 import Locate from "../Assets/Imgs/locate";
 import ColorButton from "../Assets/ColorBtn";
+import axios from "axios";
+import { useState, useEffect } from "react";
+import PostBox from "./PostBox";
+import InfoEditModal from "./InfoEditModal";
 
 function Myinfo() {
+  const token = localStorage.getItem("accessToken");
+  const memberId = localStorage.getItem("memberId");
+  const [userInfo, setUserInfo] = useState({});
+  const [isloading, setIsLoading] = useState(true);
+  const [isModal, setIsModal] = useState(false);
+  console.log(token);
+  console.log(memberId);
+  console.log(userInfo.postsList);
+
+  useEffect(() => {
+    axios
+      .get(
+        `http://seb039pre029.ga:8080/v1/members/myPage/${memberId}?page=1&size=3`,
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res.data);
+        setUserInfo(res.data);
+        setIsLoading(false);
+      });
+  }, []);
+
   return (
-    <Wrapper>
-      <UserWrapper>
-        <div className="left">
-          <div className="img"></div>
-          <InfoWrapper>
-            <div className="id">Igu</div>
-            <div className="reputation">
-              <Badge className="badge" />
-              800
+    <>
+      {isloading ? (
+        ""
+      ) : (
+        <Wrapper>
+          <UserWrapper>
+            <div className="left">
+              <div className="img"></div>
+              <InfoWrapper>
+                <div className="id">{userInfo.nickName}</div>
+                <div className="reputation">
+                  <Badge className="badge" />
+                  {userInfo.reputation}
+                </div>
+                <div className="intro">{userInfo.title || "Hi"}</div>
+                <div className="location">
+                  <Locate className="locat" />
+                  {userInfo.location || "location"}
+                </div>
+                <div className="summary"></div>
+              </InfoWrapper>
             </div>
-            <div className="intro">hi! master dev</div>
-            <div className="location">
-              <Locate className="locat" />
-              amazon
+            <ButtonWrapper>
+              <ColorButton
+                mode="GREY"
+                text="Edit Profile"
+                onClick={() => {
+                  setIsModal(true);
+                }}
+              />
+              <ColorButton mode="GREY" text="Delete Profile" />
+            </ButtonWrapper>
+          </UserWrapper>
+          <QuesionWrapper>
+            <div className="title">
+              Questions
+              {userInfo.postsList.length === 0
+                ? ""
+                : userInfo.postsList.map((el, i) => (
+                    <PostBox key={i} post={el} />
+                  ))}
             </div>
-            <div className="summary"></div>
-          </InfoWrapper>
-        </div>
-        <ButtonWrapper>
-          <ColorButton mode="GREY" text="Edit Profile" />
-          <ColorButton mode="GREY" text="Delete Profile" />
-        </ButtonWrapper>
-      </UserWrapper>
-      <QuesionWrapper>
-        <div className="title">Questions</div>
-        <div className="posts"></div>
-      </QuesionWrapper>
-    </Wrapper>
+            <div className="posts"></div>
+          </QuesionWrapper>
+          {isModal ? (
+            <InfoEditModal
+              userInfo={userInfo}
+              setUserInfo={setUserInfo}
+              setIsModal={setIsModal}
+            />
+          ) : null}
+        </Wrapper>
+      )}
+    </>
   );
 }
 

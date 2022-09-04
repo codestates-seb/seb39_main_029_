@@ -1,5 +1,3 @@
-import { useRef } from "react";
-
 // Toast 에디터
 import { Editor } from "@toast-ui/react-editor";
 import "@toast-ui/editor/dist/toastui-editor.css";
@@ -7,10 +5,11 @@ import colorSyntax from "@toast-ui/editor-plugin-color-syntax";
 import "tui-color-picker/dist/tui-color-picker.css";
 import "@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css";
 import "@toast-ui/editor/dist/i18n/ko-kr";
+import { useRef } from "react";
 
-function TextEditor({ setContent, editorRef }) {
+function TextEditor({ setContent }) {
   // Editor DOM 선택용
-  // const editorRef = useRef();
+  const editorRef = useRef();
 
   // 등록 버튼 핸들러
   const handleRegisterButton = () => {
@@ -38,6 +37,9 @@ function TextEditor({ setContent, editorRef }) {
         useCommandShortcut={false} // 키보드 입력 컨트롤 방지
         language="ko-KR"
         plugins={[colorSyntax]}
+        onChange={() => {
+          setContent(editorRef.current?.getInstance().getHTML());
+        }}
       ></Editor>
 
       <button onClick={handleRegisterButton}>등록</button>

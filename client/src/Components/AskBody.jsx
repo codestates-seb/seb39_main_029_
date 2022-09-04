@@ -6,18 +6,31 @@ function AskBody({
   setContent,
   totalTags,
   setAutoSelected,
-  editorRef,
+  tagsView,
+  setTagsView,
+  selectedTag,
+  setSelectedTag,
 }) {
   const addTag = (e) => {
     const Tags = totalTags.slice(); // 그냥 복사
 
     const filteredTags = Tags.filter((el) => {
-      return el.name.includes(e.target.value);
+      return el.name.toLowerCase().includes(e.target.value.toLowerCase());
     });
     setAutoSelected(filteredTags);
     if (e.target.value === "") {
       setAutoSelected([]);
     }
+  };
+
+  const removeTags = (removeToIndex) => {
+    const newarr = tagsView.filter((_, index) => index !== removeToIndex);
+    const newselectedarr = selectedTag.filter((_, index) => {
+      return index !== removeToIndex;
+    });
+    console.log(newarr);
+    setTagsView(newarr);
+    setSelectedTag(newselectedarr);
   };
 
   return (
@@ -40,18 +53,32 @@ function AskBody({
         <div className="introduce">
           include all the information someone would need to answer your question
         </div>
-        <TextEditor setContent={setContent} editorRef={editorRef} />
+        <TextEditor setContent={setContent} />
       </Body>
       <Tag>
         <div className="subject">Tags</div>
         <div className="introduce">
           Add up to 5 tags to describe what your question is about
         </div>
-        <input
-          className="tag"
-          placeholder="e.g. (javascript sql-server database)"
-          onKeyUp={addTag}
-        ></input>
+        <div className="tagbox">
+          {tagsView.map((el, i) => {
+            return (
+              <span
+                key={i}
+                onClick={() => {
+                  removeTags(i);
+                }}
+              >
+                {el}
+              </span>
+            );
+          })}
+          <input
+            className="tag"
+            placeholder="e.g. (javascript sql-server database)"
+            onKeyUp={addTag}
+          ></input>
+        </div>
       </Tag>
     </Container>
   );
@@ -90,6 +117,19 @@ const Tag = styled.div`
   .tag {
     width: 780px;
     height: 30px;
+  }
+  .tagbox {
+    display: flex;
+    align-items: center;
+    width: 780px;
+    height: 35px;
+    border: 1px solid rgb(214, 216, 218);
+  }
+  .tagbox:focus {
+    border-color: var(--theme-secondary-300);
+    box-shadow: 0 0 0 var(--su-static4) var(--focus-ring);
+    color: var(--black);
+    outline: 0;
   }
 `;
 

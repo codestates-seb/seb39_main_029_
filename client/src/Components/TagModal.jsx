@@ -1,11 +1,19 @@
 import styled from "styled-components";
 
-function TagModal({ autoSeleted, totalTags, setSelectedTag, selectedTag }) {
+function TagModal({
+  autoSeleted,
+  totalTags,
+  setSelectedTag,
+  selectedTag,
+  setTagsView,
+  tagsView,
+}) {
   const addSelect = (e) => {
     const tagName = e.target.textContent;
     const tag = totalTags.find((t) => t.name === tagName);
     console.log(tagName, tag);
     setSelectedTag([...selectedTag, { tagId: tag.tagsId }]);
+    setTagsView([...tagsView, tag.name]);
   };
 
   return (

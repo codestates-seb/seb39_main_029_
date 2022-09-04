@@ -6,9 +6,10 @@ import ColorButton from "../Assets/ColorBtn";
 import TagModal from "../Components/TagModal";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { useRef } from "react";
+import { useNavigate } from "react-router-dom";
 
 function PostWritePage() {
+  const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [selectedTag, setSelectedTag] = useState([]);
@@ -16,10 +17,9 @@ function PostWritePage() {
   const user = localStorage.getItem("memberId");
   const token = localStorage.getItem("accessToken");
   const [totalTags, setTotalTags] = useState([]);
-  const editorRef = useRef();
-  console.log(totalTags);
+  const [tagsView, setTagsView] = useState([]);
   console.log(selectedTag);
-
+  console.log(tagsView);
   useEffect(() => {
     axios
       .get("http://seb039pre029.ga:8080/v1/tags/list", {
@@ -33,15 +33,13 @@ function PostWritePage() {
   }, []);
 
   const Postform = {
-    subject: "How I send img to server?",
-    memberId: 2,
-    content:
-      "How I send img to server? I have two method but i don't know what is best. First, i can use base 64 or formData. What is best?",
-    postTag: [{ tagId: 1 }, { tagId: 2 }],
+    subject: title,
+    memberId: user,
+    content: content,
+    postTag: selectedTag,
   };
 
   const Post = () => {
-    console.log(token);
     axios
       .post("http://seb039pre029.ga:8080/v1/posts", Postform, {
         headers: {
@@ -50,6 +48,7 @@ function PostWritePage() {
       })
       .then((res) => {
         console.log(res.data);
+        navigate("/home");
       });
   };
 
@@ -63,7 +62,18 @@ function PostWritePage() {
           setContent={setContent}
           totalTags={totalTags}
           setAutoSelected={setAutoSelected}
-          editorRef={editorRef}
+          tagsView={tagsView}
+          setTagsView={setTagsView}
+          selectedTag={selectedTag}
+          setSelectedTag={setSelectedTag}
+        />
+        <TagModal
+          autoSeleted={autoSeleted}
+          totalTags={totalTags}
+          selectedTag={selectedTag}
+          setSelectedTag={setSelectedTag}
+          setTagsView={setTagsView}
+          tagsView={tagsView}
         />
         <ArcodianBox />
       </Wrapper>
@@ -74,13 +84,6 @@ function PostWritePage() {
           onClick={Post}
         ></ColorButton>
       </ButtonWrapper>
-      <TagModal
-        token={token}
-        autoSeleted={autoSeleted}
-        totalTags={totalTags}
-        selectedTag={selectedTag}
-        setSelectedTag={setSelectedTag}
-      />
     </Container>
   );
 }
@@ -88,8 +91,7 @@ function PostWritePage() {
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
+
   background-color: var(--theme-selected-grey);
 `;
 const Title = styled.div`

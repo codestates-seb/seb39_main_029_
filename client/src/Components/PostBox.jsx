@@ -1,10 +1,13 @@
 import styled from "styled-components";
-import { useEffect, useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import { UserState } from "../States/UserState.jsx";
 
 function PostBox({ post }) {
+  const [userInfo, setUserInfo] = useRecoilState(UserState);
   const navigate = useNavigate();
+  const createdAt = new Date(post.createAt).toLocaleString();
+
   return (
     <Container>
       <Leftside>
@@ -30,9 +33,9 @@ function PostBox({ post }) {
             })}
           </span>
           <span className="footer">
-            <span className="nickname">Iguwana</span>
-            <span className="reputation">29</span>
-            <span className="createdAt">2022-08-24 Wed</span>
+            <span className="nickname">{userInfo.nickName}</span>
+            <span className="reputation">{userInfo.reputation}</span>
+            <span className="createdAt">{createdAt}</span>
           </span>
         </Rightbottom>
       </Rightside>

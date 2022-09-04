@@ -4,10 +4,38 @@ import Stackoverflowlogo from "../Assets/Imgs/stackoverflow.jsx";
 import Badge from "../Assets/Imgs/badge";
 import "../index";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { useRecoilState } from "recoil";
+import { UserState } from "../States/UserState.jsx";
+import axios from "axios";
 
 function Nav() {
-  const navigate = useNavigate();
+  const [userInfo, setUserInfo] = useRecoilState(UserState);
 
+  useEffect(() => {
+    const token = localStorage.getItem("accessToken");
+    const memberId = localStorage.getItem("memberId");
+    // token과 userInfo가 있을때
+    if (token && userInfo.nickName !== undefined) {
+      return;
+    } else if (token && userInfo.nickName === undefined) {
+      axios
+        .get(
+          `http://seb039pre029.ga:8080/v1/members/myPage/${memberId}?page=1&size=3`,
+          {
+            headers: {
+              Authorization: token,
+            },
+          }
+        )
+        .then((res) => {
+          console.log(res.data);
+          setUserInfo(res.data);
+        });
+    }
+  }, []);
+
+  const navigate = useNavigate();
   const tohome = () => {
     navigate("/home");
   };
@@ -33,7 +61,7 @@ function Nav() {
         </div>
         <div className="profile">
           <span className="img" onClick={() => toinfo()}></span>
-          <span className="reputation">10</span>
+          <span className="reputation">{userInfo.reputation}</span>
           <Badge className="badge" />
         </div>
       </Navbody>

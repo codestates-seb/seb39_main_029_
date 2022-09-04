@@ -1,14 +1,31 @@
 import styled from "styled-components";
 import { IoEarthSharp } from "react-icons/io5";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import "../index";
 
 function Sidebar() {
+  const location = useLocation();
   const [Homeselect, setHomeselect] = useState(true);
   const [Questionselect, setQuestionselect] = useState(false);
   const [Tagselect, setTagselect] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (location.pathname === "/questions") {
+      setHomeselect(false);
+      setQuestionselect(true);
+      setTagselect(false);
+    } else if (location.pathname === "/tag") {
+      setHomeselect(false);
+      setQuestionselect(false);
+      setTagselect(true);
+    } else {
+      setHomeselect(true);
+      setQuestionselect(false);
+      setTagselect(false);
+    }
+  }, []);
 
   const HomeHandleClick = () => {
     setHomeselect(true);
@@ -34,44 +51,24 @@ function Sidebar() {
   return (
     <Side>
       {Homeselect ? (
-        <SelectedHome>Home</SelectedHome>
+        <SelectedHome onClick={HomeHandleClick}>Home</SelectedHome>
       ) : (
-        <Home
-          onClick={() => {
-            HomeHandleClick();
-          }}
-        >
-          Home
-        </Home>
+        <Home onClick={HomeHandleClick}>Home</Home>
       )}
       <Public>PUBLIC</Public>
       <List>
-        {Questionselect ? (
-          <div className="selectedquestions">
-            <IoEarthSharp className="earth" /> Questions
-          </div>
-        ) : (
-          <div
-            className="question"
-            onClick={() => {
-              QuestionHandleClick();
-            }}
-          >
-            <IoEarthSharp className="earth" /> Questions
-          </div>
-        )}
-        {Tagselect ? (
-          <div className="selectedtags">Tags</div>
-        ) : (
-          <div
-            className="tags"
-            onClick={() => {
-              TagHandleClick();
-            }}
-          >
-            Tags
-          </div>
-        )}
+        <div
+          className={`${Questionselect ? "selectedquestions" : "question"}`}
+          onClick={QuestionHandleClick}
+        >
+          <IoEarthSharp className="earth" /> Questions
+        </div>
+        <div
+          className={`${Tagselect ? "selectedtags" : "tags"}`}
+          onClick={TagHandleClick}
+        >
+          Tags
+        </div>
       </List>
     </Side>
   );

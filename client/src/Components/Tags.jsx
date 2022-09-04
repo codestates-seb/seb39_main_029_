@@ -2,9 +2,67 @@ import styled from "styled-components";
 import { IoSearchSharp } from "react-icons/io5";
 import ColorButton from "../Assets/ColorBtn";
 import "../index";
-import { DummyTag } from "../Data/dummyTags";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 function Tags() {
+  // ? 태그 데이터 받아오기
+  const token = localStorage.getItem("accessToken");
+  const [Tags, setTags] = useState({});
+
+  useEffect(() => {
+    axios
+      .get("http://seb039pre029.ga:8080/v1/tags/list", {
+        headers: {
+          Authorization: token,
+        },
+      })
+      .then((res) => {
+        setTags(res.data);
+      });
+  }, []);
+
+  // ? 검색 기능
+  const [search, setSearch] = useState("");
+
+  const onChangeSearch = (e) => {
+    e.preventDefault();
+    setSearch(e.target.value);
+    console.log(e.target.value);
+  };
+
+  const onSearch = (e) => {
+    e.preventDefault();
+    if (search === undefined || search === "") {
+      axios
+        .get("http://seb039pre029.ga:8080/v1/tags/list", {
+          headers: {
+            Authorization: token,
+          },
+        })
+        .then((res) => {
+          setTags(res.data);
+        });
+    } else {
+      const filteredData = Object.values(Tags).filter((el) =>
+        el.name.toUpperCase().includes(search.toUpperCase())
+      );
+      setTags(filteredData);
+    }
+  };
+
+  // ? 정렬 기능
+  const sortedTags = Object.values(Tags).sort((a, b) =>
+    a.name < b.name ? -1 : a.name > b.name ? 1 : 0
+  );
+
+  const reversedTags = Object.values(Tags).sort((a, b) =>
+    a.name > b.name ? -1 : a.name > b.name ? 1 : 0
+  );
+
+  const handleSortedClick = () => setTags(sortedTags);
+  const handleReversedClick = () => setTags(reversedTags);
+
   return (
     <Container>
       <Explain>
@@ -19,19 +77,24 @@ function Tags() {
       <Search>
         <SearchBar>
           <IoSearchSharp className="searchicon" />
-          <SearchInput placeholder="Fliter by tag name ..." />
+          <SearchInput
+            type="text"
+            placeholder="Fliter by tag name ..."
+            value={search}
+            onChange={onChangeSearch}
+            onKeyUp={(e) => onSearch(e)}
+          />
         </SearchBar>
         <ButtonWrapper>
-          <ColorButton mode="GREY" text="A - Z" />
-          <ColorButton mode="GREY" text="Z - A" />
+          <ColorButton mode="GREY" text="A - Z" onClick={handleSortedClick} />
+          <ColorButton mode="GREY" text="Z - A" onClick={handleReversedClick} />
         </ButtonWrapper>
       </Search>
       <TagWrapper>
-        {DummyTag.map((el) => {
+        {Object.values(Tags).map((el) => {
           return (
-            <Taglist key={el.id}>
-              <ColorButton mode="GREY" text={el.tag} ftsize={12} padding={5} />
-              <div>{el.exp}</div>
+            <Taglist key={el.tagsId}>
+              <ColorButton mode="GREY" text={el.name} ftsize={12} padding={5} />
             </Taglist>
           );
         })}

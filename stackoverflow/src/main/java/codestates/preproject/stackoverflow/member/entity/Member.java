@@ -62,5 +62,9 @@ public class Member {
         }
         return new ArrayList<>();
     }
+    @Column
+    private String provider;
+    @Column
+    private String providerId;
 
 }

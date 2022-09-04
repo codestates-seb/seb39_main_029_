@@ -31,6 +31,9 @@ public class SecurityConfig {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    @Autowired
+    private PrincipalOauth2UserService principalOauth2UserService;
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http.csrf().disable();
@@ -48,7 +51,11 @@ public class SecurityConfig {
                 .permitAll()
                 .antMatchers("/v1/**")
                 .access("hasRole('ROLE_ADMIN')")
-                .anyRequest().permitAll();
+                .anyRequest().permitAll()
+                .and()
+                .oauth2Login()
+                .userInfoEndpoint()
+                .userService(principalOauth2UserService);
         return http.build();
     }
 

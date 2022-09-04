@@ -14,6 +14,17 @@ spring:
     properties:
       hibernate:
         format_sql: true  # (3) SQL pretty print
+  #spring Oauth2 기능 추가
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            clientId: 227017691109-rsidkilgq25c0qom0qtro4lmhhrijtg5.apps.googleusercontent.com
+            clientSecret: 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
+            scope:
+              - email
+              - profile
 #logging:
 #  level:
 #    org:

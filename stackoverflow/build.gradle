@@ -48,6 +48,7 @@ dependencies {
 	annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.1.Final'
 	implementation 'org.projectlombok:lombok-mapstruct-binding:0.2.0'
 
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client' //Oauth2 디펜던시
 }
 
  6

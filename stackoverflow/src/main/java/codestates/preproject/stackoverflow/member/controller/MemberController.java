@@ -9,6 +9,7 @@ import codestates.preproject.stackoverflow.member.mapper.MemberMapper;
 import codestates.preproject.stackoverflow.member.service.MemberService;
 
 
+import codestates.preproject.stackoverflow.oauth.PrincipalDetails;
 import codestates.preproject.stackoverflow.post.service.PostService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
@@ -17,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
+import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 
 
@@ -93,16 +95,5 @@ public class MemberController {
         response.addHeader("Authorization",result);
         response.addHeader("Memberid", String.valueOf(refresh.getMemberid()));
         return new ResponseEntity(HttpStatus.OK);
-    }
-
-    @GetMapping("/loginTest3")
-    public @ResponseBody String loginOAuthTest(
-            Authentication authentication,
-            @AuthenticationPrincipal OAuth2User oauth) {
-        System.out.println("============/loginOAuthTest===========");
-        OAuth2User oauth2User = (OAuth2User) authentication.getPrincipal();
-        System.out.println("authenticaion : " + oauth2User.getAttributes());
-        System.out.println("oauth2User : " + oauth.getAttributes());
-        return "세션 정보 확인3";
     }
 }

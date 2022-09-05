@@ -20,11 +20,17 @@ spring:
       client:
         registration:
           google:
-            clientId: 227017691109-rsidkilgq25c0qom0qtro4lmhhrijtg5.apps.googleusercontent.com
-            clientSecret: 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
+            clientId: 354627486864-qfnhmonlb4kklbtdq1glqf4j5k1q36m7.apps.googleusercontent.com
+            clientSecret: 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
             scope:
               - email
               - profile
+server:
+  port: 8085
+  ssl:
+    key-store: classpath:localhost.p12
+    key-store-type: PKCS12
+    key-store-password: changeit
 #logging:
 #  level:
 #    org:

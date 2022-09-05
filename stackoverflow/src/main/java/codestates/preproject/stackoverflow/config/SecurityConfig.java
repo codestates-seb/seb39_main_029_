@@ -3,8 +3,8 @@ package codestates.preproject.stackoverflow.config;
 import codestates.preproject.stackoverflow.filter.JwtAuthenticationFilter;
 import codestates.preproject.stackoverflow.filter.JwtAuthorizationFilter;
 //import codestates.preproject.stackoverflow.filter.testfilter;
+import codestates.preproject.stackoverflow.filter.SuccesOauth2;
 import codestates.preproject.stackoverflow.member.repository.MemberRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,7 +15,6 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.filter.CorsFilter;
 
 @Configuration
@@ -47,7 +46,7 @@ public class SecurityConfig {
                 .apply(new CustomDsl())
                 .and()
                 .authorizeRequests()
-                .antMatchers("/v1/members/join","/v1/members/refresh")
+                .antMatchers("/v1/members/join","/v1/members/refresh","/login","/join")
                 .permitAll()
                 .antMatchers("/v1/**")
                 .access("hasRole('ROLE_ADMIN')")
@@ -55,7 +54,9 @@ public class SecurityConfig {
                 .and()
                 .oauth2Login()
                 .userInfoEndpoint()
-                .userService(principalOauth2UserService);
+                .userService(principalOauth2UserService)
+                .and()
+                .successHandler(new SuccesOauth2());
         return http.build();
     }
 

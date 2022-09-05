@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 
 function HomePage() {
   const [totalPosts, setTotalPosts] = useState([]);
+  const [inputText, setInputText] = useState("");
   const navigate = useNavigate();
   const token = localStorage.getItem("accessToken");
 
@@ -29,7 +30,11 @@ function HomePage() {
 
   return (
     <>
-      <Nav />
+      <Nav
+        setInputText={setInputText}
+        setTotalPosts={setTotalPosts}
+        totalPosts={totalPosts}
+      />
       <Wrapper>
         <Sidebar />
         <Body>

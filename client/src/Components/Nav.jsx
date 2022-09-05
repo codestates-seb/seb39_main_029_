@@ -9,7 +9,7 @@ import { useRecoilState } from "recoil";
 import { UserState } from "../States/UserState.jsx";
 import axios from "axios";
 
-function Nav() {
+function Nav({ setInputText, totalPosts, setTotalPosts }) {
   const [userInfo, setUserInfo] = useRecoilState(UserState);
 
   useEffect(() => {
@@ -29,7 +29,6 @@ function Nav() {
           }
         )
         .then((res) => {
-          console.log(res.data);
           setUserInfo(res.data);
         });
     }
@@ -56,7 +55,19 @@ function Nav() {
         <div className="btnwrapper">
           <Search>
             <IoSearchSharp className="searchicon" />
-            <SearchInput placeholder="Search.."></SearchInput>
+            <SearchInput
+              placeholder="Search.."
+              onChange={(e) => {
+                setInputText(e.target.value);
+                setTotalPosts(
+                  totalPosts.filter((el) => {
+                    return el.subject
+                      .toLowerCase()
+                      .includes(e.target.value.toLocaleLowerCase());
+                  })
+                );
+              }}
+            ></SearchInput>
           </Search>
         </div>
         <div className="profile">

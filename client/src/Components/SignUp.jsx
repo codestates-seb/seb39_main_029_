@@ -15,9 +15,6 @@ function SignUp() {
   const [nickname, setNickname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  console.log(nickname);
-  console.log(email);
-  console.log(password);
 
   const SignUpForm = {
     nickName: nickname,
@@ -29,11 +26,10 @@ function SignUp() {
     axios
       .post("http://seb039pre029.ga:8080/v1/members/join", SignUpForm)
       .then((res) => {
-        console.log(res);
         navigate("/login");
       })
       .catch((err) => {
-        alert("에러입니다.");
+        alert("중복된 닉네임 입니다.");
       });
   };
 
@@ -73,7 +69,7 @@ function SignUp() {
           </button>
         </SocialWrapper>
         <SignupWrapper>
-          <label for="id">Display name</label>
+          <label htmlFor="id">Display name</label>
           <input
             type="text"
             id="id"
@@ -81,7 +77,7 @@ function SignUp() {
               setNickname(e.target.value);
             }}
           />
-          <label for="email">Email</label>
+          <label htmlFor="email">Email</label>
           <input
             type="email"
             id="email"
@@ -89,7 +85,7 @@ function SignUp() {
               setEmail(e.target.value);
             }}
           />
-          <label for="pw">Password</label>
+          <label htmlFor="pw">Password</label>
           <input
             type="password"
             id="pw"

@@ -1,11 +1,7 @@
 import styled from "styled-components";
-import { Link, useNavigate } from "react-router-dom";
-import { useRecoilState } from "recoil";
-import { UserState } from "../States/UserState.jsx";
+import { Link } from "react-router-dom";
 
 function PostBox({ post }) {
-  const [userInfo, setUserInfo] = useRecoilState(UserState);
-  const navigate = useNavigate();
   const createdAt = String(post.createAt).substring(0, 10);
 
   return (
@@ -36,8 +32,8 @@ function PostBox({ post }) {
             })}
           </span>
           <span className="footer">
-            <span className="nickname">{userInfo.nickName}</span>
-            <span className="reputation">{userInfo.reputation}</span>
+            <span className="nickname">{post.nickName}</span>
+            <span className="reputation">{post.reputation}</span>
             <span className="createdAt">{createdAt}</span>
           </span>
         </Rightbottom>

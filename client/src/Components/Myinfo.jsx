@@ -7,6 +7,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import PostBox from "./PostBox";
 import InfoEditModal from "./InfoEditModal";
+import { useNavigate } from "react-router-dom";
 
 function Myinfo() {
   const token = localStorage.getItem("accessToken");
@@ -14,9 +15,19 @@ function Myinfo() {
   const [userInfo, setUserInfo] = useState({});
   const [isloading, setIsLoading] = useState(true);
   const [isModal, setIsModal] = useState(false);
-  console.log(token);
-  console.log(memberId);
-  console.log(userInfo.postsList);
+  const navigate = useNavigate();
+
+  const DeleteProfile = () => {
+    axios
+      .delete(`http://seb039pre029.ga:8080/v1/members/delete/${memberId}`, {
+        headers: {
+          Authorization: token,
+        },
+      })
+      .then(() => {
+        navigate("/");
+      });
+  };
 
   useEffect(() => {
     axios
@@ -29,7 +40,6 @@ function Myinfo() {
         }
       )
       .then((res) => {
-        console.log(res.data);
         setUserInfo(res.data);
         setIsLoading(false);
       });
@@ -66,7 +76,18 @@ function Myinfo() {
                   setIsModal(true);
                 }}
               />
-              <ColorButton mode="GREY" text="Delete Profile" />
+              <ColorButton
+                mode="GREY"
+                text="Delete Profile"
+                onClick={DeleteProfile}
+              />
+              <ColorButton
+                mode="GREY"
+                text="Logout"
+                onClick={() => {
+                  navigate("/logout");
+                }}
+              />
             </ButtonWrapper>
           </UserWrapper>
           <QuesionWrapper>
@@ -149,7 +170,7 @@ const InfoWrapper = styled.div`
   }
 `;
 const ButtonWrapper = styled.div`
-  width: 190px;
+  width: 250px;
   padding: 10px;
   margin: 20px;
   display: flex;
@@ -162,12 +183,6 @@ const QuesionWrapper = styled.div`
     margin: 0 0 20px 0;
     font-size: var(--ad-font);
     font-weight: bold;
-  }
-  .posts {
-    border: 1px solid hsl(210, 8%, 85%);
-    border-radius: 5px;
-    width: 100%;
-    height: 100%;
   }
 `;
 

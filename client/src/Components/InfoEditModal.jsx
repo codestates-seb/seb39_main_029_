@@ -19,7 +19,7 @@ function InfoEditModal({ userInfo, setUserInfo, setIsModal }) {
       )
       .then((res) => {
         setUserInfo((prev) => ({ ...prev, ...editForm }));
-        console.log(res.data);
+        setIsModal(false);
       });
   };
 
@@ -79,16 +79,23 @@ function InfoEditModal({ userInfo, setUserInfo, setIsModal }) {
 }
 
 const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding-left: 20px;
   position: absolute;
-  top: 50%;
+  top: 10%;
   left: 40%;
-  background-color: var(--theme-ornage-light);
+  background-color: var(--theme-white);
+  border-radius: 0.3rem;
   width: 500px;
-  height: 500px;
+  height: 200px;
+  box-shadow: 1px 1px 10px gray;
 `;
 
 const ButtonWrapper = styled.div`
   display: flex;
+  gap: 10px;
 `;
 
 export default InfoEditModal;

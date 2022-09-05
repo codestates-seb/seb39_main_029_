@@ -11,13 +11,6 @@ function TextEditor({ setContent }) {
   // Editor DOM 선택용
   const editorRef = useRef();
 
-  // 등록 버튼 핸들러
-  const handleRegisterButton = () => {
-    // 입력창에 입력한 내용을 HTML 태그 형태로 취득
-    console.log(editorRef.current?.getInstance().getHTML());
-    // 입력창에 입력한 내용을 MarkDown 형태로 취득
-    console.log(editorRef.current?.getInstance().getMarkdown());
-  };
   return (
     <div>
       <Editor
@@ -38,11 +31,9 @@ function TextEditor({ setContent }) {
         language="ko-KR"
         plugins={[colorSyntax]}
         onChange={() => {
-          setContent(editorRef.current?.getInstance().getHTML());
+          setContent(editorRef.current?.getInstance().getMarkdown());
         }}
       ></Editor>
-
-      <button onClick={handleRegisterButton}>등록</button>
     </div>
   );
 }

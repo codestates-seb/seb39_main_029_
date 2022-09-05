@@ -7,8 +7,11 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import TextEditor from "./TextEditor";
 import ReactMarkdown from "react-markdown";
+import { useRecoilState } from "recoil";
+import { UserState } from "../States/UserState.jsx";
 
 function DetailQnA() {
+  const [userInfo, setUserInfo] = useRecoilState(UserState);
   const location = useLocation();
   const url = location.pathname.substring(5);
 
@@ -128,10 +131,7 @@ function DetailQnA() {
         </div>
         <div className="qlist">
           <div className="change">
-            <Link
-              className="btn"
-              to={{ pathname: `/edit/${url}`, state: { data: QnA } }}
-            >
+            <Link to={`/edit/${url}`} state={{ data: QnA }}>
               <ColorButton mode={"BLUE"} text={"Edit"} />
             </Link>
             <ColorButton
@@ -250,7 +250,7 @@ const QWrapper = styled.div`
     display: flex;
     justify-content: flex-start;
   }
-  .btn {
+  a {
     margin: 0 10px 0 0;
     text-decoration-line: none;
   }

@@ -24,7 +24,7 @@ function App() {
       <Route path="/tag" element={<TagPage />}></Route>
       <Route path="/tagsearch:tid" element={<TagSearchPage />}></Route>
       <Route path="/ask" element={<PostWritePage />}></Route>
-      <Route path="/edit" element={<PostEditPage />}></Route>
+      <Route path="/edit/:pid" element={<PostEditPage />}></Route>
       <Route path="/qna/:pid" element={<DetailPage />}></Route>
       <Route path="/info" element={<MyPage />}></Route>
     </Routes>

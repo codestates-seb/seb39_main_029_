@@ -34,12 +34,6 @@ const Body = styled.div`
   );
 `;
 
-const TopWrapper = styled.div`
-  width: 70%;
-  height: 350px;
-  background-color: red;
-`;
-
 const WhiteBottom = styled.div`
   position: relative;
   top: -105px;

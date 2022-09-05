@@ -1,12 +1,14 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import MainIcon1 from "../Assets/Imgs/MainIcon1";
+import MainIcon2 from "../Assets/Imgs/MainIcon2";
 
 function MainDiv() {
   const navigate = useNavigate();
   return (
     <Container>
       <Card bgcolor="var(--theme-ornage-light)">
-        <div>아이콘</div>
+        <MainIcon1 />
         <CardContent>
           Find the best answer to your technical question, help others answer
           theirs
@@ -22,7 +24,7 @@ function MainDiv() {
         <CardTag>or search content</CardTag>
       </Card>
       <Card bgcolor="var(--theme-blue-light)">
-        <div>아이콘</div>
+        <MainIcon2 />
         <CardContent>
           Want a secure, private space for your technical knowledge?
         </CardContent>
@@ -39,7 +41,7 @@ function MainDiv() {
 
 const Container = styled.div`
   margin-top: 50px;
-  width: 70%;
+  width: 55%;
   height: 350px;
   display: flex;
   justify-content: space-between;

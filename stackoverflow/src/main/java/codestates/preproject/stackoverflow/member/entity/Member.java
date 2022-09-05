@@ -27,7 +27,7 @@ public class Member {
     @Column(nullable = false)
     private String nickName;
 
-    @Column(nullable = false)
+    @Column
     private String password;  //
 
     @Column(nullable = false, unique = true)
@@ -62,5 +62,9 @@ public class Member {
         }
         return new ArrayList<>();
     }
+    @Column
+    private String provider;
+    @Column
+    private String providerId;
 
 }

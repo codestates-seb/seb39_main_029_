@@ -67,8 +67,8 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         PrincipalDetails principalDetails = (PrincipalDetails) authResult.getPrincipal();
         String jwtToken = JWT.create()
                 .withSubject("cos jwt token")
-                .withExpiresAt(new Date(System.currentTimeMillis() + (60 * 1000 * 60 * 24)))
-//                .withExpiresAt(new Date(System.currentTimeMillis() + (10 * 1000)))
+//                .withExpiresAt(new Date(System.currentTimeMillis() + (60 * 1000 * 60 * 24)))
+                .withExpiresAt(new Date(System.currentTimeMillis() + (60 * 1000)))
                 .withClaim("email", principalDetails.getMember().getEmail())
                 .withClaim("nickName", principalDetails.getMember().getNickName())
                 .sign(Algorithm.HMAC512("cos_jwt_token"));

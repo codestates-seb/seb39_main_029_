@@ -1,12 +1,12 @@
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { UserState } from "../States/UserState.jsx";
 
 function PostBox({ post }) {
   const [userInfo, setUserInfo] = useRecoilState(UserState);
   const navigate = useNavigate();
-  const createdAt = new Date(post.createAt).toLocaleString();
+  const createdAt = String(post.createAt).substring(0, 10);
 
   return (
     <Container>
@@ -15,12 +15,15 @@ function PostBox({ post }) {
         <span className="answer">{post.commentsCount} answer</span>
       </Leftside>
       <Rightside>
-        <Righttop
-          onClick={() => {
-            navigate(`/qna/${post.postId}`);
-          }}
-        >
-          {post.subject}
+        <Righttop>
+          <Link
+            className="link"
+            to={{
+              pathname: `/qna/${post.postId}`,
+            }}
+          >
+            {post.subject}
+          </Link>
         </Righttop>
         <Rightbottom>
           <span>
@@ -77,6 +80,12 @@ const Righttop = styled.div`
   font-size: var(--content-font);
   font-weight: 500;
   padding: 10px;
+  .link {
+    text-decoration-line: none;
+    color: var(--font-color-blue);
+    font-size: var(--content-font);
+    font-weight: 500;
+  }
 `;
 const Rightbottom = styled.div`
   display: flex;

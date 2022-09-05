@@ -49,6 +49,9 @@ function PostWritePage() {
       .then((res) => {
         console.log(res.data);
         navigate("/home");
+      })
+      .catch((err) => {
+        alert("내용을 모두 작성해주세요.");
       });
   };
 
@@ -67,16 +70,18 @@ function PostWritePage() {
           selectedTag={selectedTag}
           setSelectedTag={setSelectedTag}
         />
-        <TagModal
-          autoSeleted={autoSeleted}
-          totalTags={totalTags}
-          selectedTag={selectedTag}
-          setSelectedTag={setSelectedTag}
-          setTagsView={setTagsView}
-          tagsView={tagsView}
-        />
+
         <ArcodianBox />
       </Wrapper>
+
+      <TagModal
+        autoSeleted={autoSeleted}
+        totalTags={totalTags}
+        selectedTag={selectedTag}
+        setSelectedTag={setSelectedTag}
+        setTagsView={setTagsView}
+        tagsView={tagsView}
+      />
       <ButtonWrapper>
         <ColorButton
           mode="BLUE"
@@ -90,13 +95,14 @@ function PostWritePage() {
 
 const Container = styled.div`
   display: flex;
+  align-items: center;
   flex-direction: column;
-
+  height: 100vmax;
   background-color: var(--theme-selected-grey);
 `;
 const Title = styled.div`
   font-weight: bold;
-  padding: 0 0 0 40px;
+  padding: 0px 850px 0px 0px;
   display: flex;
   margin-top: 30px;
   font-size: var(--header-font);
@@ -104,14 +110,15 @@ const Title = styled.div`
 
 const Wrapper = styled.div`
   width: 100%;
-  height: 100%;
+
   margin-top: 30px;
   display: flex;
+  justify-content: center;
   padding: 0 0 0 20px;
 `;
 
 const ButtonWrapper = styled.div`
-  padding: 0 0 20px 20px;
+  padding: 0px 980px 0px 0px;
   margin-top: 10px;
   display: flex;
 `;

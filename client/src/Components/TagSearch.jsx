@@ -25,7 +25,6 @@ function TagSearch() {
         setTags(res.data.data);
       });
   }, []);
-  console.log(Tags);
 
   return (
     <Container>

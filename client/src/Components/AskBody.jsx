@@ -10,6 +10,7 @@ function AskBody({
   setTagsView,
   selectedTag,
   setSelectedTag,
+  data,
 }) {
   const addTag = (e) => {
     const Tags = totalTags.slice(); // 그냥 복사
@@ -28,7 +29,6 @@ function AskBody({
     const newselectedarr = selectedTag.filter((_, index) => {
       return index !== removeToIndex;
     });
-    console.log(newarr);
     setTagsView(newarr);
     setSelectedTag(newselectedarr);
   };
@@ -40,13 +40,24 @@ function AskBody({
         <div className="introduce">
           Be specific and imagine you're asking a question to another person
         </div>
-        <input
-          className="title"
-          placeholder="e.g. is there an R function for finding the index of an element in a vector?"
-          onChange={(e) => {
-            setTitle(e.target.value);
-          }}
-        ></input>
+        {data === undefined ? (
+          <input
+            className="title"
+            placeholder="e.g. is there an R function for finding the index of an element in a vector?"
+            onChange={(e) => {
+              setTitle(e.target.value);
+            }}
+          ></input>
+        ) : (
+          <input
+            className="title"
+            placeholder="e.g. is there an R function for finding the index of an element in a vector?"
+            onChange={(e) => {
+              setTitle(e.target.value);
+            }}
+            defaultValue={data.subject}
+          ></input>
+        )}
       </Top>
       <Body>
         <div className="subject">Body</div>

@@ -20,7 +20,6 @@ function Tags() {
       })
       .then((res) => {
         setTags(res.data);
-        console.log(token);
       });
   }, []);
 

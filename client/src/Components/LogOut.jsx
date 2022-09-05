@@ -2,11 +2,9 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import ColorButton from "../Assets/ColorBtn";
 import "../index";
-import axios from "axios";
 
 function LogOut() {
   const navigate = useNavigate();
-  const token = localStorage.getItem("accessToken");
 
   const handleLogout = () => {
     localStorage.setItem("accessToken", "");

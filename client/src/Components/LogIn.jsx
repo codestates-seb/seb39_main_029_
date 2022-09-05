@@ -24,6 +24,9 @@ function LogIn() {
         localStorage.setItem("memberId", res.headers.memberid);
         localStorage.setItem("accessToken", res.headers.authorization);
         navigate("/home");
+      })
+      .catch((err) => {
+        alert("존재하지 않는 회원입니다.");
       });
   };
 

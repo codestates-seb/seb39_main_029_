@@ -128,7 +128,7 @@ const List = styled.div`
     margin-top: 2px;
     display: flex;
     align-items: center;
-    width: 185px;
+    width: 195px;
     height: 34px;
     color: black;
     background-color: #f1f2f3;

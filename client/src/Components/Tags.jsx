@@ -4,6 +4,7 @@ import ColorButton from "../Assets/ColorBtn";
 import "../index";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 function Tags() {
   // ? 태그 데이터 받아오기
@@ -19,6 +20,7 @@ function Tags() {
       })
       .then((res) => {
         setTags(res.data);
+        console.log(token);
       });
   }, []);
 
@@ -28,7 +30,6 @@ function Tags() {
   const onChangeSearch = (e) => {
     e.preventDefault();
     setSearch(e.target.value);
-    console.log(e.target.value);
   };
 
   const onSearch = (e) => {
@@ -94,7 +95,17 @@ function Tags() {
         {Object.values(Tags).map((el) => {
           return (
             <Taglist key={el.tagsId}>
-              <ColorButton mode="GREY" text={el.name} ftsize={12} padding={5} />
+              <Link
+                className="btn"
+                to={{ pathname: `/tagsearch:${el.tagsId}` }}
+              >
+                <ColorButton
+                  mode="GREY"
+                  text={el.name}
+                  ftsize={12}
+                  padding={5}
+                />
+              </Link>
             </Taglist>
           );
         })}
@@ -157,6 +168,9 @@ const TagWrapper = styled.div`
   flex-wrap: wrap;
   margin: 10px;
   align-items: center;
+  .btn {
+    text-decoration-line: none;
+  }
 `;
 const Taglist = styled.div`
   overflow: hidden;

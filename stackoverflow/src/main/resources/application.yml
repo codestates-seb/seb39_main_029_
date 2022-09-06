@@ -1,7 +1,5 @@
 spring:
   config:
-    activate:
-      on-profile: local
     import: 'aws-parameterstore:'
   h2:
     console:

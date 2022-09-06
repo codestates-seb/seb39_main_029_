@@ -8,7 +8,11 @@ spring:
       settings:
         web-allow-others: true
   datasource:
-    url: jdbc:h2:mem:test
+    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://rds-pre-029.cnuf9an3lpvk.ap-northeast-2.rds.amazonaws.com:13306/test
+#    url: jdbc:h2:mem:test
+#    username: admin
+#    password: Eulja2013*
   jpa:
     hibernate:
       ddl-auto: create  # (1) ??? ?? ??

@@ -9,7 +9,7 @@ import { useRecoilState } from "recoil";
 import { UserState } from "../States/UserState.jsx";
 import axios from "axios";
 
-function Nav({ setInputText, totalPosts, setTotalPosts }) {
+function Nav({ totalPosts, setTotalPosts }) {
   const [userInfo, setUserInfo] = useRecoilState(UserState);
 
   useEffect(() => {
@@ -58,7 +58,6 @@ function Nav({ setInputText, totalPosts, setTotalPosts }) {
             <SearchInput
               placeholder="Search.."
               onChange={(e) => {
-                setInputText(e.target.value);
                 setTotalPosts(
                   totalPosts.filter((el) => {
                     return el.subject

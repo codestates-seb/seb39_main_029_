@@ -44,7 +44,7 @@ function QuestionPage() {
 
   return (
     <>
-      <Nav />
+      <Nav setTotalPosts={setNewestList} totalPosts={newestList} />
       <Wrapper>
         <Sidebar />
         <Body>

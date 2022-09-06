@@ -18,8 +18,6 @@ function PostWritePage() {
   const token = localStorage.getItem("accessToken");
   const [totalTags, setTotalTags] = useState([]);
   const [tagsView, setTagsView] = useState([]);
-  console.log(selectedTag);
-  console.log(tagsView);
   useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_STACKOVERFLOW}/v1/tags/list`, {

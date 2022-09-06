@@ -39,9 +39,9 @@ spring:
 server:
   port: 8085
   ssl:
-#    key-store:
-#    key-store-type:
-#    key-store-password:
+    key-store: ${}
+    key-store-type: ${}
+    key-store-password: ${}
 #logging:
 #  level:
 #    org:

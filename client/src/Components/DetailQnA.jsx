@@ -11,7 +11,6 @@ import { useRecoilState } from "recoil";
 import { UserState } from "../States/UserState.jsx";
 
 function DetailQnA() {
-  const [userInfo, setUserInfo] = useRecoilState(UserState);
   const location = useLocation();
   const url = location.pathname.substring(5);
 
@@ -74,7 +73,8 @@ function DetailQnA() {
           },
         }
       )
-      .then((res) => setVo(res.data.votes));
+      .then((res) => setVo(res.data.votes))
+      .catch((err) => alert("이미 투표에 참여하였습니다!"));
   };
 
   const handleCommentVote = (id) => {
@@ -88,7 +88,8 @@ function DetailQnA() {
           },
         }
       )
-      .then((res) => console.log(res.data.votes));
+      .then((res) => console.log(res.data.votes))
+      .catch((err) => alert("이미 투표에 참여하였습니다!"));
   };
 
   //? 답글 기능
@@ -112,6 +113,15 @@ function DetailQnA() {
       });
   };
 
+  //? 로그인한 사용자
+  const [crr, setCrr] = useRecoilState(UserState);
+  const cU = crr.memberid;
+  const pU = QnA.memberId;
+  const userMatch = () => {
+    if (cU === pU) return true;
+    return false;
+  };
+
   return (
     <Wrapper>
       <TitleWrapper>
@@ -130,16 +140,20 @@ function DetailQnA() {
           <div className="votes">{vo}</div>
         </div>
         <div className="qlist">
-          <div className="change">
-            <Link to={`/edit/${url}`} state={{ data: QnA }}>
-              <ColorButton mode={"BLUE"} text={"Edit"} />
-            </Link>
-            <ColorButton
-              mode={"BLUE"}
-              text={"Delete"}
-              onClick={onHandleDelete}
-            />
-          </div>
+          {userMatch() ? (
+            <div className="change">
+              <Link to={`/edit/${url}`} state={{ data: QnA }}>
+                <ColorButton mode={"BLUE"} text={"Edit"} />
+              </Link>
+              <ColorButton
+                mode={"BLUE"}
+                text={"Delete"}
+                onClick={onHandleDelete}
+              />
+            </div>
+          ) : (
+            <div className="change" />
+          )}
           <div className="Q">
             <ReactMarkdown>{QnA.content}</ReactMarkdown>
           </div>
@@ -268,6 +282,7 @@ const QWrapper = styled.div`
     border-radius: 0.1rem;
   }
 `;
+const Switch = styled.div``;
 const AWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -303,7 +318,7 @@ const AMap = styled.div`
 const NewA = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  align-items: center;
   justify-content: center;
   margin: 0 0 0 30px;
   width: 100;

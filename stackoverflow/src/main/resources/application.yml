@@ -35,15 +35,20 @@ spring:
       profile-separator: _
 
 
+
 server:
   port: 8085
-#  ssl:
-#    key-store: classpath:localhost.p12
-#    key-store-type: PKCS12
-#    key-store-password: changeit
+  ssl:
+    key-store:
+    key-store-type:
+    key-store-password:
 #logging:
 #  level:
 #    org:
 #      springframework:
 #        orm:
 #          jpa: DEBUG
+
+#classpath:localhost.p12
+#PKCS12
+#changeit

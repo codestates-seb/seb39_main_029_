@@ -1,6 +1,12 @@
 spring:
   config:
     import: 'aws-parameterstore:'
+    aws:
+      paramstore:
+        enabled: true
+        prefix: /spring-boot-aws
+        name: pre-029
+        profile-separator: _
   h2:
     console:
       enabled: true
@@ -22,17 +28,11 @@ spring:
       client:
         registration:
           google:
-            clientId: $
-            clientSecret: $
+#            clientId: $
+#            clientSecret: $
             scope:
               - email
               - profile
-  aws:
-    paramstore:
-      enabled: true
-      prefix: /spring-boot-aws
-      name: pre-029
-      profile-separator: _
 
 
 
@@ -42,6 +42,8 @@ server:
     key-store: classpath:localhost.p12
     key-store-type: PKCS12
     key-store-password: changeit
+
+
 #logging:
 #  level:
 #    org:

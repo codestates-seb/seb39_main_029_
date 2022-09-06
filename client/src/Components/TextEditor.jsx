@@ -31,7 +31,7 @@ function TextEditor({ setContent }) {
         language="ko-KR"
         plugins={[colorSyntax]}
         onChange={() => {
-          setContent(editorRef.current?.getInstance().getMarkdown());
+          setContent(editorRef.current?.getInstance().getHTML());
         }}
       ></Editor>
     </div>

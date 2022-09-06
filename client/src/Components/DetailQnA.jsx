@@ -6,9 +6,9 @@ import { useNavigate, useLocation, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import TextEditor from "./TextEditor";
-import ReactMarkdown from "react-markdown";
 import { useRecoilState } from "recoil";
 import { UserState } from "../States/UserState.jsx";
+// import Markdown from "../Assets/lib/MarkDown";
 
 function DetailQnA() {
   const location = useLocation();
@@ -29,7 +29,7 @@ function DetailQnA() {
 
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_STACKOVERFLOW}/v1/posts/${url}`, {
+      .get(`http://seb039pre029.ga:8080/v1/posts/${url}`, {
         headers: {
           Authorization: token,
         },
@@ -40,14 +40,14 @@ function DetailQnA() {
         settBtn(res.data.postTag);
         setVo(res.data.votes);
       });
-  }, [Comments]);
+  }, []);
 
   const time = String(QnA.createAt).substring(0, 10);
 
   //? 게시글 수정 및 삭제
   const onHandleDelete = () => {
     axios
-      .delete(`${process.env.REACT_APP_STACKOVERFLOW}/v1/posts/${url}`, {
+      .delete(`http://seb039pre029.ga:8080/v1/posts/${url}`, {
         headers: {
           Authorization: token,
         },
@@ -65,7 +65,7 @@ function DetailQnA() {
   const handleVote = () => {
     axios
       .patch(
-        `${process.env.REACT_APP_STACKOVERFLOW}/v1/posts/upVotes/${url}?memberId=${memberId}`,
+        `http://seb039pre029.ga:8080/v1/posts/upVotes/${url}?memberId=${memberId}`,
         {},
         {
           headers: {
@@ -80,7 +80,7 @@ function DetailQnA() {
   const handleCommentVote = (id) => {
     axios
       .patch(
-        `${process.env.REACT_APP_STACKOVERFLOW}/v1/comments/upvotes/${id}?memberid=${memberId}`,
+        `http://seb039pre029.ga:8080/v1/comments/upvotes/${id}?memberid=${memberId}`,
         {},
         {
           headers: {
@@ -103,7 +103,7 @@ function DetailQnA() {
 
   const Comment = () => {
     axios
-      .post(`${process.env.REACT_APP_STACKOVERFLOW}/v1/comments`, editForm, {
+      .post("http://seb039pre029.ga:8080/v1/comments", editForm, {
         headers: {
           Authorization: token,
         },
@@ -155,7 +155,8 @@ function DetailQnA() {
             <div className="change" />
           )}
           <div className="Q">
-            <ReactMarkdown>{QnA.content}</ReactMarkdown>
+            {/* <Markdown linkTarget="_blank">{QnA.content}</Markdown> */}
+            <div dangerouslySetInnerHTML={{ __html: QnA.content }} />
           </div>
           <div className="twrap">
             {tBtn.map((el) => {
@@ -183,7 +184,11 @@ function DetailQnA() {
                   </button>
                   <div className="votes">{el.votes}</div>
                 </div>
-                <ReactMarkdown className="A">{el.content}</ReactMarkdown>
+                {/* <Markdown linkTarget="_blank">{el.content}</Markdown> */}
+                <div
+                  className="A"
+                  dangerouslySetInnerHTML={{ __html: el.content }}
+                />
               </div>
             </AMap>
           );

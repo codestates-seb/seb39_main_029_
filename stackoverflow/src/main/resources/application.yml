@@ -1,12 +1,6 @@
 spring:
-  config:
-    import: 'aws-parameterstore:'
-    aws:
-      paramstore:
-        enabled: true
-        prefix: /spring-boot-aws
-        name: pre-029
-        profile-separator: _
+#  config:
+#    import: 'aws-parameterstore:'
   h2:
     console:
       enabled: true

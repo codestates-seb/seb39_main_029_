@@ -1,6 +1,0 @@
-#aws:
-#  paramstore:
-#    enabled: true
-#    prefix: /spring-boot-aws
-#    name: pre-029
-#    profileSeparator: _

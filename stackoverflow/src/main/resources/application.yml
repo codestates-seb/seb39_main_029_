@@ -1,6 +1,8 @@
 spring:
-#  config:
-#    import: 'aws-parameterstore:'
+  config:
+    activate:
+      on-profile: local
+    import: 'aws-parameterstore:'
   h2:
     console:
       enabled: true
@@ -22,17 +24,17 @@ spring:
       client:
         registration:
           google:
-#            clientId:
-#            clientSecret:
+            clientId: ${cleintid}
+            clientSecret: ${clientpassword}
             scope:
               - email
               - profile
-#  aws:
-#    paramstore:
-#      enabled: true
-#      prefix: /spring-boot-aws
-#      name: pre-029
-#      profile-separator: _
+  aws:
+    paramstore:
+      enabled: true
+      prefix: /spring-boot-aws
+      name: pre-029
+      profile-separator: _
 
 
 

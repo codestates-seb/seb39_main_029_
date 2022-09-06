@@ -1,4 +1,6 @@
 spring:
+  config:
+    import: 'aws-parameterstore:'
   h2:
     console:
       enabled: true
@@ -25,12 +27,20 @@ spring:
             scope:
               - email
               - profile
+  aws:
+    paramstore:
+      enabled: true
+      prefix: /spring-boot-aws
+      name: pre-029
+      profile-separator: _
+
+
 server:
   port: 8085
-  ssl:
-    key-store: classpath:localhost.p12
-    key-store-type: PKCS12
-    key-store-password: changeit
+#  ssl:
+#    key-store: classpath:localhost.p12
+#    key-store-type: PKCS12
+#    key-store-password: changeit
 #logging:
 #  level:
 #    org:

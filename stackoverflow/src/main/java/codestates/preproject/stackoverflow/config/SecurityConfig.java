@@ -20,19 +20,18 @@ import org.springframework.web.filter.CorsFilter;
 
 @Configuration
 @EnableWebSecurity(debug = false)
-@RequiredArgsConstructor
 public class SecurityConfig {
     @Autowired
-    private final CorsFilter corsFilter;
+    private CorsFilter corsFilter;
 
     @Autowired
-    private final MemberRepository memberRepository;
+    private MemberRepository memberRepository;
 
     @Autowired
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    private final PrincipalOauth2UserService principalOauth2UserService;
+    private PrincipalOauth2UserService principalOauth2UserService;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{

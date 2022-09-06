@@ -11,7 +11,7 @@ function InfoEditModal({ userInfo, setUserInfo, setIsModal }) {
   const InfoEdit = () => {
     axios
       .patch(
-        `http://seb039pre029.ga:8080/v1/members/update/${userInfo.memberid}`,
+        `${process.env.REACT_APP_STACKOVERFLOW}/v1/members/update/${userInfo.memberid}`,
         editForm,
         {
           headers: { Authorization: token },

@@ -19,11 +19,14 @@ function Myinfo() {
 
   const DeleteProfile = () => {
     axios
-      .delete(`http://seb039pre029.ga:8080/v1/members/delete/${memberId}`, {
-        headers: {
-          Authorization: token,
-        },
-      })
+      .delete(
+        `${process.env.REACT_APP_STACKOVERFLOW}/v1/members/delete/${memberId}`,
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      )
       .then(() => {
         navigate("/");
       });
@@ -32,7 +35,7 @@ function Myinfo() {
   useEffect(() => {
     axios
       .get(
-        `http://seb039pre029.ga:8080/v1/members/myPage/${memberId}?page=1&size=3`,
+        `${process.env.REACT_APP_STACKOVERFLOW}/v1/members/myPage/${memberId}?page=1&size=3`,
         {
           headers: {
             Authorization: token,

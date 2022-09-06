@@ -13,7 +13,7 @@ function Tags() {
 
   useEffect(() => {
     axios
-      .get("http://seb039pre029.ga:8080/v1/tags/list", {
+      .get(`${process.env.REACT_APP_STACKOVERFLOW}/v1/tags/list`, {
         headers: {
           Authorization: token,
         },
@@ -35,7 +35,7 @@ function Tags() {
     e.preventDefault();
     if (search === undefined || search === "") {
       axios
-        .get("http://seb039pre029.ga:8080/v1/tags/list", {
+        .get(`${process.env.REACT_APP_STACKOVERFLOW}/v1/tags/list`, {
           headers: {
             Authorization: token,
           },

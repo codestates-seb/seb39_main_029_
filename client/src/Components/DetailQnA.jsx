@@ -29,7 +29,7 @@ function DetailQnA() {
 
   useEffect(() => {
     axios
-      .get(`http://seb039pre029.ga:8080/v1/posts/${url}`, {
+      .get(`${process.env.REACT_APP_STACKOVERFLOW}/v1/posts/${url}`, {
         headers: {
           Authorization: token,
         },
@@ -47,7 +47,7 @@ function DetailQnA() {
   //? 게시글 수정 및 삭제
   const onHandleDelete = () => {
     axios
-      .delete(`http://seb039pre029.ga:8080/v1/posts/${url}`, {
+      .delete(`${process.env.REACT_APP_STACKOVERFLOW}/v1/posts/${url}`, {
         headers: {
           Authorization: token,
         },
@@ -65,7 +65,7 @@ function DetailQnA() {
   const handleVote = () => {
     axios
       .patch(
-        `http://seb039pre029.ga:8080/v1/posts/upVotes/${url}?memberId=${memberId}`,
+        `${process.env.REACT_APP_STACKOVERFLOW}/v1/posts/upVotes/${url}?memberId=${memberId}`,
         {},
         {
           headers: {
@@ -80,7 +80,7 @@ function DetailQnA() {
   const handleCommentVote = (id) => {
     axios
       .patch(
-        `http://seb039pre029.ga:8080/v1/comments/upvotes/${id}?memberid=${memberId}`,
+        `${process.env.REACT_APP_STACKOVERFLOW}/v1/comments/upvotes/${id}?memberid=${memberId}`,
         {},
         {
           headers: {
@@ -103,7 +103,7 @@ function DetailQnA() {
 
   const Comment = () => {
     axios
-      .post("http://seb039pre029.ga:8080/v1/comments", editForm, {
+      .post(`${process.env.REACT_APP_STACKOVERFLOW}/v1/comments`, editForm, {
         headers: {
           Authorization: token,
         },

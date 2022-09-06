@@ -22,7 +22,7 @@ function PostWritePage() {
   console.log(tagsView);
   useEffect(() => {
     axios
-      .get("http://seb039pre029.ga:8080/v1/tags/list", {
+      .get(`${process.env.REACT_APP_STACKOVERFLOW}/v1/tags/list`, {
         headers: {
           Authorization: token,
         },
@@ -41,7 +41,7 @@ function PostWritePage() {
 
   const Post = () => {
     axios
-      .post("http://seb039pre029.ga:8080/v1/posts", Postform, {
+      .post(`${process.env.REACT_APP_STACKOVERFLOW}/v1/posts`, Postform, {
         headers: {
           Authorization: token,
         },

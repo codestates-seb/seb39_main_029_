@@ -14,7 +14,7 @@ function TagSearch() {
   useEffect(() => {
     axios
       .get(
-        `http://seb039pre029.ga:8080/v1/posts?page=1&size=5&arrange=createdAt&tagCheckId=${url}`,
+        `${process.env.REACT_APP_STACKOVERFLOW}/v1/posts?page=1&size=5&arrange=createdAt&tagCheckId=${url}`,
         {
           headers: {
             Authorization: token,

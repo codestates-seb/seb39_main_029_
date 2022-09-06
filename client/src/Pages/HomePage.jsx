@@ -16,7 +16,7 @@ function HomePage() {
   useEffect(() => {
     axios
       .get(
-        "http://seb039pre029.ga:8080/v1/posts?page=1&size=10&arrange=createdAt&tagCheckId=-1",
+        `${process.env.REACT_APP_STACKOVERFLOW}/v1/posts?page=1&size=10&arrange=createdAt&tagCheckId=-1`,
         {
           headers: {
             Authorization: token,

@@ -24,7 +24,10 @@ function SignUp() {
 
   const SignUpHandler = () => {
     axios
-      .post("http://seb039pre029.ga:8080/v1/members/join", SignUpForm)
+      .post(
+        `${process.env.REACT_APP_STACKOVERFLOW}/v1/members/join`,
+        SignUpForm
+      )
       .then((res) => {
         navigate("/login");
       })

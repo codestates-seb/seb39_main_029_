@@ -18,8 +18,6 @@ function QuestionPage() {
   const pageArr = Array.from({ length: lastPage }, (val, k) => k + 1);
   const navigate = useNavigate();
 
-  console.log({ page });
-
   useEffect(() => {
     axios
       .get(

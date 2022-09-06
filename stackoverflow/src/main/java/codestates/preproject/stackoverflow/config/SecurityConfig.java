@@ -5,6 +5,7 @@ import codestates.preproject.stackoverflow.filter.JwtAuthorizationFilter;
 //import codestates.preproject.stackoverflow.filter.testfilter;
 import codestates.preproject.stackoverflow.filter.SuccesOauth2;
 import codestates.preproject.stackoverflow.member.repository.MemberRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,19 +20,19 @@ import org.springframework.web.filter.CorsFilter;
 
 @Configuration
 @EnableWebSecurity(debug = false)
-//@RequiredArgsConstructor
+@RequiredArgsConstructor
 public class SecurityConfig {
     @Autowired
-    private CorsFilter corsFilter;
+    private final CorsFilter corsFilter;
 
     @Autowired
-    private MemberRepository memberRepository;
+    private final MemberRepository memberRepository;
 
     @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    private PrincipalOauth2UserService principalOauth2UserService;
+    private final PrincipalOauth2UserService principalOauth2UserService;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{

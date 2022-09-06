@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import Nav from "../Components/Nav";
 import AskBody from "../Components/AskBody";
-import Sidebar from "../Components/Sidebar";
 import ColorButton from "../Assets/ColorBtn";
 import TagModal from "../Components/TagModal";
 import { useState, useEffect } from "react";
@@ -34,7 +33,6 @@ function PostEditPage() {
   }, []);
 
   const data = location.state.data;
-  console.log(data);
 
   const editForm = {
     subject: title,
@@ -54,8 +52,8 @@ function PostEditPage() {
       )
       .then((res) => {
         navigate("/home");
-        console.log(res);
-      });
+      })
+      .catch((err) => alert("내용을 변경해 주세요"));
   };
 
   return (
@@ -90,6 +88,13 @@ function PostEditPage() {
           text="Review your question"
           onClick={Edit}
         ></ColorButton>
+        <ColorButton
+          mode="GREY"
+          text="Cancel"
+          onClick={() => {
+            navigate("/home");
+          }}
+        ></ColorButton>
       </ButtonWrapper>
     </Container>
   );
@@ -120,8 +125,9 @@ const Wrapper = styled.div`
 `;
 
 const ButtonWrapper = styled.div`
-  padding: 0px 660px 0px 0px;
-  margin-top: 10px;
+  padding: 0px 590px 0px 0px;
+  margin-top: 20px;
   display: flex;
+  gap: 10px;
 `;
 export default PostEditPage;

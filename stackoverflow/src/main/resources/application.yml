@@ -22,8 +22,8 @@ spring:
       client:
         registration:
           google:
-            clientId: 354627486864-qfnhmonlb4kklbtdq1glqf4j5k1q36m7.apps.googleusercontent.com
-            clientSecret: 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
+            clientId: {}
+            clientSecret: {}
             scope:
               - email
               - profile
@@ -39,9 +39,9 @@ spring:
 server:
   port: 8085
   ssl:
-    key-store: {}
-    key-store-type: {}
-    key-store-password: {}
+    key-store: classpath:localhost.p12
+    key-store-type: PKCS12
+    key-store-password: changeit
 #logging:
 #  level:
 #    org:
@@ -49,6 +49,6 @@ server:
 #        orm:
 #          jpa: DEBUG
 
-# classpath:localhost.p12
-# PKCS12
-# changeit
+#
+# 354627486864-qfnhmonlb4kklbtdq1glqf4j5k1q36m7.apps.googleusercontent.com
+# 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

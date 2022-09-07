@@ -3,12 +3,21 @@ spring:
     console:
       enabled: true
       path: /h2
+      settings:
+        web-allow-others: true
   datasource:
-    url: jdbc:h2:mem:test
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://rds-pre-029.cnuf9an3lpvk.ap-northeast-2.rds.amazonaws.com:13306/test
+    username: admin
+    password: Eulja2013*
   jpa:
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     hibernate:
       ddl-auto: create  # (1) ??? ?? ??
     show-sql: true      # (2) SQL ?? ??
     properties:
       hibernate:
         format_sql: true  # (3) SQL pretty print
+server:
+  port: 8085

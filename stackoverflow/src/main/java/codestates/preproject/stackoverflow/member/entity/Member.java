@@ -1,10 +1,9 @@
 package codestates.preproject.stackoverflow.member.entity;
 
+import codestates.preproject.stackoverflow.comments.entity.Comments;
 
 import codestates.preproject.stackoverflow.post.entity.Posts;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 
 import javax.persistence.*;
@@ -12,12 +11,14 @@ import java.time.LocalDateTime;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Entity
-@Data
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,10 +37,6 @@ public class Member {
     @Column(columnDefinition = "Text")
     private String selfId;
 
-//    @Column
-//    private String image;
-
-
     @Column
     private String location;
 
@@ -47,10 +44,23 @@ public class Member {
     private String title;
 
     @Column
-    private Integer reputation;
+    private int reputation;
 
+    @Column
+    private String roles;
 
 
     @OneToMany(mappedBy = "member")
     List<Posts> postsList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member")
+    List<Comments> commentsList = new ArrayList<>();
+
+    public List<String> getRoleList() {
+        if(this.roles.length() > 0) {
+            return Arrays.asList(this.roles.split(","));
+        }
+        return new ArrayList<>();
+    }
+
 }
